@@ -23,4 +23,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Cortena Components"
-include(":app")
+include(":lib")
+include(":catalog")
