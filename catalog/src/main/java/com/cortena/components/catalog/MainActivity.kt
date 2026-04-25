@@ -8,14 +8,16 @@ import androidx.compose.ui.graphics.Color
 import com.cortena.components.layout.AppBar
 import com.cortena.components.layout.Body
 import com.cortena.components.layout.ContentView
+import com.cortena.components.layout.SafeArea
 import com.cortena.components.typography.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ContentView {
-            AppBar(modifier = Modifier.background(Color.Red)) {}
-            Body { Text(text = "Hello there! from Cortena Compose!") }
+        ContentView(appBar = { AppBar(modifier = Modifier.background(Color.Red)) {} }) {
+            Body(modifier = Modifier.background(Color.Blue)) {
+                SafeArea { Text(text = "Hello there! from Cortena Compose!") }
+            }
         }
     }
 }

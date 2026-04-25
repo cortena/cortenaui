@@ -12,6 +12,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
 fun ComponentActivity.ContentView(
+    appBar: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     setContent {
@@ -34,6 +35,7 @@ fun ComponentActivity.ContentView(
         }
 
         Column {
+            appBar?.invoke()
             content()
         }
     }
