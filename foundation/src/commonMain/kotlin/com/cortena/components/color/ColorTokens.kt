@@ -3,13 +3,12 @@ package com.cortena.components.color
 /**
  * Cortena Components — Color Tokens
  *
- * Primitive color palette. These are raw values with no semantic meaning.
- * Do not use these directly in components — use [ColorScheme] instead.
+ * Primitive color palette. These are raw values with no semantic meaning. Do not use these directly
+ * in components — use [ColorScheme] instead.
  *
- * Values are stored as Long (ARGB) so this file has zero dependency
- * on any rendering framework (Compose, View, etc.).
+ * Values are stored as Long (ARGB) so this file has zero dependency on any rendering framework
+ * (Compose, View, etc.).
  */
-
 object ColorTokens {
 
     // Neutral

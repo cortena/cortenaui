@@ -15,15 +15,11 @@ fun Text(
     modifier: Modifier = Modifier,
     color: Color = Color.Black,
     fontSize: TextUnit = 14.sp,
-    fontFamily: FontFamily? = null
+    fontFamily: FontFamily? = null,
 ) {
     BasicText(
         text = text,
         modifier = modifier,
-        style = TextStyle(
-            color = color,
-            fontSize = fontSize,
-            fontFamily = fontFamily
-        )
+        style = TextStyle(color = color, fontSize = fontSize, fontFamily = fontFamily),
     )
 }

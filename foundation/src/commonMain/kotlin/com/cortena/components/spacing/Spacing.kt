@@ -3,10 +3,9 @@ package com.cortena.components.spacing
 /**
  * Cortena Components — Spacing
  *
- * 4dp base grid. All spacing in the design system is a multiple of 4.
- * Values are Float (dp equivalent). Framework-agnostic.
+ * 4dp base grid. All spacing in the design system is a multiple of 4. Values are Float (dp
+ * equivalent). Framework-agnostic.
  */
-
 object Spacing {
     const val None: Float = 0f
     const val Xs: Float = 4f

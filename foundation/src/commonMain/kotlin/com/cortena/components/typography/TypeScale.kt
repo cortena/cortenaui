@@ -3,10 +3,9 @@ package com.cortena.components.typography
 /**
  * Cortena Components — Type Scale
  *
- * Font size and line height tokens. Values in raw Float (sp equivalent).
- * Framework-agnostic — Compose layer wraps these as TextUnit.
+ * Font size and line height tokens. Values in raw Float (sp equivalent). Framework-agnostic —
+ * Compose layer wraps these as TextUnit.
  */
-
 object TypeScale {
 
     // Font sizes (sp)

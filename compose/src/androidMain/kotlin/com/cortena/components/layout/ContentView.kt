@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 
 fun ComponentActivity.ContentView(
     appBar: (@Composable () -> Unit)? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     setContent {
         val darkTheme = isSystemInDarkTheme()
