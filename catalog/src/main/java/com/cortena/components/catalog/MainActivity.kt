@@ -5,10 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.cortena.components.ContentView
-import com.cortena.components.ui.AppBar
-import com.cortena.components.ui.Body
-import com.cortena.components.ui.Text
+import com.cortena.components.layout.AppBar
+import com.cortena.components.layout.Body
+import com.cortena.components.layout.ContentView
+import com.cortena.components.typography.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

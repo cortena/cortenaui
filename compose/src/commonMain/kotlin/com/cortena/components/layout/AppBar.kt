@@ -1,4 +1,4 @@
-package com.cortena.components.ui
+package com.cortena.components.layout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets

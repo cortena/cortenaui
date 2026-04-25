@@ -1,4 +1,4 @@
-package com.cortena.components
+package com.cortena.components.layout
 
 import android.app.Activity
 import androidx.activity.ComponentActivity
