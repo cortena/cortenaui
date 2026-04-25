@@ -13,8 +13,6 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -22,7 +20,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -30,15 +28,21 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
 }
 
 dependencies {
-    implementation(project(":lib"))
+    // Foundation tokens (our source of truth)
+    implementation(project(":foundation"))
+    implementation(project(":compose"))
+
+    // Compose — catalog needs this for rendering
+    // When :compose module is ready, most of these move there
     implementation(libs.androidx.activity.compose)
     implementation(libs.compose.foundation)
     implementation(libs.compose.runtime)
     implementation(libs.compose.ui)
+
+    // Temporary: material3 for Text until cortena-compose is ready
+    implementation(libs.compose.material3)
 }

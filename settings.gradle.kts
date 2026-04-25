@@ -11,9 +11,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-}
+
+plugins { id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0" }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -23,5 +23,15 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Cortena Components"
-include(":lib")
+
+// Foundation: pure Kotlin token layer, zero framework dependency
+include(":foundation")
+
+// Compose: Compose wrappers + theme layer
+include(":compose")
+
+// Catalog: Compose showcase app
 include(":catalog")
+
+// TODO: Future modules (uncomment when ready):
+// include(":view")      — View system wrappers (for ROM legacy code)
