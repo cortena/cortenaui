@@ -1,4 +1,4 @@
-# Cortena Components — Architecture
+# Architecture
 
 ## Module Graph
 
@@ -35,21 +35,16 @@ foundation/src/commonMain/kotlin/com/cortena/components/
     └── ShapeTokens.kt      # corner radius (Small=8, Medium=12, Full=9999)
 ```
 
-### `:compose` (next)
+### `:compose`
 
 Compose wrappers and theme layer. Depends on `:foundation`.
 Converts foundation tokens (Long/Float) to Compose types (Color, TextUnit, Dp).
-Provides `CortenaTheme { }` entry point via CompositionLocalProvider.
+Provides `ComponentsTheme { }` entry point via CompositionLocalProvider.
 
 ### `:catalog`
 
 Showcase app. Depends on `:compose` (and transitively `:foundation`).
 Used to develop and visually verify components.
-
-### `:view` (future)
-
-Android View system wrappers. Depends on `:foundation`.
-Enables ROM legacy code to share the same tokens as Compose components.
 
 ## Design Decisions
 
@@ -63,7 +58,3 @@ in the entire Compose runtime.
 When ROM integration comes, `:foundation` goes into the system image. Compose
 components live in apps. Keeping them in separate modules makes that boundary
 explicit and enforceable by the build system.
-
-**Why minSdk 21?**
-Library targets should be as broad as possible. The catalog/ROM target is
-higher, but the library itself should not artificially restrict consumers.

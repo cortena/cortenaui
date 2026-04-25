@@ -32,6 +32,3 @@ include(":compose")
 
 // Catalog: Compose showcase app
 include(":catalog")
-
-// TODO: Future modules (uncomment when ready):
-// include(":view")      — View system wrappers (for ROM legacy code)
