@@ -8,13 +8,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import com.cortena.components.color.LightColorScheme
 
 @Composable
 fun Text(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = Color.Black,
-    fontSize: TextUnit = 14.sp,
+    color: Color = Color(LightColorScheme.onBackground),
+    fontSize: TextUnit = DefaultTypography.bodyMedium.fontSize.sp,
     fontFamily: FontFamily? = null,
 ) {
     BasicText(
