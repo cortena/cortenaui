@@ -1,0 +1,29 @@
+package com.cortena.components.ui
+
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.sp
+
+@Composable
+fun Text(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Black,
+    fontSize: TextUnit = 14.sp,
+    fontFamily: FontFamily? = null
+) {
+    BasicText(
+        text = text,
+        modifier = modifier,
+        style = TextStyle(
+            color = color,
+            fontSize = fontSize,
+            fontFamily = fontFamily
+        )
+    )
+}
