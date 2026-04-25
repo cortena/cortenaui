@@ -23,5 +23,8 @@ kotlin {
             implementation(libs.compose.foundation)
             implementation(libs.compose.ui)
         }
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+        }
     }
 }
