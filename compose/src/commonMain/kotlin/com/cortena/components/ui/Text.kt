@@ -1,4 +1,4 @@
-package com.cortena.components.typography
+package com.cortena.components.ui
 
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -8,6 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import com.cortena.components.theme.LocalContentColor
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalTypography
 
@@ -15,7 +16,7 @@ import com.cortena.components.theme.LocalTypography
 fun Text(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = Color(LocalColors.current.onBackground),
+    color: Color = LocalContentColor.current ?: Color(LocalColors.current.onBackground),
     fontSize: TextUnit = LocalTypography.current.bodyMedium.fontSize.sp,
     fontFamily: FontFamily? = null,
 ) {
