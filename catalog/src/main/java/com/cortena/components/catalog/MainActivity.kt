@@ -3,20 +3,28 @@ package com.cortena.components.catalog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.cortena.components.catalog.shape.ShapeCatalog
 import com.cortena.components.layout.AppBar
 import com.cortena.components.layout.Body
 import com.cortena.components.layout.ContentView
 import com.cortena.components.layout.SafeArea
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.StatusBarIconMode
+import com.cortena.components.ui.Button
+import com.cortena.components.ui.ButtonStyle
+import com.cortena.components.ui.Slider
 import com.cortena.components.ui.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +43,68 @@ class MainActivity : ComponentActivity() {
                     .background(Color(colors.background))
             ) {
                 SafeArea {
-                    Column {
-                        Text("Shape Catalog", modifier = Modifier.padding(bottom = 16.dp))
-                        ShapeCatalog()
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Text("Button")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Primary
+                            ) {
+                                Text("Primary")
+                            }
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Secondary
+                            ) {
+                                Text("Secondary")
+                            }
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Ghost
+                            ) {
+                                Text("Ghost")
+                            }
+                        }
+                        Text("Button Disabled")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Primary,
+                                enabled = false
+                            ) {
+                                Text("Primary")
+                            }
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Secondary,
+                                enabled = false
+                            ) {
+                                Text("Secondary")
+                            }
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Ghost,
+                                enabled = false
+                            ) {
+                                Text("Ghost")
+                            }
+                        }
+                        Text("Slider")
+                        var sliderValue by remember { mutableFloatStateOf(0f) }
+                        Slider(
+                            value = sliderValue,
+                            onValueChange = { sliderValue = it },
+                            valueRange = -4f..4f,
+                        )
                     }
                 }
             }

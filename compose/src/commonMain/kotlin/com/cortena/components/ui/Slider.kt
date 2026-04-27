@@ -1,12 +1,10 @@
 package com.cortena.components.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,8 +45,6 @@ fun Slider(
     value: Float,
     onValueChange: (Float) -> Unit,
     valueRange: ClosedFloatingPointRange<Float>,
-    label: String,
-    valueText: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     indicatorColor: Color = Color.Unspecified,
@@ -93,9 +89,9 @@ fun Slider(
         contentAlignment = Alignment.CenterStart
     ) {
         val shape = CapsuleShape()
-        val horizontalIndicatorGap = 4.dp
-        val indicatorWidth = 72.dp
-        val indicatorHeight = spacing.Xxl.dp
+        val horizontalIndicatorGap = 0.dp
+        val indicatorWidth = 56.dp
+        val indicatorHeight = spacing.Xl.dp
         val resolvedBorderColor =
             if (borderColor.isSpecified) borderColor else Color.White.copy(alpha = 1f / 3f)
         val resolvedContainerColor =
@@ -148,10 +144,10 @@ fun Slider(
         Box(
             Modifier
                 .graphicsLayer {
-                    val backgroundScale =
-                        lerp(1f, 1f + 1f.dp.toPx() / size.height, dampedAnimation.pressProgress)
-                    scaleX = backgroundScale
-                    scaleY = backgroundScale
+                    // val backgroundScale =
+                       // lerp(1f, 1f + 1f.dp.toPx() / size.height, dampedAnimation.pressProgress)
+                    // scaleX = backgroundScale
+                    // scaleY = backgroundScale
                     if (!enabled) {
                         alpha = 0.38f
                     }
@@ -175,13 +171,7 @@ fun Slider(
                 .then(if (enabled) interactiveHighlight.gestureModifier else Modifier)
                 .fillMaxWidth()
         ) {
-            Column(
-                modifier = Modifier.padding(horizontal = spacing.Md.dp, vertical = spacing.Sm.dp),
-                verticalArrangement = Arrangement.spacedBy(spacing.Xs.dp)
-            ) {
-                Text(label)
-                Text(valueText)
-            }
+            Box(modifier = Modifier.height(indicatorHeight))
         }
 
         Box(
