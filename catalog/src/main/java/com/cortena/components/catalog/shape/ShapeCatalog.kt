@@ -20,13 +20,16 @@ import androidx.compose.ui.unit.dp
 import com.cortena.components.shape.CapsuleShape
 import com.cortena.components.shape.RectangleShape
 import com.cortena.components.shape.lerp
+import com.cortena.components.theme.LocalColors
 import com.cortena.components.ui.Button
+import com.cortena.components.ui.Slider
 import com.cortena.components.ui.Text
 
 @Composable
 fun ShapeCatalog() {
     val uniformAspectRatio = remember { mutableFloatStateOf(0f) }
     val cornerRadiusRatio = remember { mutableFloatStateOf(0.5f) }
+    val colors = LocalColors.current
 
     Column(
         Modifier
@@ -44,7 +47,7 @@ fun ShapeCatalog() {
                             lerp(RectangleShape, CapsuleShape(), cornerRadiusRatio.floatValue)
                         drawOutline(
                             shape.createOutline(size, layoutDirection, this),
-                            color = Color(0xFF0088FF)
+                            color = Color(colors.primary)
                         )
                     }
                     .layout { measurable, constraints ->
@@ -66,16 +69,18 @@ fun ShapeCatalog() {
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Slider(
-                state = uniformAspectRatio,
+                value = uniformAspectRatio.floatValue,
+                onValueChange = { uniformAspectRatio.floatValue = it },
                 valueRange = -4f..4f,
                 label = "Aspect ratio",
-                value = { "%.3f".format(aspectRatio(it)) }
+                valueText = "%.3f".format(aspectRatio(uniformAspectRatio.floatValue)),
             )
             Slider(
-                state = cornerRadiusRatio,
+                value = cornerRadiusRatio.floatValue,
+                onValueChange = { cornerRadiusRatio.floatValue = it },
                 valueRange = 0f..1f,
                 label = "Corner radius ratio",
-                value = { "%.3f".format(it) }
+                valueText = "%.3f".format(cornerRadiusRatio.floatValue),
             )
             Button(
                 onClick = {
