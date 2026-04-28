@@ -1,6 +1,6 @@
 # Button
 
-`Button` is Cortena's primary action component. It uses the Cortena theme tokens directly and does not depend on Material3.
+`Button` is Cortena's primary action component.
 
 ## Concept
 
@@ -11,6 +11,7 @@ Styles are driven by `LocalColors.current`:
 - `Primary`: `primary` background and `onPrimary` content.
 - `Secondary`: `primaryContainer` background and `onPrimaryContainer` content.
 - `Ghost`: transparent background with an `outline` border.
+- `Destructive`: `error` background and `onError` content.
 
 ## API Reference
 
@@ -27,7 +28,8 @@ fun Button(
 enum class ButtonStyle {
     Primary,
     Secondary,
-    Ghost
+    Ghost,
+    Destructive
 }
 ```
 
@@ -53,7 +55,7 @@ Button(
 
 Button(
     onClick = { /* cancel */ },
-    style = ButtonStyle.Ghost,
+    style = ButtonStyle.Destructive,
 ) {
     Text("Cancel")
 }

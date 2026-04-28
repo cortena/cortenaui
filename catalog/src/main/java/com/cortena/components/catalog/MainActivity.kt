@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -21,10 +25,6 @@ import com.cortena.components.ui.Button
 import com.cortena.components.ui.ButtonStyle
 import com.cortena.components.ui.Slider
 import com.cortena.components.ui.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                         Text("Button")
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             Button(
                                 onClick = {},
@@ -70,11 +70,17 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text("Ghost")
                             }
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Destructive
+                            ) {
+                                Text("Destructive")
+                            }
                         }
                         Text("Button Disabled")
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             Button(
                                 onClick = {},
@@ -96,6 +102,13 @@ class MainActivity : ComponentActivity() {
                                 enabled = false
                             ) {
                                 Text("Ghost")
+                            }
+                            Button(
+                                onClick = {},
+                                style = ButtonStyle.Destructive,
+                                enabled = false
+                            ) {
+                                Text("Destructive")
                             }
                         }
                         Text("Slider")

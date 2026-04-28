@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceAtMost
 import androidx.compose.ui.util.lerp
 import com.cortena.components.shape.CapsuleShape
-import com.cortena.components.theme.LocalContentColor
 import com.cortena.components.theme.LocalColors
+import com.cortena.components.theme.LocalContentColor
 import com.cortena.components.theme.LocalSpacing
 import com.cortena.components.util.InteractiveHighlight
 import com.cortena.components.util.componentBorder
@@ -32,7 +32,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.tanh
 
-enum class ButtonStyle { Primary, Secondary, Ghost }
+enum class ButtonStyle { Primary, Secondary, Ghost, Destructive }
 
 @Composable
 fun Button(
@@ -54,11 +54,13 @@ fun Button(
         ButtonStyle.Primary -> Color(colors.primary)
         ButtonStyle.Secondary -> Color(colors.primaryContainer)
         ButtonStyle.Ghost -> Color.Transparent
+        ButtonStyle.Destructive -> Color(colors.error)
     }
     val contentColor = when (style) {
         ButtonStyle.Primary -> Color(colors.onPrimary)
         ButtonStyle.Secondary -> Color(colors.onPrimaryContainer)
         ButtonStyle.Ghost -> Color(colors.onBackground)
+        ButtonStyle.Destructive -> Color(colors.onError)
     }
 
     val borderModifier = if (style == ButtonStyle.Ghost) {
