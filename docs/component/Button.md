@@ -10,7 +10,7 @@ Styles are driven by `LocalColors.current`:
 
 - `Primary`: `primary` background and `onPrimary` content.
 - `Secondary`: `primaryContainer` background and `onPrimaryContainer` content.
-- `Ghost`: transparent background with an `outline` border.
+- `Ghost`: `surfaceVariant` background and `onSurfaceVariant` content.
 - `Destructive`: `error` background and `onError` content.
 
 ## API Reference

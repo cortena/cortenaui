@@ -25,7 +25,6 @@ import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalContentColor
 import com.cortena.components.theme.LocalSpacing
 import com.cortena.components.util.InteractiveHighlight
-import com.cortena.components.util.componentBorder
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -51,22 +50,16 @@ fun Button(
     }
 
     val backgroundColor = when (style) {
-        ButtonStyle.Primary -> Color(colors.primary)
+        ButtonStyle.Primary -> Color(colors.primary).copy(alpha = 1f)
         ButtonStyle.Secondary -> Color(colors.primaryContainer)
-        ButtonStyle.Ghost -> Color.Transparent
+        ButtonStyle.Ghost -> Color(colors.surfaceVariant)
         ButtonStyle.Destructive -> Color(colors.error)
     }
     val contentColor = when (style) {
         ButtonStyle.Primary -> Color(colors.onPrimary)
         ButtonStyle.Secondary -> Color(colors.onPrimaryContainer)
-        ButtonStyle.Ghost -> Color(colors.onBackground)
+        ButtonStyle.Ghost -> Color(colors.onSurfaceVariant)
         ButtonStyle.Destructive -> Color(colors.onError)
-    }
-
-    val borderModifier = if (style == ButtonStyle.Ghost) {
-        Modifier.componentBorder(1.dp, Color(colors.outline), CapsuleShape())
-    } else {
-        Modifier
     }
 
     Row(
@@ -96,7 +89,6 @@ fun Button(
             }
             .clip(CapsuleShape())
             .background(backgroundColor)
-            .then(borderModifier)
             .clickable(
                 interactionSource = null,
                 indication = null,
