@@ -1,7 +1,7 @@
 package com.cortena.components.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -33,9 +33,11 @@ import kotlin.math.tanh
 
 enum class ButtonStyle { Primary, Secondary, Ghost, Destructive }
 
+@Suppress("ModifierParameter")
 @Composable
 fun Button(
-    onClick: () -> Unit,
+    onClick: (() -> Unit)? = null,
+    onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     style: ButtonStyle = ButtonStyle.Primary,
@@ -89,12 +91,13 @@ fun Button(
             }
             .clip(CapsuleShape())
             .background(backgroundColor)
-            .clickable(
+            .combinedClickable(
                 interactionSource = null,
                 indication = null,
                 enabled = enabled,
                 role = Role.Button,
-                onClick = onClick
+                onClick = { onClick?.invoke() },
+                onLongClick = { onLongClick?.invoke() }
             )
             .then(
                 if (enabled) {

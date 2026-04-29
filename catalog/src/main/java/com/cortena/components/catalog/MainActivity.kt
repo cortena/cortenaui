@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -21,6 +23,7 @@ import com.cortena.components.layout.ContentView
 import com.cortena.components.layout.SafeArea
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.StatusBarIconMode
+import com.cortena.components.theme.ThemeMode
 import com.cortena.components.ui.Button
 import com.cortena.components.ui.ButtonStyle
 import com.cortena.components.ui.Slider
@@ -29,24 +32,52 @@ import com.cortena.components.ui.Text
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val themeMode = mutableStateOf(ThemeMode.Light)
+        val statusBarIconMode = mutableStateOf(StatusBarIconMode.Dark)
+
         ContentView(
             appBar = {
                 val colors = LocalColors.current
-                AppBar(modifier = Modifier.background(Color(colors.background))) {}
+                AppBar(modifier = Modifier.background(Color(colors.surface))) {}
             },
-            statusBarIconMode = StatusBarIconMode.Light,
+            themeMode = { themeMode.value },
+            statusBarIconMode = { statusBarIconMode.value },
         ) {
             val colors = LocalColors.current
             Body(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color(colors.background))
+                    .background(Color(colors.surface))
             ) {
                 SafeArea {
                     Column(
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
+                        Button(
+                            modifier = Modifier.padding(top = 16.dp),
+                            onLongClick = {
+                                themeMode.value = when (themeMode.value) {
+                                    ThemeMode.Light -> ThemeMode.Dark
+                                    ThemeMode.Dark -> ThemeMode.Light
+                                    ThemeMode.Auto -> ThemeMode.Light
+                                }
+                                statusBarIconMode.value = when (statusBarIconMode.value) {
+                                    StatusBarIconMode.Light -> StatusBarIconMode.Dark
+                                    StatusBarIconMode.Dark -> StatusBarIconMode.Light
+                                    StatusBarIconMode.Auto -> StatusBarIconMode.Dark
+                                }
+                            }
+                        ) {
+                            Text(
+                                when (themeMode.value) {
+                                    ThemeMode.Light -> "Switch to Dark"
+                                    ThemeMode.Dark -> "Switch to Light"
+                                    ThemeMode.Auto -> "Switch to Light"
+                                }
+                            )
+                        }
                         Text("Button")
                         Row(
                             modifier = Modifier.fillMaxWidth(),

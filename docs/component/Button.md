@@ -18,7 +18,8 @@ Styles are driven by `LocalColors.current`:
 ```kotlin
 @Composable
 fun Button(
-    onClick: () -> Unit,
+    onClick: (() -> Unit)? = null,
+    onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     style: ButtonStyle = ButtonStyle.Primary,
@@ -35,13 +36,14 @@ enum class ButtonStyle {
 
 ### Parameters
 
-| Name       | Data Type                         | Description                                      |
-| ---------- | --------------------------------- | ------------------------------------------------ |
-| `onClick`  | `() -> Unit`                      | Called when the button is clicked.               |
-| `modifier` | `Modifier`                        | Standard Compose modifier.                       |
-| `enabled`  | `Boolean`                         | Disables click and gesture effects when `false`. |
-| `style`    | `ButtonStyle`                     | Visual style of the button.                      |
-| `content`  | `@Composable RowScope.() -> Unit` | Row content rendered inside the button.          |
+| Name          | Data Type                         | Description                                      |
+| ------------- | --------------------------------- | ------------------------------------------------ |
+| `onClick`     | `(() -> Unit)? = null`            | Called when the button is clicked.               |
+| `onLongClick` | `(() -> Unit)? = null`            | Called when the button is long clicked.          |
+| `modifier`    | `Modifier`                        | Standard Compose modifier.                       |
+| `enabled`     | `Boolean`                         | Disables click and gesture effects when `false`. |
+| `style`       | `ButtonStyle`                     | Visual style of the button.                      |
+| `content`     | `@Composable RowScope.() -> Unit` | Row content rendered inside the button.          |
 
 ### Example
 

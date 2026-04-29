@@ -93,7 +93,7 @@ fun Slider(
         val indicatorWidth = 56.dp
         val indicatorHeight = spacing.Xl.dp
         val resolvedBorderColor =
-            if (borderColor.isSpecified) borderColor else Color.White.copy(alpha = 1f / 3f)
+            if (borderColor.isSpecified) borderColor else Color(colors.outline)
         val resolvedContainerColor =
             if (containerColor.isSpecified) containerColor else Color(colors.background)
         val resolvedIndicatorColor =
@@ -145,7 +145,7 @@ fun Slider(
             Modifier
                 .graphicsLayer {
                     // val backgroundScale =
-                       // lerp(1f, 1f + 1f.dp.toPx() / size.height, dampedAnimation.pressProgress)
+                    // lerp(1f, 1f + 1f.dp.toPx() / size.height, dampedAnimation.pressProgress)
                     // scaleX = backgroundScale
                     // scaleY = backgroundScale
                     if (!enabled) {
