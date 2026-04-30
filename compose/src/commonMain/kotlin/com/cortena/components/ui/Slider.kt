@@ -81,7 +81,6 @@ fun Slider(
         contentAlignment = Alignment.CenterStart
     ) {
         val shape = CapsuleShape()
-        val horizontalIndicatorGap = 0.dp
         val indicatorWidth = 56.dp
         val indicatorHeight = spacing.Xl.dp
         val resolvedContainerColor =
@@ -112,7 +111,6 @@ fun Slider(
                             x = x,
                             trackWidth = size.width.toFloat(),
                             indicatorWidth = indicatorWidth.toPx(),
-                            horizontalGap = horizontalIndicatorGap.toPx(),
                             isLtr = isLtr,
                         )
                         return lerp(valueRange.start, valueRange.endInclusive, positionProgress)
@@ -154,7 +152,6 @@ fun Slider(
                     val progressEdge = sliderProgressEdge(
                         trackWidth = size.width,
                         indicatorWidth = indicatorWidth.toPx(),
-                        horizontalGap = horizontalIndicatorGap.toPx(),
                         progress = progress,
                         isLtr = isLtr,
                     ).fastCoerceIn(0f, size.width)
@@ -179,7 +176,7 @@ fun Slider(
                 .then(gestureModifier)
                 .fillMaxWidth()
         ) {
-            Box(modifier = Modifier.height(indicatorHeight))
+            Box(modifier = Modifier.height(indicatorHeight - 2.dp))
         }
 
         // Indicator
@@ -188,11 +185,9 @@ fun Slider(
                 .align(Alignment.CenterStart)
                 .zIndex(1f)
                 .graphicsLayer {
-                    val gap = horizontalIndicatorGap.toPx()
                     val sliderTranslation = sliderIndicatorStart(
                         trackWidth = trackWidth.toFloat(),
                         indicatorWidth = size.width,
-                        horizontalGap = gap,
                         progress = progress,
                         isLtr = isLtr,
                     )
@@ -217,11 +212,10 @@ private fun sliderProgressFromPosition(
     x: Float,
     trackWidth: Float,
     indicatorWidth: Float,
-    horizontalGap: Float,
     isLtr: Boolean,
 ): Float {
-    val start = horizontalGap + indicatorWidth * 0.5f
-    val end = trackWidth - horizontalGap - indicatorWidth * 0.5f
+    val start = indicatorWidth * 0.5f
+    val end = trackWidth - indicatorWidth * 0.5f
     val travel = end - start
     val progress = if (travel > 0f) ((x - start) / travel).fastCoerceIn(0f, 1f) else 0f
     return if (isLtr) progress else 1f - progress
@@ -230,26 +224,23 @@ private fun sliderProgressFromPosition(
 private fun sliderIndicatorStart(
     trackWidth: Float,
     indicatorWidth: Float,
-    horizontalGap: Float,
     progress: Float,
     isLtr: Boolean,
 ): Float {
-    val availableWidth = max(0f, trackWidth - indicatorWidth - horizontalGap * 2f)
+    val availableWidth = max(0f, trackWidth - indicatorWidth)
     val directedProgress = if (isLtr) progress else 1f - progress
-    return horizontalGap + availableWidth * directedProgress.fastCoerceIn(0f, 1f)
+    return availableWidth * directedProgress.fastCoerceIn(0f, 1f)
 }
 
 private fun sliderProgressEdge(
     trackWidth: Float,
     indicatorWidth: Float,
-    horizontalGap: Float,
     progress: Float,
     isLtr: Boolean,
 ): Float {
     return sliderIndicatorStart(
         trackWidth = trackWidth,
         indicatorWidth = indicatorWidth,
-        horizontalGap = horizontalGap,
         progress = progress,
         isLtr = isLtr,
     ) + indicatorWidth * 0.5f
