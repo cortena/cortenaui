@@ -177,8 +177,8 @@ class MainActivity : ComponentActivity() {
                                 Text("Delete")
                             }
                         }
-                        Text("Slider")
                         var sliderValue by remember { mutableFloatStateOf(0f) }
+                        Text("Slider value: ${sliderValue.toInt()}")
                         Slider(
                             value = sliderValue,
                             onValueChange = { sliderValue = it },
