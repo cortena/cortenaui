@@ -1,4 +1,4 @@
-package com.cortena.components.shape
+package com.cortena.components.graphics.shadow.internal
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.geometry.Size
@@ -12,7 +12,7 @@ internal class ShapeProvider(val shapeBlock: () -> Shape) {
 
     private var shapeCache: Shape? = null
     private var outlineCache: Outline? = null
-    private var sizeCache: Size = Size.Companion.Unspecified
+    private var sizeCache: Size = Size.Unspecified
     private var layoutDirectionCache: LayoutDirection? = null
     private var densityCache: Float? = null
 

@@ -1,4 +1,4 @@
-package com.cortena.components.graphics.shadow
+package com.cortena.components.graphics.shadow.internal
 
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Outline
