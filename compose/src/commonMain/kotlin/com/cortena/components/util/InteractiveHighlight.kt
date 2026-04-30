@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class InteractiveHighlight(
     animationScope: CoroutineScope,
-    color: Color? = Color.White,
+    color: Color = Color.Unspecified,
     position: (size: Size, offset: Offset) -> Offset = { _, offset -> offset }
 ) {
     val pressProgress: Float

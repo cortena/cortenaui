@@ -4,7 +4,7 @@
 
 ## Concept
 
-`Button` renders a capsule-shaped surface with a press highlight and damped drag response. The interaction effect is intentionally shared with other interactive controls such as `Slider`, so touch feedback feels consistent across the design system.
+`Button` renders a capsule-shaped surface with an automatic tonal press highlight and damped drag response.
 
 Styles are driven by `LocalColors.current`:
 
@@ -39,17 +39,17 @@ enum class ButtonStyle {
 
 ### Parameters
 
-| Name          | Data Type                         | Description                                      |
-| ------------- | --------------------------------- | ------------------------------------------------ |
-| `onClick`     | `(() -> Unit)? = null`            | Called when the button is clicked.               |
-| `onLongClick` | `(() -> Unit)? = null`            | Called when the button is long clicked.          |
-| `modifier`    | `Modifier`                        | Standard Compose modifier.                       |
-| `enabled`     | `Boolean`                         | Disables click and gesture effects when `false`. |
-| `interactive` | `Boolean`                         | Enables interaction when `true`.                 |
-| `style`       | `ButtonStyle`                     | Visual style of the button.                      |
-| `background`  | `Color.Unspecified`               | Background color of the button.                  |
-| `foreground`  | `Color.Unspecified`               | Foreground color of the button.                  |
-| `content`     | `@Composable RowScope.() -> Unit` | Row content rendered inside the button.          |
+| Name          | Data Type                         | Description                                                                           |
+| ------------- | --------------------------------- | ------------------------------------------------------------------------------------- |
+| `onClick`     | `(() -> Unit)? = null`            | Called when the button is clicked.                                                    |
+| `onLongClick` | `(() -> Unit)? = null`            | Called when the button is long clicked.                                               |
+| `modifier`    | `Modifier`                        | Standard Compose modifier.                                                            |
+| `enabled`     | `Boolean`                         | Disables click and gesture effects when `false`.                                      |
+| `interactive` | `Boolean`                         | Enables press/drag motion animation when `true`; the press highlight remains enabled. |
+| `style`       | `ButtonStyle`                     | Visual style of the button.                                                           |
+| `background`  | `Color.Unspecified`               | Background color of the button.                                                       |
+| `foreground`  | `Color.Unspecified`               | Foreground color of the button.                                                       |
+| `content`     | `@Composable RowScope.() -> Unit` | Row content rendered inside the button.                                               |
 
 ### Example
 

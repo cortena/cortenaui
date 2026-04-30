@@ -21,10 +21,9 @@ import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastCoerceAtMost
 import androidx.compose.ui.util.fastCoerceIn
 import androidx.compose.ui.util.lerp
 import androidx.compose.ui.zIndex
@@ -35,13 +34,9 @@ import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalSpacing
 import com.cortena.components.util.DampedAnimation
 import com.cortena.components.util.InteractiveHighlight
+import com.cortena.components.util.applyInteractiveAnimation
 import com.cortena.components.util.inspectDragGestures
-import kotlin.math.abs
-import kotlin.math.atan2
-import kotlin.math.cos
 import kotlin.math.max
-import kotlin.math.sin
-import kotlin.math.tanh
 
 @Composable
 fun Slider(
@@ -59,11 +54,6 @@ fun Slider(
     val layoutDirection = LocalLayoutDirection.current
     val isLtr = layoutDirection == LayoutDirection.Ltr
     val animationScope = rememberCoroutineScope()
-    val interactiveHighlight = remember(animationScope) {
-        InteractiveHighlight(animationScope) { size, _ ->
-            Offset(size.width * 0.5f, size.height * 0.5f)
-        }
-    }
     val dampedAnimation = remember(
         animationScope,
         valueRange.start,
@@ -100,6 +90,14 @@ fun Slider(
             if (indicatorColor.isSpecified) indicatorColor else Color.White
         val resolvedProgressColor =
             if (progressColor.isSpecified) progressColor else Color(colors.primary)
+        val interactiveHighlight = remember(animationScope, resolvedIndicatorColor) {
+            InteractiveHighlight(
+                animationScope = animationScope,
+                color = resolvedIndicatorColor,
+            ) { size, _ ->
+                Offset(size.width * 0.5f, size.height * 0.5f)
+            }
+        }
         val indicatorShadow = sliderIndicatorShadow(resolvedContainerColor)
         val trackWidth = constraints.maxWidth
         val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
@@ -199,28 +197,13 @@ fun Slider(
                         isLtr = isLtr,
                     )
 
-                    val pressProgress = interactiveHighlight.pressProgress
-                    val scale = lerp(1f, 1f + 4f.dp.toPx() / size.height, pressProgress)
-
-                    val maxOffset = size.minDimension
-                    val initialDerivative = 0.05f
-                    val offset = interactiveHighlight.offset
-                    translationX =
-                        sliderTranslation +
-                                maxOffset * tanh(initialDerivative * offset.x / maxOffset)
-                    translationY = maxOffset * tanh(initialDerivative * offset.y / maxOffset)
-
-                    val maxDragScale = 4f.dp.toPx() / size.height
-                    val offsetAngle = atan2(offset.y, offset.x)
-                    scaleX =
-                        scale + maxDragScale * abs(cos(offsetAngle) * offset.x / size.maxDimension) *
-                                (size.width / size.height).fastCoerceAtMost(1f)
-                    scaleY =
-                        scale + maxDragScale * abs(sin(offsetAngle) * offset.y / size.maxDimension) *
-                                (size.height / size.width).fastCoerceAtMost(1f)
-
-                    scaleX *= dampedAnimation.scaleX
-                    scaleY *= dampedAnimation.scaleY
+                    applyInteractiveAnimation(
+                        pressProgress = interactiveHighlight.pressProgress,
+                        offset = interactiveHighlight.offset,
+                        baseTranslationX = sliderTranslation,
+                        scaleXMultiplier = dampedAnimation.scaleX,
+                        scaleYMultiplier = dampedAnimation.scaleY,
+                    )
                 }
                 .componentShadow(indicatorShadow, shape)
                 .clip(shape)

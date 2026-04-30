@@ -19,18 +19,12 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastCoerceAtMost
-import androidx.compose.ui.util.lerp
 import com.cortena.components.shape.CapsuleShape
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalContentColor
 import com.cortena.components.theme.LocalSpacing
 import com.cortena.components.util.InteractiveHighlight
-import kotlin.math.abs
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.tanh
+import com.cortena.components.util.applyInteractiveAnimation
 
 enum class ButtonStyle { Primary, Secondary, Ghost, Destructive }
 
@@ -64,11 +58,10 @@ fun Button(
         ButtonStyle.Destructive -> Color(colors.onError)
     }
 
-    val backgroundColor =
-        if (background.isSpecified) background else styleBackgroundColor
-    val contentColor =
-        if (foreground.isSpecified) foreground else styleForegroundColor
+    val backgroundColor = if (background.isSpecified) background else styleBackgroundColor
+    val contentColor = if (foreground.isSpecified) foreground else styleForegroundColor
 
+    // Changes to the background color must not destroy and recreate the InteractiveHighlight
     val interactiveHighlight = remember(animationScope) {
         InteractiveHighlight(
             animationScope = animationScope,
@@ -80,27 +73,16 @@ fun Button(
         modifier = modifier
             .graphicsLayer {
                 if (interactive) {
-                    val progress = interactiveHighlight.pressProgress
-                    val scale = lerp(1f, 1f + 4f.dp.toPx() / size.height, progress)
-
-                    val maxOffset = size.minDimension
-                    val offset = interactiveHighlight.offset
-                    translationX = maxOffset * tanh(0.05f * offset.x / maxOffset)
-                    translationY = maxOffset * tanh(0.05f * offset.y / maxOffset)
-
-                    val maxDragScale = 4f.dp.toPx() / size.height
-                    val offsetAngle = atan2(offset.y, offset.x)
-                    scaleX = scale + maxDragScale *
-                            abs(cos(offsetAngle) * offset.x / size.maxDimension) *
-                            (size.width / size.height).fastCoerceAtMost(1f)
-                    scaleY = scale + maxDragScale *
-                            abs(sin(offsetAngle) * offset.y / size.maxDimension) *
-                            (size.height / size.width).fastCoerceAtMost(1f)
+                    applyInteractiveAnimation(
+                        pressProgress = interactiveHighlight.pressProgress,
+                        offset = interactiveHighlight.offset,
+                    )
                 }
                 alpha = if (enabled) 1f else 0.38f
             }
             .clip(CapsuleShape())
             .background(backgroundColor)
+            .then(if (enabled) interactiveHighlight.gestureModifier else Modifier)
             .combinedClickable(
                 interactionSource = null,
                 indication = null,
@@ -109,15 +91,7 @@ fun Button(
                 onClick = { onClick?.invoke() },
                 onLongClick = { onLongClick?.invoke() },
             )
-            .then(
-                if (enabled && interactive) {
-                    Modifier
-                        .then(interactiveHighlight.modifier)
-                        .then(interactiveHighlight.gestureModifier)
-                } else {
-                    Modifier
-                }
-            )
+            .then(if (enabled) interactiveHighlight.modifier else Modifier)
             .height(48.dp)
             .padding(horizontal = spacing.Md.dp),
         horizontalArrangement = Arrangement.spacedBy(

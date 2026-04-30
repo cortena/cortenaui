@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class InteractiveHighlight actual constructor(
     val animationScope: CoroutineScope,
-    color: Color?,
+    color: Color,
     val position: (size: Size, offset: Offset) -> Offset
 ) {
 
@@ -40,20 +40,22 @@ actual class InteractiveHighlight actual constructor(
     actual val offset: Offset get() = positionAnimation.value - startPosition
 
     private val shader = RuntimeShader(InteractiveHighlightShaderSource)
-    private val shaderColor = color ?: Color.White
+    private val highlightColor = interactiveHighlightColor(color)
 
     actual val modifier: Modifier =
         Modifier.drawWithContent {
+            drawContent()
+
             val progress = pressProgressAnimation.value
             if (progress > 0f) {
                 drawRect(
-                    shaderColor.copy(0.08f * progress),
-                    blendMode = BlendMode.Plus
+                    highlightColor.copy(0.14f * progress),
+                    blendMode = BlendMode.SrcOver
                 )
                 shader.apply {
                     val position = position(size, positionAnimation.value)
                     setFloatUniform("size", size.width, size.height)
-                    setColorUniform("color", shaderColor.copy(0.15f * progress).toArgb())
+                    setColorUniform("color", highlightColor.copy(0.28f * progress).toArgb())
                     setFloatUniform("radius", size.minDimension * 1.5f)
                     setFloatUniform(
                         "position",
@@ -61,14 +63,12 @@ actual class InteractiveHighlight actual constructor(
                         position.y.fastCoerceIn(0f, size.height)
                     )
                 }
-                drawRect(ShaderBrush(shader), blendMode = BlendMode.Plus)
+                drawRect(ShaderBrush(shader), blendMode = BlendMode.SrcOver)
             }
-
-            drawContent()
         }
 
     actual val gestureModifier: Modifier =
-        Modifier.pointerInput(animationScope) {
+        Modifier.pointerInput(Unit) {
             inspectDragGestures(
                 onDragStart = { down ->
                     startPosition = down.position
@@ -88,7 +88,7 @@ actual class InteractiveHighlight actual constructor(
                         launch { pressProgressAnimation.animateTo(0f, pressProgressAnimationSpec) }
                         launch { positionAnimation.animateTo(startPosition, positionAnimationSpec) }
                     }
-                }
+                },
             ) { change, _ ->
                 animationScope.launch { positionAnimation.snapTo(change.position) }
             }

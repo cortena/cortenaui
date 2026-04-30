@@ -48,6 +48,8 @@ class DampedAnimation(
 
     private val velocityTracker = VelocityTracker()
 
+    private var updateValueJob: kotlinx.coroutines.Job? = null
+
     val value: Float get() = valueAnimation.value
     val progress: Float get() = (value - valueRange.start) / (valueRange.endInclusive - valueRange.start)
     val targetValue: Float get() = valueAnimation.targetValue
@@ -82,8 +84,10 @@ class DampedAnimation(
 
     fun updateValue(value: Float) {
         val targetValue = value.coerceIn(valueRange)
-        animationScope.launch {
-            launch { valueAnimation.animateTo(targetValue, valueAnimationSpec) { updateVelocity() } }
+        updateValueJob?.cancel()
+        updateValueJob = animationScope.launch {
+            valueAnimation.snapTo(targetValue)
+            updateVelocity()
         }
     }
 
@@ -102,11 +106,9 @@ class DampedAnimation(
     }
 
     private fun updateVelocity() {
-        velocityTracker.addPosition(
-            System.currentTimeMillis(),
-            Offset(value, 0f)
-        )
-        val targetVelocity = velocityTracker.calculateVelocity().x / (valueRange.endInclusive - valueRange.start)
+        velocityTracker.addPosition(System.currentTimeMillis(), Offset(value, 0f))
+        val targetVelocity = velocityTracker.calculateVelocity().x /
+                (valueRange.endInclusive - valueRange.start)
         animationScope.launch { velocityAnimation.animateTo(targetVelocity, velocityAnimationSpec) }
     }
 }
