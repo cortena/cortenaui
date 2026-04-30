@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.cortena.components.color.ColorTokens
 import com.cortena.components.layout.AppBar
 import com.cortena.components.layout.Body
 import com.cortena.components.layout.ContentView
@@ -57,6 +60,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         Button(
                             modifier = Modifier.padding(top = 16.dp),
+                            interactive = false,
                             onLongClick = {
                                 themeMode.value = when (themeMode.value) {
                                     ThemeMode.Light -> ThemeMode.Dark
@@ -142,6 +146,30 @@ class MainActivity : ComponentActivity() {
                                 Text("Destructive")
                             }
                         }
+                        Text("Button Custom")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Button(
+                                onClick = {},
+                                background = Color(ColorTokens.RedLight500),
+                            ) {
+                                Text("Red")
+                            }
+                            Button(
+                                onClick = {},
+                                background = Color(ColorTokens.OrangeLight500),
+                            ) {
+                                Text("Orange")
+                            }
+                            Button(
+                                onClick = {},
+                                background = Color(ColorTokens.BlueLight500),
+                            ) {
+                                Text("Blue")
+                            }
+                        }
                         Text("Slider")
                         var sliderValue by remember { mutableFloatStateOf(0f) }
                         Slider(
@@ -149,6 +177,55 @@ class MainActivity : ComponentActivity() {
                             onValueChange = { sliderValue = it },
                             valueRange = -4f..4f,
                         )
+                        Text("Colors")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            for (i in arrayOf(
+                                ColorTokens.GrayLight50,
+                                ColorTokens.GrayLight100,
+                                ColorTokens.GrayLight200,
+                                ColorTokens.GrayLight300,
+                                ColorTokens.GrayLight400,
+                                ColorTokens.GrayLight500,
+                                ColorTokens.GrayLight600,
+                                ColorTokens.GrayLight700,
+                                ColorTokens.GrayLight800,
+                                ColorTokens.GrayLight900,
+                                ColorTokens.GrayLight950
+                            )) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(28.dp)
+                                        .background(Color(i))
+                                )
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            for (i in arrayOf(
+                                ColorTokens.GrayDark50,
+                                ColorTokens.GrayDark100,
+                                ColorTokens.GrayDark200,
+                                ColorTokens.GrayDark300,
+                                ColorTokens.GrayDark400,
+                                ColorTokens.GrayDark500,
+                                ColorTokens.GrayDark600,
+                                ColorTokens.GrayDark700,
+                                ColorTokens.GrayDark800,
+                                ColorTokens.GrayDark900,
+                                ColorTokens.GrayDark950
+                            )) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(28.dp)
+                                        .background(Color(i))
+                                )
+                            }
+                        }
                     }
                 }
             }

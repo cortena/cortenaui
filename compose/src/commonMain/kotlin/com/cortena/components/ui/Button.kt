@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceAtMost
@@ -40,54 +41,63 @@ fun Button(
     onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    interactive: Boolean = true,
     style: ButtonStyle = ButtonStyle.Primary,
-    content: @Composable RowScope.() -> Unit
+    background: Color = Color.Unspecified,
+    foreground: Color = Color.Unspecified,
+    content: @Composable RowScope.() -> Unit,
 ) {
     val colors = LocalColors.current
     val spacing = LocalSpacing.current
     val animationScope = rememberCoroutineScope()
 
-    val interactiveHighlight = remember(animationScope) {
-        InteractiveHighlight(animationScope)
-    }
-
-    val backgroundColor = when (style) {
-        ButtonStyle.Primary -> Color(colors.primary).copy(alpha = 1f)
+    val styleBackgroundColor = when (style) {
+        ButtonStyle.Primary -> Color(colors.primary)
         ButtonStyle.Secondary -> Color(colors.primaryContainer)
         ButtonStyle.Ghost -> Color(colors.surfaceVariant)
         ButtonStyle.Destructive -> Color(colors.error)
     }
-    val contentColor = when (style) {
+    val styleForegroundColor = when (style) {
         ButtonStyle.Primary -> Color(colors.onPrimary)
         ButtonStyle.Secondary -> Color(colors.onPrimaryContainer)
         ButtonStyle.Ghost -> Color(colors.onSurfaceVariant)
         ButtonStyle.Destructive -> Color(colors.onError)
     }
 
+    val backgroundColor =
+        if (background.isSpecified) background else styleBackgroundColor
+    val contentColor =
+        if (foreground.isSpecified) foreground else styleForegroundColor
+
+    val interactiveHighlight = remember(animationScope) {
+        InteractiveHighlight(
+            animationScope = animationScope,
+            color = backgroundColor,
+        )
+    }
+
     Row(
-        modifier
+        modifier = modifier
             .graphicsLayer {
-                val progress = interactiveHighlight.pressProgress
-                val scale = lerp(1f, 1f + 4f.dp.toPx() / size.height, progress)
+                if (interactive) {
+                    val progress = interactiveHighlight.pressProgress
+                    val scale = lerp(1f, 1f + 4f.dp.toPx() / size.height, progress)
 
-                val maxOffset = size.minDimension
-                val initialDerivative = 0.05f
-                val offset = interactiveHighlight.offset
-                translationX = maxOffset * tanh(initialDerivative * offset.x / maxOffset)
-                translationY = maxOffset * tanh(initialDerivative * offset.y / maxOffset)
+                    val maxOffset = size.minDimension
+                    val offset = interactiveHighlight.offset
+                    translationX = maxOffset * tanh(0.05f * offset.x / maxOffset)
+                    translationY = maxOffset * tanh(0.05f * offset.y / maxOffset)
 
-                val maxDragScale = 4f.dp.toPx() / size.height
-                val offsetAngle = atan2(offset.y, offset.x)
-                scaleX =
-                    scale + maxDragScale * abs(cos(offsetAngle) * offset.x / size.maxDimension) *
+                    val maxDragScale = 4f.dp.toPx() / size.height
+                    val offsetAngle = atan2(offset.y, offset.x)
+                    scaleX = scale + maxDragScale *
+                            abs(cos(offsetAngle) * offset.x / size.maxDimension) *
                             (size.width / size.height).fastCoerceAtMost(1f)
-                scaleY =
-                    scale + maxDragScale * abs(sin(offsetAngle) * offset.y / size.maxDimension) *
+                    scaleY = scale + maxDragScale *
+                            abs(sin(offsetAngle) * offset.y / size.maxDimension) *
                             (size.height / size.width).fastCoerceAtMost(1f)
-
-                if (!enabled) {
-                    alpha = 0.38f
                 }
+                alpha = if (enabled) 1f else 0.38f
             }
             .clip(CapsuleShape())
             .background(backgroundColor)
@@ -97,10 +107,10 @@ fun Button(
                 enabled = enabled,
                 role = Role.Button,
                 onClick = { onClick?.invoke() },
-                onLongClick = { onLongClick?.invoke() }
+                onLongClick = { onLongClick?.invoke() },
             )
             .then(
-                if (enabled) {
+                if (enabled && interactive) {
                     Modifier
                         .then(interactiveHighlight.modifier)
                         .then(interactiveHighlight.gestureModifier)
@@ -110,12 +120,14 @@ fun Button(
             )
             .height(48.dp)
             .padding(horizontal = spacing.Md.dp),
-        horizontalArrangement = Arrangement.spacedBy(spacing.Sm.dp, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(
+            space = spacing.Sm.dp,
+            alignment = Alignment.CenterHorizontally,
+        ),
         verticalAlignment = Alignment.CenterVertically,
-        content = {
-            CompositionLocalProvider(LocalContentColor provides contentColor) {
-                content()
-            }
+    ) {
+        CompositionLocalProvider(LocalContentColor provides contentColor) {
+            content()
         }
-    )
+    }
 }

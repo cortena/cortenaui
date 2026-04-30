@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class InteractiveHighlight actual constructor(
     val animationScope: CoroutineScope,
+    color: Color?,
     val position: (size: Size, offset: Offset) -> Offset
 ) {
 
@@ -39,19 +40,20 @@ actual class InteractiveHighlight actual constructor(
     actual val offset: Offset get() = positionAnimation.value - startPosition
 
     private val shader = RuntimeShader(InteractiveHighlightShaderSource)
+    private val shaderColor = color ?: Color.White
 
     actual val modifier: Modifier =
         Modifier.drawWithContent {
             val progress = pressProgressAnimation.value
             if (progress > 0f) {
                 drawRect(
-                    Color.White.copy(0.08f * progress),
+                    shaderColor.copy(0.08f * progress),
                     blendMode = BlendMode.Plus
                 )
                 shader.apply {
                     val position = position(size, positionAnimation.value)
                     setFloatUniform("size", size.width, size.height)
-                    setColorUniform("color", Color.White.copy(0.15f * progress).toArgb())
+                    setColorUniform("color", shaderColor.copy(0.15f * progress).toArgb())
                     setFloatUniform("radius", size.minDimension * 1.5f)
                     setFloatUniform(
                         "position",

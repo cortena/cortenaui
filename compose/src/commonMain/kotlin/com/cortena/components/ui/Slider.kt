@@ -31,7 +31,6 @@ import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalSpacing
 import com.cortena.components.util.DampedAnimation
 import com.cortena.components.util.InteractiveHighlight
-import com.cortena.components.util.componentBorder
 import com.cortena.components.util.inspectDragGestures
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -48,7 +47,6 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     indicatorColor: Color = Color.Unspecified,
-    borderColor: Color = Color.Unspecified,
     containerColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified
 ) {
@@ -63,17 +61,15 @@ fun Slider(
         }
     }
     val dampedAnimation = remember(
-        animationScope,
-        valueRange.start,
-        valueRange.endInclusive
+        animationScope
     ) {
         DampedAnimation(
             animationScope = animationScope,
             initialValue = value.coerceIn(valueRange),
             valueRange = valueRange,
-            visibilityThreshold = 0.001f,
+            visibilityThreshold = 0.01f,
             initialScale = 1f,
-            pressedScale = 1.08f
+            pressedScale = 1.3f,
         )
     }
 
@@ -92,10 +88,8 @@ fun Slider(
         val horizontalIndicatorGap = 0.dp
         val indicatorWidth = 56.dp
         val indicatorHeight = spacing.Xl.dp
-        val resolvedBorderColor =
-            if (borderColor.isSpecified) borderColor else Color(colors.outline)
         val resolvedContainerColor =
-            if (containerColor.isSpecified) containerColor else Color(colors.background)
+            if (containerColor.isSpecified) containerColor else Color(colors.surfaceVariant)
         val resolvedIndicatorColor =
             if (indicatorColor.isSpecified) indicatorColor else Color.White
         val resolvedProgressColor =
@@ -144,15 +138,10 @@ fun Slider(
         Box(
             Modifier
                 .graphicsLayer {
-                    // val backgroundScale =
-                    // lerp(1f, 1f + 1f.dp.toPx() / size.height, dampedAnimation.pressProgress)
-                    // scaleX = backgroundScale
-                    // scaleY = backgroundScale
                     if (!enabled) {
                         alpha = 0.38f
                     }
                 }
-                .componentBorder(1.dp, resolvedBorderColor, shape)
                 .clip(shape)
                 .background(resolvedContainerColor)
                 .drawBehind {
@@ -168,12 +157,12 @@ fun Slider(
                     )
                 }
                 .then(gestureModifier)
-                .then(if (enabled) interactiveHighlight.gestureModifier else Modifier)
                 .fillMaxWidth()
         ) {
             Box(modifier = Modifier.height(indicatorHeight))
         }
 
+        // Indicator
         Box(
             Modifier
                 .align(Alignment.CenterStart)
@@ -209,13 +198,9 @@ fun Slider(
 
                     scaleX *= dampedAnimation.scaleX
                     scaleY *= dampedAnimation.scaleY
-                    val velocity = dampedAnimation.velocity / 10f
-                    scaleX /= 1f - (velocity * 0.75f).fastCoerceIn(-0.2f, 0.2f)
-                    scaleY *= 1f - (velocity * 0.25f).fastCoerceIn(-0.2f, 0.2f)
                 }
                 .clip(shape)
                 .background(resolvedIndicatorColor)
-                .then(if (enabled) interactiveHighlight.modifier else Modifier)
                 .size(width = indicatorWidth, height = indicatorHeight)
         )
     }

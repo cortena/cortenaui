@@ -3,11 +3,13 @@ package com.cortena.components.util
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.CoroutineScope
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 expect class InteractiveHighlight(
     animationScope: CoroutineScope,
+    color: Color? = Color.White,
     position: (size: Size, offset: Offset) -> Offset = { _, offset -> offset }
 ) {
     val pressProgress: Float

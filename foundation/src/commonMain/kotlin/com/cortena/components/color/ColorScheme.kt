@@ -40,11 +40,11 @@ data class ColorScheme(
 val LightColorScheme =
     ColorScheme(
         background = ColorTokens.White,
-        onBackground = ColorTokens.Neutral100,
+        onBackground = ColorTokens.GrayLight950,
         surface = ColorTokens.White,
         onSurface = ColorTokens.Neutral90,
-        surfaceVariant = ColorTokens.Neutral20,
-        onSurfaceVariant = ColorTokens.Neutral70,
+        surfaceVariant = ColorTokens.GrayLight50,
+        onSurfaceVariant = ColorTokens.GrayLight950,
         primary = ColorTokens.BlueLight500,
         onPrimary = ColorTokens.BlueLight50,
         primaryContainer = ColorTokens.Primary10,
@@ -60,11 +60,11 @@ val LightColorScheme =
 val DarkColorScheme =
     ColorScheme(
         background = ColorTokens.Black,
-        onBackground = ColorTokens.Neutral0,
+        onBackground = ColorTokens.GrayDark50,
         surface = ColorTokens.Black,
         onSurface = ColorTokens.Neutral10,
-        surfaceVariant = ColorTokens.Neutral80,
-        onSurfaceVariant = ColorTokens.Neutral30,
+        surfaceVariant = ColorTokens.GrayDark950,
+        onSurfaceVariant = ColorTokens.GrayDark50,
         primary = ColorTokens.BlueDark500,
         onPrimary = ColorTokens.BlueDark50,
         primaryContainer = ColorTokens.Primary90,

@@ -22,7 +22,10 @@ fun Button(
     onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    interactive: Boolean = true,
     style: ButtonStyle = ButtonStyle.Primary,
+    background: Color = Color.Unspecified,
+    foreground: Color = Color.Unspecified,
     content: @Composable RowScope.() -> Unit
 )
 
@@ -42,7 +45,10 @@ enum class ButtonStyle {
 | `onLongClick` | `(() -> Unit)? = null`            | Called when the button is long clicked.          |
 | `modifier`    | `Modifier`                        | Standard Compose modifier.                       |
 | `enabled`     | `Boolean`                         | Disables click and gesture effects when `false`. |
+| `interactive` | `Boolean`                         | Enables interaction when `true`.                 |
 | `style`       | `ButtonStyle`                     | Visual style of the button.                      |
+| `background`  | `Color.Unspecified`               | Background color of the button.                  |
+| `foreground`  | `Color.Unspecified`               | Foreground color of the button.                  |
 | `content`     | `@Composable RowScope.() -> Unit` | Row content rendered inside the button.          |
 
 ### Example
