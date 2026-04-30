@@ -4,10 +4,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.luminance
+import com.cortena.components.color.ColorTokens
 
 internal fun interactiveHighlightColor(sourceColor: Color): Color {
     if (!sourceColor.isSpecified) {
-        return Color(0xFF8A8A8A)
+        return Color(ColorTokens.GrayLight500)
     }
 
     val isVeryLight = sourceColor.luminance() > 0.78f
