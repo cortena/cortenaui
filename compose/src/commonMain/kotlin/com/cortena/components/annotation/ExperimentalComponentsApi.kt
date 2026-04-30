@@ -1,4 +1,4 @@
-package com.cortena.components.theme
+package com.cortena.components.annotation
 
 @RequiresOptIn(
     message = "This API is experimental. It may be changed in the future without notice."
