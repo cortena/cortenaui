@@ -6,9 +6,8 @@
 
 The component is a capsule with:
 
-- A border using `LocalColors.current.primary`.
 - A filled background segment that represents the current progress.
-- A white pill indicator at 85% opacity by default, clamped with a small horizontal gap.
+- A white pill indicator by default, with a subtle shadow for contrast on light surfaces.
 - Button-like interactive feedback on the indicator: press glow, drag offset, and stretch.
 
 The component is controlled. You own the state and pass the current value back through `onValueChange`.
@@ -24,7 +23,6 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     indicatorColor: Color = Color.Unspecified,
-    borderColor: Color = Color.Unspecified,
     containerColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified
 )
@@ -39,10 +37,9 @@ fun Slider(
 | `valueRange`     | `ClosedFloatingPointRange<Float>` | Minimum and maximum allowed values.                   |
 | `modifier`       | `Modifier`                        | Standard Compose modifier.                            |
 | `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.       |
-| `indicatorColor` | `Color`                           | Indicator pill color. Default: white at 85% alpha.    |
-| `borderColor`    | `Color`                           | Container border color. Default: theme primary.       |
-| `containerColor` | `Color`                           | Capsule background color. Default: background.        |
-| `progressColor`  | `Color`                           | Filled progress color. Default: primary at 1/3 alpha. |
+| `indicatorColor` | `Color`                           | Indicator pill color. Default: white.                 |
+| `containerColor` | `Color`                           | Capsule background color. Default: surface variant.   |
+| `progressColor`  | `Color`                           | Filled progress color. Default: primary.              |
 
 ### Example
 
@@ -64,7 +61,6 @@ Slider(
     onValueChange = { ratio = it },
     valueRange = 0f..1f,
     indicatorColor = Color.White,
-    borderColor = Color(LocalColors.current.outline),
     containerColor = Color(LocalColors.current.surface),
     progressColor = Color(LocalColors.current.primary).copy(alpha = 0.24f),
 )

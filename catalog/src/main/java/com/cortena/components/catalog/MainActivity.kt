@@ -169,6 +169,13 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 Text("Blue")
                             }
+                            Button(
+                                onClick = {},
+                                background = Color(colors.surfaceVariant),
+                                foreground = Color(ColorTokens.RedLight300)
+                            ) {
+                                Text("Delete")
+                            }
                         }
                         Text("Slider")
                         var sliderValue by remember { mutableFloatStateOf(0f) }

@@ -18,14 +18,18 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceAtMost
 import androidx.compose.ui.util.fastCoerceIn
 import androidx.compose.ui.util.lerp
 import androidx.compose.ui.zIndex
+import com.cortena.components.graphics.shadow.Shadow
+import com.cortena.components.graphics.shadow.componentShadow
 import com.cortena.components.shape.CapsuleShape
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalSpacing
@@ -61,7 +65,9 @@ fun Slider(
         }
     }
     val dampedAnimation = remember(
-        animationScope
+        animationScope,
+        valueRange.start,
+        valueRange.endInclusive,
     ) {
         DampedAnimation(
             animationScope = animationScope,
@@ -94,6 +100,7 @@ fun Slider(
             if (indicatorColor.isSpecified) indicatorColor else Color.White
         val resolvedProgressColor =
             if (progressColor.isSpecified) progressColor else Color(colors.primary)
+        val indicatorShadow = sliderIndicatorShadow(resolvedContainerColor)
         val trackWidth = constraints.maxWidth
         val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
         val gestureModifier =
@@ -103,12 +110,13 @@ fun Slider(
                         if (size.width == 0) {
                             return value.coerceIn(valueRange)
                         }
-                        val positionProgress =
-                            if (isLtr) {
-                                x / size.width
-                            } else {
-                                1f - x / size.width
-                            }.fastCoerceIn(0f, 1f)
+                        val positionProgress = sliderProgressFromPosition(
+                            x = x,
+                            trackWidth = size.width.toFloat(),
+                            indicatorWidth = indicatorWidth.toPx(),
+                            horizontalGap = horizontalIndicatorGap.toPx(),
+                            isLtr = isLtr,
+                        )
                         return lerp(valueRange.start, valueRange.endInclusive, positionProgress)
                     }
 
@@ -145,15 +153,29 @@ fun Slider(
                 .clip(shape)
                 .background(resolvedContainerColor)
                 .drawBehind {
+                    val progressEdge = sliderProgressEdge(
+                        trackWidth = size.width,
+                        indicatorWidth = indicatorWidth.toPx(),
+                        horizontalGap = horizontalIndicatorGap.toPx(),
+                        progress = progress,
+                        isLtr = isLtr,
+                    ).fastCoerceIn(0f, size.width)
                     drawRect(
                         resolvedProgressColor,
                         topLeft =
                             if (isLtr) {
                                 Offset.Zero
                             } else {
-                                Offset(size.width * (1f - progress), 0f)
+                                Offset(progressEdge, 0f)
                             },
-                        size = size.copy(width = size.width * progress)
+                        size = size.copy(
+                            width =
+                                if (isLtr) {
+                                    progressEdge
+                                } else {
+                                    size.width - progressEdge
+                                }
+                        )
                     )
                 }
                 .then(gestureModifier)
@@ -169,12 +191,13 @@ fun Slider(
                 .zIndex(1f)
                 .graphicsLayer {
                     val gap = horizontalIndicatorGap.toPx()
-                    val sliderTranslation =
-                        run {
-                            val maxTranslation = max(0f, trackWidth - size.width - gap * 2f)
-                            val targetProgress = if (isLtr) progress else 1f - progress
-                            gap + (maxTranslation * targetProgress).fastCoerceIn(0f, maxTranslation)
-                        }
+                    val sliderTranslation = sliderIndicatorStart(
+                        trackWidth = trackWidth.toFloat(),
+                        indicatorWidth = size.width,
+                        horizontalGap = gap,
+                        progress = progress,
+                        isLtr = isLtr,
+                    )
 
                     val pressProgress = interactiveHighlight.pressProgress
                     val scale = lerp(1f, 1f + 4f.dp.toPx() / size.height, pressProgress)
@@ -199,9 +222,61 @@ fun Slider(
                     scaleX *= dampedAnimation.scaleX
                     scaleY *= dampedAnimation.scaleY
                 }
+                .componentShadow(indicatorShadow, shape)
                 .clip(shape)
                 .background(resolvedIndicatorColor)
                 .size(width = indicatorWidth, height = indicatorHeight)
         )
     }
+}
+
+private fun sliderProgressFromPosition(
+    x: Float,
+    trackWidth: Float,
+    indicatorWidth: Float,
+    horizontalGap: Float,
+    isLtr: Boolean,
+): Float {
+    val start = horizontalGap + indicatorWidth * 0.5f
+    val end = trackWidth - horizontalGap - indicatorWidth * 0.5f
+    val travel = end - start
+    val progress = if (travel > 0f) ((x - start) / travel).fastCoerceIn(0f, 1f) else 0f
+    return if (isLtr) progress else 1f - progress
+}
+
+private fun sliderIndicatorStart(
+    trackWidth: Float,
+    indicatorWidth: Float,
+    horizontalGap: Float,
+    progress: Float,
+    isLtr: Boolean,
+): Float {
+    val availableWidth = max(0f, trackWidth - indicatorWidth - horizontalGap * 2f)
+    val directedProgress = if (isLtr) progress else 1f - progress
+    return horizontalGap + availableWidth * directedProgress.fastCoerceIn(0f, 1f)
+}
+
+private fun sliderProgressEdge(
+    trackWidth: Float,
+    indicatorWidth: Float,
+    horizontalGap: Float,
+    progress: Float,
+    isLtr: Boolean,
+): Float {
+    return sliderIndicatorStart(
+        trackWidth = trackWidth,
+        indicatorWidth = indicatorWidth,
+        horizontalGap = horizontalGap,
+        progress = progress,
+        isLtr = isLtr,
+    ) + indicatorWidth * 0.5f
+}
+
+private fun sliderIndicatorShadow(containerColor: Color): Shadow {
+    val isLightContainer = containerColor.luminance() > 0.5f
+    return Shadow(
+        radius = if (isLightContainer) 12.dp else 8.dp,
+        offset = DpOffset(0.dp, if (isLightContainer) 3.dp else 2.dp),
+        color = Color.Black.copy(alpha = if (isLightContainer) 0.28f else 0.18f),
+    )
 }
