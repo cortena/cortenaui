@@ -4,7 +4,7 @@
 
 ## Cortena Components
 
-Cortena Components is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem. It consists of a framework-agnostic `:foundation` module storing raw tokens and a `:compose` module providing ready-to-use Compose wrappers.
+Cortena Components is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
 
 ## Documentation
 
@@ -28,3 +28,9 @@ it under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 ```
+
+This project includes third-party code, libraries, or modified components from external sources.
+
+All applicable third-party licenses, copyright notices, and attributions are documented in the [`THIRD_PARTY_LICENSES`](THIRD_PARTY_LICENSES) file.
+
+Please review that file for complete licensing details regarding externally sourced code used in this project.
