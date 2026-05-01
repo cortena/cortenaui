@@ -160,11 +160,6 @@ fun Slider(
 
         Box(
             Modifier
-                .graphicsLayer {
-                    if (!enabled) {
-                        alpha = 0.38f
-                    }
-                }
                 .clip(shape)
                 .background(resolvedTrackColor)
                 .drawBehind {
@@ -176,7 +171,14 @@ fun Slider(
                         isLtr = isLtr,
                     ).fastCoerceIn(0f, size.width)
                     drawRect(
-                        resolvedProgressColor,
+                        resolvedProgressColor.copy(
+                            alpha =
+                                if (!enabled) {
+                                    0.38f
+                                } else {
+                                    1f
+                                }
+                        ),
                         topLeft =
                             if (isLtr) {
                                 Offset.Zero
