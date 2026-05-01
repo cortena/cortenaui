@@ -1,6 +1,6 @@
 # Slider
 
-`Slider` is Cortena's value adjustment component. It keeps the capsule-card form used in the catalog slider, then adds the same press highlight and drag response used by `Button`.
+`Slider` is Cortena's value adjustment component.
 
 ## Concept
 
@@ -17,7 +17,7 @@ The component is controlled. You own the state and pass the current value back t
 ```kotlin
 @Composable
 fun Slider(
-    value: Float,
+    value: () -> Float,
     onValueChange: (Float) -> Unit,
     valueRange: ClosedFloatingPointRange<Float>,
     modifier: Modifier = Modifier,
@@ -30,24 +30,24 @@ fun Slider(
 
 ### Parameters
 
-| Name             | Data Type                         | Description                                           |
-| ---------------- | --------------------------------- | ----------------------------------------------------- |
-| `value`          | `Float`                           | Current slider value.                                 |
-| `onValueChange`  | `(Float) -> Unit`                 | Called with a coerced value while dragging.           |
-| `valueRange`     | `ClosedFloatingPointRange<Float>` | Minimum and maximum allowed values.                   |
-| `modifier`       | `Modifier`                        | Standard Compose modifier.                            |
-| `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.       |
-| `indicatorColor` | `Color`                           | Indicator pill color. Default: white.                 |
-| `containerColor` | `Color`                           | Capsule background color. Default: surface variant.   |
-| `progressColor`  | `Color`                           | Filled progress color. Default: primary.              |
+| Name             | Data Type                         | Description                                         |
+| ---------------- | --------------------------------- | --------------------------------------------------- |
+| `value`          | `() -> Float`                     | Current slider value.                               |
+| `onValueChange`  | `(Float) -> Unit`                 | Called with a coerced value while dragging.         |
+| `valueRange`     | `ClosedFloatingPointRange<Float>` | Minimum and maximum allowed values.                 |
+| `modifier`       | `Modifier`                        | Standard Compose modifier.                          |
+| `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.     |
+| `indicatorColor` | `Color`                           | Indicator pill color. Default: white.               |
+| `containerColor` | `Color`                           | Capsule background color. Default: surface variant. |
+| `progressColor`  | `Color`                           | Filled progress color. Default: primary.            |
 
 ### Example
 
 ```kotlin
-var ratio by remember { mutableFloatStateOf(0.5f) }
+var ratio by rememberSaveable { mutableFloatStateOf(0.5f) }
 
 Slider(
-    value = ratio,
+    value = { ratio },
     onValueChange = { ratio = it },
     valueRange = 0f..1f,
 )
@@ -56,24 +56,14 @@ Slider(
 ### Custom Colors
 
 ```kotlin
+var ratio by rememberSaveable { mutableFloatStateOf(0.5f) }
+
 Slider(
-    value = ratio,
+    value = { ratio },
     onValueChange = { ratio = it },
     valueRange = 0f..1f,
     indicatorColor = Color.White,
     containerColor = Color(LocalColors.current.surface),
     progressColor = Color(LocalColors.current.primary).copy(alpha = 0.24f),
-)
-```
-
-### Catalog Usage
-
-The catalog uses `Slider` in `ShapeCatalog` to adjust aspect ratio and corner radius:
-
-```kotlin
-Slider(
-    value = cornerRadiusRatio.floatValue,
-    onValueChange = { cornerRadiusRatio.floatValue = it },
-    valueRange = 0f..1f,
 )
 ```
