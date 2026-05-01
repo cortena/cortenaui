@@ -56,6 +56,7 @@ private suspend inline fun AwaitPointerEventScope.drag(
             return change
         }
         onDrag(change)
+        change.consume()
         pointer = change.id
     }
 }

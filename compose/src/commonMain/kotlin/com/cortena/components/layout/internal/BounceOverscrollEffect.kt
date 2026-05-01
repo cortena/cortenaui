@@ -94,9 +94,9 @@ internal class BounceOverscrollEffect(
         }
 
         return if (orientation == ScrollOrientation.Vertical) {
-            Offset(delta.x, consumed + scrollConsumed.y)
+            Offset(scrollConsumed.x, consumed + scrollConsumed.y)
         } else {
-            Offset(consumed + scrollConsumed.x, delta.y)
+            Offset(consumed + scrollConsumed.x, scrollConsumed.y)
         }
     }
 
