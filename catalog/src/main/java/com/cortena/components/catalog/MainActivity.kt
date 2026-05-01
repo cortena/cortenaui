@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -153,21 +156,20 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Button(
                                 onClick = {},
-                                background = Color(ColorTokens.RedLight500),
+                                background = Color(ColorTokens.BlueLight500),
                             ) {
-                                Text("Red")
+                                Icon(
+                                    imageVector = Icons.Default.Favorite,
+                                    contentDescription = "Favorite icon",
+                                    tint = Color(ColorTokens.BlueLight50)
+                                )
+                                Text("Favorite", color = Color(ColorTokens.BlueLight50))
                             }
                             Button(
                                 onClick = {},
                                 background = Color(ColorTokens.OrangeLight500),
                             ) {
                                 Text("Orange")
-                            }
-                            Button(
-                                onClick = {},
-                                background = Color(ColorTokens.BlueLight500),
-                            ) {
-                                Text("Blue")
                             }
                             Button(
                                 onClick = {},
