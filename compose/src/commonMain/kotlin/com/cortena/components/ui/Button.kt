@@ -90,6 +90,7 @@ fun Button(
                 interactionSource = null,
                 indication = null,
                 enabled = enabled,
+                hapticFeedbackEnabled = false,
                 role = Role.Button,
                 onClick = { onClick?.invoke() },
                 onLongClick = { onLongClick?.invoke() },
