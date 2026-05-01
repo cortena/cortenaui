@@ -4,8 +4,11 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.MutatorMutex
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
+import androidx.compose.ui.unit.IntSize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.flow.filter
@@ -19,7 +22,10 @@ class DampedAnimation(
     val valueRange: ClosedRange<Float>,
     val visibilityThreshold: Float,
     val initialScale: Float,
-    val pressedScale: Float
+    val pressedScale: Float,
+    val onDragStarted: DampedAnimation.(position: Offset) -> Unit,
+    val onDragStopped: DampedAnimation.() -> Unit,
+    val onDrag: DampedAnimation.(size: IntSize, dragAmount: Offset) -> Unit,
 ) {
 
     private val valueAnimationSpec =
@@ -48,8 +54,6 @@ class DampedAnimation(
 
     private val velocityTracker = VelocityTracker()
 
-    private var updateValueJob: kotlinx.coroutines.Job? = null
-
     val value: Float get() = valueAnimation.value
     val progress: Float get() = (value - valueRange.start) / (valueRange.endInclusive - valueRange.start)
     val targetValue: Float get() = valueAnimation.targetValue
@@ -57,6 +61,25 @@ class DampedAnimation(
     val scaleX: Float get() = scaleXAnimation.value
     val scaleY: Float get() = scaleYAnimation.value
     val velocity: Float get() = velocityAnimation.value
+
+    val modifier: Modifier = Modifier.pointerInput(Unit) {
+        inspectDragGestures(
+            onDragStart = { down ->
+                onDragStarted(down.position)
+                press()
+            },
+            onDragEnd = {
+                onDragStopped()
+                release()
+            },
+            onDragCancel = {
+                onDragStopped()
+                release()
+            }
+        ) { change, dragAmount ->
+            onDrag(size, dragAmount)
+        }
+    }
 
     fun press() {
         velocityTracker.resetTracking()
@@ -84,10 +107,13 @@ class DampedAnimation(
 
     fun updateValue(value: Float) {
         val targetValue = value.coerceIn(valueRange)
-        updateValueJob?.cancel()
-        updateValueJob = animationScope.launch {
-            valueAnimation.snapTo(targetValue)
-            updateVelocity()
+        animationScope.launch {
+            launch {
+                valueAnimation.animateTo(
+                    targetValue,
+                    valueAnimationSpec
+                ) { updateVelocity() }
+            }
         }
     }
 
@@ -106,9 +132,12 @@ class DampedAnimation(
     }
 
     private fun updateVelocity() {
-        velocityTracker.addPosition(System.currentTimeMillis(), Offset(value, 0f))
-        val targetVelocity = velocityTracker.calculateVelocity().x /
-                (valueRange.endInclusive - valueRange.start)
+        velocityTracker.addPosition(
+            System.currentTimeMillis(),
+            Offset(value, 0f)
+        )
+        val targetVelocity =
+            velocityTracker.calculateVelocity().x / (valueRange.endInclusive - valueRange.start)
         animationScope.launch { velocityAnimation.animateTo(targetVelocity, velocityAnimationSpec) }
     }
 }
