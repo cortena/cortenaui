@@ -27,6 +27,7 @@ import com.cortena.components.layout.AppBar
 import com.cortena.components.layout.Body
 import com.cortena.components.layout.ContentView
 import com.cortena.components.layout.SafeArea
+import com.cortena.components.layout.ScrollView
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.StatusBarIconMode
 import com.cortena.components.theme.ThemeMode
@@ -57,358 +58,360 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .background(Color(colors.surface))
             ) {
-                SafeArea {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Button(
-                            modifier = Modifier.padding(top = 16.dp),
-                            onLongClick = {
-                                themeMode.value = when (themeMode.value) {
-                                    ThemeMode.Light -> ThemeMode.Dark
-                                    ThemeMode.Dark -> ThemeMode.Light
-                                    ThemeMode.Auto -> ThemeMode.Light
+                ScrollView(modifier = Modifier.fillMaxSize()) {
+                    SafeArea {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            Button(
+                                modifier = Modifier.padding(top = 16.dp),
+                                onLongClick = {
+                                    themeMode.value = when (themeMode.value) {
+                                        ThemeMode.Light -> ThemeMode.Dark
+                                        ThemeMode.Dark -> ThemeMode.Light
+                                        ThemeMode.Auto -> ThemeMode.Light
+                                    }
+                                    statusBarIconMode.value = when (statusBarIconMode.value) {
+                                        StatusBarIconMode.Light -> StatusBarIconMode.Dark
+                                        StatusBarIconMode.Dark -> StatusBarIconMode.Light
+                                        StatusBarIconMode.Auto -> StatusBarIconMode.Dark
+                                    }
                                 }
-                                statusBarIconMode.value = when (statusBarIconMode.value) {
-                                    StatusBarIconMode.Light -> StatusBarIconMode.Dark
-                                    StatusBarIconMode.Dark -> StatusBarIconMode.Light
-                                    StatusBarIconMode.Auto -> StatusBarIconMode.Dark
+                            ) {
+                                Text(
+                                    when (themeMode.value) {
+                                        ThemeMode.Light -> "Switch to Dark"
+                                        ThemeMode.Dark -> "Switch to Light"
+                                        ThemeMode.Auto -> "Switch to Light"
+                                    }
+                                )
+                            }
+                            Text("Button")
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Primary
+                                ) {
+                                    Text("Primary")
+                                }
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Secondary
+                                ) {
+                                    Text("Secondary")
+                                }
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Ghost
+                                ) {
+                                    Text("Ghost")
+                                }
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Destructive
+                                ) {
+                                    Text("Destructive")
                                 }
                             }
-                        ) {
-                            Text(
-                                when (themeMode.value) {
-                                    ThemeMode.Light -> "Switch to Dark"
-                                    ThemeMode.Dark -> "Switch to Light"
-                                    ThemeMode.Auto -> "Switch to Light"
+                            Text("Button Disabled")
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Primary,
+                                    enabled = false
+                                ) {
+                                    Text("Primary")
                                 }
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Secondary,
+                                    enabled = false
+                                ) {
+                                    Text("Secondary")
+                                }
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Ghost,
+                                    enabled = false
+                                ) {
+                                    Text("Ghost")
+                                }
+                                Button(
+                                    onClick = {},
+                                    style = ButtonStyle.Destructive,
+                                    enabled = false
+                                ) {
+                                    Text("Destructive")
+                                }
+                            }
+                            Text("Button Custom")
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(
+                                    onClick = {},
+                                    background = ColorToken.Blue500.value(),
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Favorite,
+                                        contentDescription = "Favorite icon",
+                                        tint = ColorToken.Blue50.value()
+                                    )
+                                    Text("Favorite", color = ColorToken.Blue50.value())
+                                }
+                                Button(
+                                    onClick = {},
+                                    background = ColorToken.Orange500.value(),
+                                ) {
+                                    Text("Orange")
+                                }
+                                Button(
+                                    onClick = {},
+                                    background = Color(colors.surfaceVariant),
+                                    foreground = ColorToken.Red300.value()
+                                ) {
+                                    Text("Delete")
+                                }
+                            }
+                            var sliderValue by rememberSaveable { mutableFloatStateOf(0f) }
+                            Text("Slider (value: ${sliderValue.toInt()})")
+                            Slider(
+                                value = { sliderValue },
+                                onValueChange = { sliderValue = it },
+                                valueRange = -4f..4f,
                             )
-                        }
-                        Text("Button")
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Primary
+                            var sliderValue2 by rememberSaveable { mutableFloatStateOf(0f) }
+                            Text("Slider Disabled")
+                            Slider(
+                                value = { sliderValue2 },
+                                onValueChange = { sliderValue2 = it },
+                                valueRange = -4f..4f,
+                                enabled = false,
+                            )
+                            Text("Colors")
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Primary")
+                                for (i in arrayOf(
+                                    ColorToken.Red50.value(),
+                                    ColorToken.Red100.value(),
+                                    ColorToken.Red200.value(),
+                                    ColorToken.Red300.value(),
+                                    ColorToken.Red400.value(),
+                                    ColorToken.Red500.value(),
+                                    ColorToken.Red600.value(),
+                                    ColorToken.Red700.value(),
+                                    ColorToken.Red800.value(),
+                                    ColorToken.Red900.value(),
+                                    ColorToken.Red950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Secondary
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Secondary")
+                                for (i in arrayOf(
+                                    ColorToken.Orange50.value(),
+                                    ColorToken.Orange100.value(),
+                                    ColorToken.Orange200.value(),
+                                    ColorToken.Orange300.value(),
+                                    ColorToken.Orange400.value(),
+                                    ColorToken.Orange500.value(),
+                                    ColorToken.Orange600.value(),
+                                    ColorToken.Orange700.value(),
+                                    ColorToken.Orange800.value(),
+                                    ColorToken.Orange900.value(),
+                                    ColorToken.Orange950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Ghost
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Ghost")
+                                for (i in arrayOf(
+                                    ColorToken.Yellow50.value(),
+                                    ColorToken.Yellow100.value(),
+                                    ColorToken.Yellow200.value(),
+                                    ColorToken.Yellow300.value(),
+                                    ColorToken.Yellow400.value(),
+                                    ColorToken.Yellow500.value(),
+                                    ColorToken.Yellow600.value(),
+                                    ColorToken.Yellow700.value(),
+                                    ColorToken.Yellow800.value(),
+                                    ColorToken.Yellow900.value(),
+                                    ColorToken.Yellow950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Destructive
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Destructive")
+                                for (i in arrayOf(
+                                    ColorToken.Green50.value(),
+                                    ColorToken.Green100.value(),
+                                    ColorToken.Green200.value(),
+                                    ColorToken.Green300.value(),
+                                    ColorToken.Green400.value(),
+                                    ColorToken.Green500.value(),
+                                    ColorToken.Green600.value(),
+                                    ColorToken.Green700.value(),
+                                    ColorToken.Green800.value(),
+                                    ColorToken.Green900.value(),
+                                    ColorToken.Green950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                        }
-                        Text("Button Disabled")
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Primary,
-                                enabled = false
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Primary")
+                                for (i in arrayOf(
+                                    ColorToken.Mint50.value(),
+                                    ColorToken.Mint100.value(),
+                                    ColorToken.Mint200.value(),
+                                    ColorToken.Mint300.value(),
+                                    ColorToken.Mint400.value(),
+                                    ColorToken.Mint500.value(),
+                                    ColorToken.Mint600.value(),
+                                    ColorToken.Mint700.value(),
+                                    ColorToken.Mint800.value(),
+                                    ColorToken.Mint900.value(),
+                                    ColorToken.Mint950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Secondary,
-                                enabled = false
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Secondary")
+                                for (i in arrayOf(
+                                    ColorToken.Teal50.value(),
+                                    ColorToken.Teal100.value(),
+                                    ColorToken.Teal200.value(),
+                                    ColorToken.Teal300.value(),
+                                    ColorToken.Teal400.value(),
+                                    ColorToken.Teal500.value(),
+                                    ColorToken.Teal600.value(),
+                                    ColorToken.Teal700.value(),
+                                    ColorToken.Teal800.value(),
+                                    ColorToken.Teal900.value(),
+                                    ColorToken.Teal950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Ghost,
-                                enabled = false
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Ghost")
+                                for (i in arrayOf(
+                                    ColorToken.Cyan50.value(),
+                                    ColorToken.Cyan100.value(),
+                                    ColorToken.Cyan200.value(),
+                                    ColorToken.Cyan300.value(),
+                                    ColorToken.Cyan400.value(),
+                                    ColorToken.Cyan500.value(),
+                                    ColorToken.Cyan600.value(),
+                                    ColorToken.Cyan700.value(),
+                                    ColorToken.Cyan800.value(),
+                                    ColorToken.Cyan900.value(),
+                                    ColorToken.Cyan950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                            Button(
-                                onClick = {},
-                                style = ButtonStyle.Destructive,
-                                enabled = false
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("Destructive")
+                                for (i in arrayOf(
+                                    ColorToken.Blue50.value(),
+                                    ColorToken.Blue100.value(),
+                                    ColorToken.Blue200.value(),
+                                    ColorToken.Blue300.value(),
+                                    ColorToken.Blue400.value(),
+                                    ColorToken.Blue500.value(),
+                                    ColorToken.Blue600.value(),
+                                    ColorToken.Blue700.value(),
+                                    ColorToken.Blue800.value(),
+                                    ColorToken.Blue900.value(),
+                                    ColorToken.Blue950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
-                        }
-                        Text("Button Custom")
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Button(
-                                onClick = {},
-                                background = ColorToken.Blue500.value(),
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Icon(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = "Favorite icon",
-                                    tint = ColorToken.Blue50.value()
-                                )
-                                Text("Favorite", color = ColorToken.Blue50.value())
-                            }
-                            Button(
-                                onClick = {},
-                                background = ColorToken.Orange500.value(),
-                            ) {
-                                Text("Orange")
-                            }
-                            Button(
-                                onClick = {},
-                                background = Color(colors.surfaceVariant),
-                                foreground = ColorToken.Red300.value()
-                            ) {
-                                Text("Delete")
-                            }
-                        }
-                        var sliderValue by rememberSaveable { mutableFloatStateOf(0f) }
-                        Text("Slider (value: ${sliderValue.toInt()})")
-                        Slider(
-                            value = { sliderValue },
-                            onValueChange = { sliderValue = it },
-                            valueRange = -4f..4f,
-                        )
-                        var sliderValue2 by rememberSaveable { mutableFloatStateOf(0f) }
-                        Text("Slider Disabled")
-                        Slider(
-                            value = { sliderValue2 },
-                            onValueChange = { sliderValue2 = it },
-                            valueRange = -4f..4f,
-                            enabled = false,
-                        )
-                        Text("Colors")
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Red50.value(),
-                                ColorToken.Red100.value(),
-                                ColorToken.Red200.value(),
-                                ColorToken.Red300.value(),
-                                ColorToken.Red400.value(),
-                                ColorToken.Red500.value(),
-                                ColorToken.Red600.value(),
-                                ColorToken.Red700.value(),
-                                ColorToken.Red800.value(),
-                                ColorToken.Red900.value(),
-                                ColorToken.Red950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Orange50.value(),
-                                ColorToken.Orange100.value(),
-                                ColorToken.Orange200.value(),
-                                ColorToken.Orange300.value(),
-                                ColorToken.Orange400.value(),
-                                ColorToken.Orange500.value(),
-                                ColorToken.Orange600.value(),
-                                ColorToken.Orange700.value(),
-                                ColorToken.Orange800.value(),
-                                ColorToken.Orange900.value(),
-                                ColorToken.Orange950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Yellow50.value(),
-                                ColorToken.Yellow100.value(),
-                                ColorToken.Yellow200.value(),
-                                ColorToken.Yellow300.value(),
-                                ColorToken.Yellow400.value(),
-                                ColorToken.Yellow500.value(),
-                                ColorToken.Yellow600.value(),
-                                ColorToken.Yellow700.value(),
-                                ColorToken.Yellow800.value(),
-                                ColorToken.Yellow900.value(),
-                                ColorToken.Yellow950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Green50.value(),
-                                ColorToken.Green100.value(),
-                                ColorToken.Green200.value(),
-                                ColorToken.Green300.value(),
-                                ColorToken.Green400.value(),
-                                ColorToken.Green500.value(),
-                                ColorToken.Green600.value(),
-                                ColorToken.Green700.value(),
-                                ColorToken.Green800.value(),
-                                ColorToken.Green900.value(),
-                                ColorToken.Green950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Mint50.value(),
-                                ColorToken.Mint100.value(),
-                                ColorToken.Mint200.value(),
-                                ColorToken.Mint300.value(),
-                                ColorToken.Mint400.value(),
-                                ColorToken.Mint500.value(),
-                                ColorToken.Mint600.value(),
-                                ColorToken.Mint700.value(),
-                                ColorToken.Mint800.value(),
-                                ColorToken.Mint900.value(),
-                                ColorToken.Mint950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Teal50.value(),
-                                ColorToken.Teal100.value(),
-                                ColorToken.Teal200.value(),
-                                ColorToken.Teal300.value(),
-                                ColorToken.Teal400.value(),
-                                ColorToken.Teal500.value(),
-                                ColorToken.Teal600.value(),
-                                ColorToken.Teal700.value(),
-                                ColorToken.Teal800.value(),
-                                ColorToken.Teal900.value(),
-                                ColorToken.Teal950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Cyan50.value(),
-                                ColorToken.Cyan100.value(),
-                                ColorToken.Cyan200.value(),
-                                ColorToken.Cyan300.value(),
-                                ColorToken.Cyan400.value(),
-                                ColorToken.Cyan500.value(),
-                                ColorToken.Cyan600.value(),
-                                ColorToken.Cyan700.value(),
-                                ColorToken.Cyan800.value(),
-                                ColorToken.Cyan900.value(),
-                                ColorToken.Cyan950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Blue50.value(),
-                                ColorToken.Blue100.value(),
-                                ColorToken.Blue200.value(),
-                                ColorToken.Blue300.value(),
-                                ColorToken.Blue400.value(),
-                                ColorToken.Blue500.value(),
-                                ColorToken.Blue600.value(),
-                                ColorToken.Blue700.value(),
-                                ColorToken.Blue800.value(),
-                                ColorToken.Blue900.value(),
-                                ColorToken.Blue950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
-                            }
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            for (i in arrayOf(
-                                ColorToken.Gray50.value(),
-                                ColorToken.Gray100.value(),
-                                ColorToken.Gray200.value(),
-                                ColorToken.Gray300.value(),
-                                ColorToken.Gray400.value(),
-                                ColorToken.Gray500.value(),
-                                ColorToken.Gray600.value(),
-                                ColorToken.Gray700.value(),
-                                ColorToken.Gray800.value(),
-                                ColorToken.Gray900.value(),
-                                ColorToken.Gray950.value()
-                            )) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(i)
-                                )
+                                for (i in arrayOf(
+                                    ColorToken.Gray50.value(),
+                                    ColorToken.Gray100.value(),
+                                    ColorToken.Gray200.value(),
+                                    ColorToken.Gray300.value(),
+                                    ColorToken.Gray400.value(),
+                                    ColorToken.Gray500.value(),
+                                    ColorToken.Gray600.value(),
+                                    ColorToken.Gray700.value(),
+                                    ColorToken.Gray800.value(),
+                                    ColorToken.Gray900.value(),
+                                    ColorToken.Gray950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
                             }
                         }
                     }
