@@ -8,7 +8,7 @@ plugins {
 kotlin {
     android {
         minSdk = 21
-        compileSdk = 36
+        compileSdk = 37
         namespace = "com.cortena.components.foundation"
         compilerOptions {
             jvmTarget = JvmTarget.JVM_11
