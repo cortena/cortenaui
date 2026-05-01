@@ -28,6 +28,8 @@ import com.cortena.components.util.applyInteractiveAnimation
 
 enum class ButtonStyle { Primary, Secondary, Ghost, Destructive }
 
+enum class ButtonEffect { Solid, Blur }
+
 @Suppress("ModifierParameter")
 @Composable
 fun Button(
@@ -37,6 +39,7 @@ fun Button(
     enabled: Boolean = true,
     interactive: Boolean = true,
     style: ButtonStyle = ButtonStyle.Primary,
+    effect: ButtonEffect = ButtonEffect.Solid, // TODO: Implement ButtonEffect
     background: Color = Color.Unspecified,
     foreground: Color = Color.Unspecified,
     content: @Composable RowScope.() -> Unit,

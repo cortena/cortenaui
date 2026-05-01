@@ -6,6 +6,7 @@
 
 Any component written to Cortena specifications, such as `Text` or `SafeArea`, reads its color, spacing, or shape properties via:
 
+- `LocalIsDark.current`
 - `LocalColors.current`
 - `LocalTypography.current`
 - `LocalSpacing.current`
@@ -19,7 +20,7 @@ The function of `ComponentsTheme` is to provide these actual values at the top o
 @Composable
 fun ComponentsTheme(
     themeMode: ThemeMode = ThemeMode.Auto,
-    colorScheme: ColorScheme? = null,
+    palette: Palette? = null,
     typography: Typography = DefaultTypography,
     content: @Composable () -> Unit
 )
@@ -27,9 +28,9 @@ fun ComponentsTheme(
 
 ### Parameters
 
-| Name          | Data Type                | Description                                                                                                                                  |
-| ------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `themeMode`   | `ThemeMode`              | Options are `ThemeMode.Light`, `ThemeMode.Dark`, or `ThemeMode.Auto` (detects current OS mode).                                              |
-| `colorScheme` | `ColorScheme?`           | Ignores automatic OS detection and forces the specific color scheme you want. If `null`, it will automatically record following `themeMode`. |
-| `typography`  | `Typography`             | Overrides the adjusted _font scale_. Default: `DefaultTypography`.                                                                           |
-| `content`     | `@Composable () -> Unit` | Lambda for your child Composable function placed under the umbrella of this theme.                                                           |
+| Name         | Data Type                | Description                                                                                                                              |
+| ------------ | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `themeMode`  | `ThemeMode`              | Options are `ThemeMode.Light`, `ThemeMode.Dark`, or `ThemeMode.Auto` (detects current OS mode).                                          |
+| `palette`    | `Palette?`               | Ignores automatic OS detection and forces the specific palette you want. If `null`, it will automatically resolve following `themeMode`. |
+| `typography` | `Typography`             | Overrides the adjusted _font scale_. Default: `DefaultTypography`.                                                                       |
+| `content`    | `@Composable () -> Unit` | Lambda for your child Composable function placed under the umbrella of this theme.                                                       |

@@ -24,8 +24,10 @@ can be consumed by Compose, the Android View system, and AOSP build system
 ```
 foundation/src/commonMain/kotlin/com/cortena/components/
 ├── color/
-│   ├── ColorTokens.kt      # raw ARGB Long values
-│   └── ColorScheme.kt      # semantic roles (background, primary, error…)
+│   ├── ColorTokens.kt      # raw ARGB Long values (internal)
+│   ├── AdaptiveColor.kt    # light + dark color pair
+│   ├── ColorToken.kt       # public adaptive color palette
+│   └── Palette.kt          # semantic roles (background, primary, error…)
 ├── typography/
 │   ├── TypeScale.kt        # raw sp Float values
 │   └── Typography.kt       # semantic roles (bodyMedium, titleLarge…)

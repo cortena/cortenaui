@@ -22,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.cortena.components.color.ColorTokens
+import com.cortena.components.color.ColorToken
 import com.cortena.components.layout.AppBar
 import com.cortena.components.layout.Body
 import com.cortena.components.layout.ContentView
@@ -30,6 +30,7 @@ import com.cortena.components.layout.SafeArea
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.StatusBarIconMode
 import com.cortena.components.theme.ThemeMode
+import com.cortena.components.theme.value
 import com.cortena.components.ui.Button
 import com.cortena.components.ui.ButtonStyle
 import com.cortena.components.ui.Slider
@@ -156,25 +157,25 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Button(
                                 onClick = {},
-                                background = Color(ColorTokens.BlueLight500),
+                                background = ColorToken.Blue500.value(),
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Favorite,
                                     contentDescription = "Favorite icon",
-                                    tint = Color(ColorTokens.BlueLight50)
+                                    tint = ColorToken.Blue50.value()
                                 )
-                                Text("Favorite", color = Color(ColorTokens.BlueLight50))
+                                Text("Favorite", color = ColorToken.Blue50.value())
                             }
                             Button(
                                 onClick = {},
-                                background = Color(ColorTokens.OrangeLight500),
+                                background = ColorToken.Orange500.value(),
                             ) {
                                 Text("Orange")
                             }
                             Button(
                                 onClick = {},
                                 background = Color(colors.surfaceVariant),
-                                foreground = Color(ColorTokens.RedLight300)
+                                foreground = ColorToken.Red300.value()
                             ) {
                                 Text("Delete")
                             }
@@ -189,49 +190,73 @@ class MainActivity : ComponentActivity() {
                         Text("Colors")
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             for (i in arrayOf(
-                                ColorTokens.GrayLight50,
-                                ColorTokens.GrayLight100,
-                                ColorTokens.GrayLight200,
-                                ColorTokens.GrayLight300,
-                                ColorTokens.GrayLight400,
-                                ColorTokens.GrayLight500,
-                                ColorTokens.GrayLight600,
-                                ColorTokens.GrayLight700,
-                                ColorTokens.GrayLight800,
-                                ColorTokens.GrayLight900,
-                                ColorTokens.GrayLight950
+                                ColorToken.Red50.value(),
+                                ColorToken.Red100.value(),
+                                ColorToken.Red200.value(),
+                                ColorToken.Red300.value(),
+                                ColorToken.Red400.value(),
+                                ColorToken.Red500.value(),
+                                ColorToken.Red600.value(),
+                                ColorToken.Red700.value(),
+                                ColorToken.Red800.value(),
+                                ColorToken.Red900.value(),
+                                ColorToken.Red950.value()
                             )) {
                                 Box(
                                     modifier = Modifier
-                                        .size(28.dp)
-                                        .background(Color(i))
+                                        .size(32.dp)
+                                        .background(i)
                                 )
                             }
                         }
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             for (i in arrayOf(
-                                ColorTokens.GrayDark50,
-                                ColorTokens.GrayDark100,
-                                ColorTokens.GrayDark200,
-                                ColorTokens.GrayDark300,
-                                ColorTokens.GrayDark400,
-                                ColorTokens.GrayDark500,
-                                ColorTokens.GrayDark600,
-                                ColorTokens.GrayDark700,
-                                ColorTokens.GrayDark800,
-                                ColorTokens.GrayDark900,
-                                ColorTokens.GrayDark950
+                                ColorToken.Blue50.value(),
+                                ColorToken.Blue100.value(),
+                                ColorToken.Blue200.value(),
+                                ColorToken.Blue300.value(),
+                                ColorToken.Blue400.value(),
+                                ColorToken.Blue500.value(),
+                                ColorToken.Blue600.value(),
+                                ColorToken.Blue700.value(),
+                                ColorToken.Blue800.value(),
+                                ColorToken.Blue900.value(),
+                                ColorToken.Blue950.value()
                             )) {
                                 Box(
                                     modifier = Modifier
-                                        .size(28.dp)
-                                        .background(Color(i))
+                                        .size(32.dp)
+                                        .background(i)
+                                )
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            for (i in arrayOf(
+                                ColorToken.Gray50.value(),
+                                ColorToken.Gray100.value(),
+                                ColorToken.Gray200.value(),
+                                ColorToken.Gray300.value(),
+                                ColorToken.Gray400.value(),
+                                ColorToken.Gray500.value(),
+                                ColorToken.Gray600.value(),
+                                ColorToken.Gray700.value(),
+                                ColorToken.Gray800.value(),
+                                ColorToken.Gray900.value(),
+                                ColorToken.Gray950.value()
+                            )) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .background(i)
                                 )
                             }
                         }

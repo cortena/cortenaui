@@ -3,9 +3,9 @@ package com.cortena.components.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.cortena.components.color.ColorScheme
-import com.cortena.components.color.DarkColorScheme
-import com.cortena.components.color.LightColorScheme
+import com.cortena.components.color.DarkPalette
+import com.cortena.components.color.LightPalette
+import com.cortena.components.color.Palette
 import com.cortena.components.shape.ShapeTokens
 import com.cortena.components.spacing.Spacing
 import com.cortena.components.typography.DefaultTypography
@@ -14,7 +14,7 @@ import com.cortena.components.typography.Typography
 @Composable
 fun ComponentsTheme(
     themeMode: ThemeMode = ThemeMode.Auto,
-    colorScheme: ColorScheme? = null,
+    palette: Palette? = null,
     typography: Typography = DefaultTypography,
     content: @Composable () -> Unit,
 ) {
@@ -25,10 +25,11 @@ fun ComponentsTheme(
             ThemeMode.Auto -> isSystemInDarkTheme()
         }
 
-    val resolvedColorScheme = colorScheme ?: if (isDark) DarkColorScheme else LightColorScheme
+    val resolvedPalette = palette ?: if (isDark) DarkPalette else LightPalette
 
     CompositionLocalProvider(
-        LocalColors provides resolvedColorScheme,
+        LocalIsDark provides isDark,
+        LocalColors provides resolvedPalette,
         LocalTypography provides typography,
         LocalSpacing provides Spacing,
         LocalShapes provides ShapeTokens,

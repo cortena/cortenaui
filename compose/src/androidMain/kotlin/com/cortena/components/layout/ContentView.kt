@@ -22,7 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.cortena.components.annotation.ExperimentalComponentsApi
-import com.cortena.components.color.ColorScheme
+import com.cortena.components.color.Palette
 import com.cortena.components.theme.ComponentsTheme
 import com.cortena.components.theme.StatusBarIconMode
 import com.cortena.components.theme.ThemeMode
@@ -37,7 +37,7 @@ fun ComponentActivity.ContentView(
     statusBarColor: () -> Color = { Color.Transparent },
 
     // Parameters that do not change at runtime → regular values
-    colorScheme: ColorScheme? = null,
+    palette: Palette? = null,
     typography: Typography = DefaultTypography,
     dynamicColor: Boolean = false,
 
@@ -73,7 +73,7 @@ fun ComponentActivity.ContentView(
 
         ComponentsTheme(
             themeMode = currentThemeMode,
-            colorScheme = colorScheme,
+            palette = palette,
             typography = typography,
         ) {
             Box(modifier = Modifier.fillMaxSize()) {

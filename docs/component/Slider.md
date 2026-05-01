@@ -23,23 +23,23 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     indicatorColor: Color = Color.Unspecified,
-    containerColor: Color = Color.Unspecified,
+    trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified
 )
 ```
 
 ### Parameters
 
-| Name             | Data Type                         | Description                                         |
-| ---------------- | --------------------------------- | --------------------------------------------------- |
-| `value`          | `() -> Float`                     | Current slider value.                               |
-| `onValueChange`  | `(Float) -> Unit`                 | Called with a coerced value while dragging.         |
-| `valueRange`     | `ClosedFloatingPointRange<Float>` | Minimum and maximum allowed values.                 |
-| `modifier`       | `Modifier`                        | Standard Compose modifier.                          |
-| `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.     |
-| `indicatorColor` | `Color`                           | Indicator pill color. Default: white.               |
-| `containerColor` | `Color`                           | Capsule background color. Default: surface variant. |
-| `progressColor`  | `Color`                           | Filled progress color. Default: primary.            |
+| Name             | Data Type                         | Description                                     |
+| ---------------- | --------------------------------- | ----------------------------------------------- |
+| `value`          | `() -> Float`                     | Current slider value.                           |
+| `onValueChange`  | `(Float) -> Unit`                 | Called with a coerced value while dragging.     |
+| `valueRange`     | `ClosedFloatingPointRange<Float>` | Minimum and maximum allowed values.             |
+| `modifier`       | `Modifier`                        | Standard Compose modifier.                      |
+| `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`. |
+| `indicatorColor` | `Color`                           | Indicator pill color. Default: white.           |
+| `trackColor`     | `Color`                           | Track color. Default: surface variant.          |
+| `progressColor`  | `Color`                           | Filled progress color. Default: primary.        |
 
 ### Example
 
@@ -63,7 +63,7 @@ Slider(
     onValueChange = { ratio = it },
     valueRange = 0f..1f,
     indicatorColor = Color.White,
-    containerColor = Color(LocalColors.current.surface),
+    trackColor = Color(LocalColors.current.surface),
     progressColor = Color(LocalColors.current.primary).copy(alpha = 0.24f),
 )
 ```

@@ -51,7 +51,7 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     indicatorColor: Color = Color.Unspecified,
-    containerColor: Color = Color.Unspecified,
+    trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified
 ) {
     val colors = LocalColors.current
@@ -60,14 +60,14 @@ fun Slider(
     val shape = CapsuleShape()
     val indicatorWidth = 48.dp
     val indicatorHeight = spacing.Lg.dp
-    val resolvedContainerColor =
-        if (containerColor.isSpecified) containerColor else Color(colors.surfaceVariant)
+    val resolvedTrackColor =
+        if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
     val resolvedIndicatorColor =
         if (indicatorColor.isSpecified) indicatorColor else Color.White
     val resolvedProgressColor =
         if (progressColor.isSpecified) progressColor else Color(colors.primary)
-    val indicatorShadow = sliderIndicatorShadow(resolvedContainerColor)
-    
+    val indicatorShadow = sliderIndicatorShadow(resolvedTrackColor)
+
     BoxWithConstraints(
         modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.CenterStart
@@ -166,7 +166,7 @@ fun Slider(
                     }
                 }
                 .clip(shape)
-                .background(resolvedContainerColor)
+                .background(resolvedTrackColor)
                 .drawBehind {
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
                     val progressEdge = sliderProgressEdge(
@@ -265,8 +265,8 @@ private fun sliderProgressEdge(
     ) + indicatorWidth * 0.5f
 }
 
-private fun sliderIndicatorShadow(containerColor: Color): Shadow {
-    val isLightContainer = containerColor.luminance() > 0.5f
+private fun sliderIndicatorShadow(trackColor: Color): Shadow {
+    val isLightContainer = trackColor.luminance() > 0.5f
     return Shadow(
         radius = if (isLightContainer) 12.dp else 8.dp,
         offset = DpOffset(0.dp, if (isLightContainer) 3.dp else 2.dp),

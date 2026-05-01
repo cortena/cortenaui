@@ -17,7 +17,7 @@ fun ComponentActivity.ContentView(
     themeMode: () -> ThemeMode = { ThemeMode.Auto },
     statusBarIconMode: () -> StatusBarIconMode = { StatusBarIconMode.Auto },
     statusBarColor: () -> Color = { Color.Transparent },
-    colorScheme: ColorScheme? = null,
+    palette: Palette? = null,
     typography: Typography = DefaultTypography,
     dynamicColor: Boolean = false,
     appBar: (@Composable () -> Unit)? = null,
@@ -32,7 +32,7 @@ fun ComponentActivity.ContentView(
 | `themeMode`         | `(() -> ThemeMode)? = null -> ThemeMode.Auto`                 | Sets the theme (`Light`, `Dark`, or follows the system via `Auto`). Default: `Auto`.                                                                    |
 | `statusBarIconMode` | `(() -> StatusBarIconMode)? = null -> StatusBarIconMode.Auto` | Determines the icon color (battery, clock, signal). There is an `Auto` mode that mathematically calculates the _luminance_ score from `statusBarColor`. |
 | `statusBarColor`    | `(() -> Color)? = null -> Color.Transparent`                  | The color of the status bar. It is recommended to match this with the _AppBar_ color.                                                                   |
-| `colorScheme`       | `(() -> ColorScheme)? = null`                                 | Allows developers to override colors. If `null`, it will automatically follow `themeMode`.                                                              |
+| `palette`           | `Palette?`                                                    | Allows developers to override colors. If `null`, it will automatically follow `themeMode`.                                                              |
 | `typography`        | `(() -> Typography)? = null -> DefaultTypography`             | Override the design's typography scale. Default: `DefaultTypography`.                                                                                   |
 | `dynamicColor`      | `Boolean`                                                     | _[Experimental]_ Provides the dynamic color feature (Material You). Not fully implemented yet, currently only gives a warning in Logcat.                |
 | `appBar`            | `(@Composable () -> Unit)? = null`                            | A dedicated layout slot for the AppBar. Fills the slot provided in the topmost `Column`.                                                                |
