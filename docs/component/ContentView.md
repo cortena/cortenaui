@@ -23,6 +23,18 @@ fun ComponentActivity.ContentView(
     appBar: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,
 )
+
+enum class StatusBarIconMode {
+    Light,
+    Dark,
+    Auto,
+}
+
+enum class ThemeMode {
+    Light,
+    Dark,
+    Auto,
+}
 ```
 
 ### Parameters
