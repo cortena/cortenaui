@@ -31,11 +31,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceIn
 import androidx.compose.ui.util.lerp
 import androidx.compose.ui.zIndex
+import com.cortena.components.color.ColorToken
 import com.cortena.components.graphics.shadow.Shadow
 import com.cortena.components.graphics.shadow.componentShadow
 import com.cortena.components.shape.CapsuleShape
 import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalSpacing
+import com.cortena.components.theme.value
 import com.cortena.components.util.DampedAnimation
 import com.cortena.components.util.InteractiveHighlight
 import com.cortena.components.util.applyInteractiveAnimation
@@ -52,7 +54,7 @@ fun Slider(
     enabled: Boolean = true,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
-    progressColor: Color = Color.Unspecified
+    progressColor: Color = Color.Unspecified,
 ) {
     val colors = LocalColors.current
     val spacing = LocalSpacing.current
@@ -62,48 +64,49 @@ fun Slider(
     val indicatorHeight = spacing.Lg.dp
     val resolvedTrackColor =
         if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
-    val resolvedIndicatorColor =
-        if (indicatorColor.isSpecified) indicatorColor else Color.White
+    val resolvedIndicatorColor = if (indicatorColor.isSpecified) indicatorColor else Color.White
     val resolvedProgressColor =
         if (progressColor.isSpecified) progressColor else Color(colors.primary)
-    val indicatorShadow = sliderIndicatorShadow(resolvedTrackColor)
+    val indicatorShadow = sliderIndicatorShadow(resolvedTrackColor, enabled)
 
     BoxWithConstraints(
         modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         val trackWidth = constraints.maxWidth
         val layoutDirection = LocalLayoutDirection.current
         val isLtr = layoutDirection == LayoutDirection.Ltr
         val animationScope = rememberCoroutineScope()
         var didDrag by remember { mutableStateOf(false) }
-        val dampedAnimation = remember(animationScope) {
-            DampedAnimation(
-                animationScope = animationScope,
-                initialValue = value(),
-                valueRange = valueRange,
-                visibilityThreshold = 0.01f,
-                initialScale = 1f,
-                pressedScale = 1.3f,
-                onDragStarted = {},
-                onDragStopped = {
-                    if (didDrag) {
-                        onValueChange(targetValue)
-                    }
-                },
-                onDrag = { _, dragAmount ->
-                    if (!didDrag) {
-                        didDrag = dragAmount.x != 0f
-                    }
-                    val delta =
-                        (valueRange.endInclusive - valueRange.start) * (dragAmount.x / trackWidth)
-                    onValueChange(
-                        if (isLtr) (targetValue + delta).coerceIn(valueRange)
-                        else (targetValue - delta).coerceIn(valueRange)
-                    )
-                }
-            )
-        }
+        val dampedAnimation =
+            remember(animationScope) {
+                DampedAnimation(
+                    animationScope = animationScope,
+                    initialValue = value(),
+                    valueRange = valueRange,
+                    visibilityThreshold = 0.01f,
+                    initialScale = 1f,
+                    pressedScale = 1.3f,
+                    onDragStarted = {},
+                    onDragStopped = {
+                        if (didDrag) {
+                            onValueChange(targetValue)
+                        }
+                    },
+                    onDrag = { _, dragAmount ->
+                        if (!didDrag) {
+                            didDrag = dragAmount.x != 0f
+                        }
+                        val delta =
+                            (valueRange.endInclusive - valueRange.start) *
+                                    (dragAmount.x / trackWidth)
+                        onValueChange(
+                            if (isLtr) (targetValue + delta).coerceIn(valueRange)
+                            else (targetValue - delta).coerceIn(valueRange)
+                        )
+                    },
+                )
+            }
 
         LaunchedEffect(dampedAnimation) {
             snapshotFlow { value() }
@@ -114,14 +117,15 @@ fun Slider(
                 }
         }
 
-        val interactiveHighlight = remember(animationScope, resolvedIndicatorColor) {
-            InteractiveHighlight(
-                animationScope = animationScope,
-                color = resolvedIndicatorColor,
-            ) { size, _ ->
-                Offset(size.width * 0.5f, size.height * 0.5f)
+        val interactiveHighlight =
+            remember(animationScope, resolvedIndicatorColor) {
+                InteractiveHighlight(
+                    animationScope = animationScope,
+                    color = resolvedIndicatorColor,
+                ) { size, _ ->
+                    Offset(size.width * 0.5f, size.height * 0.5f)
+                }
             }
-        }
         val gestureModifier =
             if (enabled) {
                 Modifier.pointerInput(valueRange, layoutDirection, trackWidth) {
@@ -129,12 +133,13 @@ fun Slider(
                         if (size.width == 0) {
                             return value()
                         }
-                        val positionProgress = sliderProgressFromPosition(
-                            x = x,
-                            trackWidth = size.width.toFloat(),
-                            indicatorWidth = indicatorWidth.toPx(),
-                            isLtr = isLtr,
-                        )
+                        val positionProgress =
+                            sliderProgressFromPosition(
+                                x = x,
+                                trackWidth = size.width.toFloat(),
+                                indicatorWidth = indicatorWidth.toPx(),
+                                isLtr = isLtr,
+                            )
                         return lerp(valueRange.start, valueRange.endInclusive, positionProgress)
                     }
                     inspectDragGestures(
@@ -143,12 +148,8 @@ fun Slider(
                             dampedAnimation.press()
                             onValueChange(targetValue)
                         },
-                        onDragEnd = {
-                            dampedAnimation.release()
-                        },
-                        onDragCancel = {
-                            dampedAnimation.release()
-                        }
+                        onDragEnd = { dampedAnimation.release() },
+                        onDragCancel = { dampedAnimation.release() },
                     ) { change, _ ->
                         val targetValue = valueFromPosition(change.position.x)
                         onValueChange(targetValue)
@@ -159,17 +160,18 @@ fun Slider(
             }
 
         Box(
-            Modifier
-                .clip(shape)
+            Modifier.clip(shape)
                 .background(resolvedTrackColor)
                 .drawBehind {
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
-                    val progressEdge = sliderProgressEdge(
-                        trackWidth = size.width,
-                        indicatorWidth = indicatorWidth.toPx(),
-                        progress = progress,
-                        isLtr = isLtr,
-                    ).fastCoerceIn(0f, size.width)
+                    val progressEdge =
+                        sliderProgressEdge(
+                            trackWidth = size.width,
+                            indicatorWidth = indicatorWidth.toPx(),
+                            progress = progress,
+                            isLtr = isLtr,
+                        )
+                            .fastCoerceIn(0f, size.width)
                     drawRect(
                         resolvedProgressColor.copy(
                             alpha =
@@ -185,14 +187,15 @@ fun Slider(
                             } else {
                                 Offset(progressEdge, 0f)
                             },
-                        size = size.copy(
-                            width =
-                                if (isLtr) {
-                                    progressEdge
-                                } else {
-                                    size.width - progressEdge
-                                }
-                        )
+                        size =
+                            size.copy(
+                                width =
+                                    if (isLtr) {
+                                        progressEdge
+                                    } else {
+                                        size.width - progressEdge
+                                    }
+                            ),
                     )
                 }
                 .then(gestureModifier)
@@ -203,16 +206,16 @@ fun Slider(
 
         // Indicator
         Box(
-            Modifier
-                .zIndex(1f)
+            Modifier.zIndex(1f)
                 .graphicsLayer {
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
-                    val sliderTranslation = sliderIndicatorStart(
-                        trackWidth = trackWidth.toFloat(),
-                        indicatorWidth = size.width,
-                        progress = progress,
-                        isLtr = isLtr,
-                    )
+                    val sliderTranslation =
+                        sliderIndicatorStart(
+                            trackWidth = trackWidth.toFloat(),
+                            indicatorWidth = size.width,
+                            progress = progress,
+                            isLtr = isLtr,
+                        )
                     applyInteractiveAnimation(
                         pressProgress = interactiveHighlight.pressProgress,
                         offset = interactiveHighlight.offset,
@@ -223,7 +226,20 @@ fun Slider(
                 }
                 .componentShadow(indicatorShadow, shape)
                 .clip(shape)
-                .background(resolvedIndicatorColor)
+                .background(
+                    if (!enabled) {
+                        val isLight = resolvedTrackColor.luminance() > 0.5f
+                        val dimFactor = if (isLight) 0.96f else 0.5f
+                        Color(
+                            red = resolvedIndicatorColor.red * dimFactor,
+                            green = resolvedIndicatorColor.green * dimFactor,
+                            blue = resolvedIndicatorColor.blue * dimFactor,
+                            alpha = resolvedIndicatorColor.alpha,
+                        )
+                    } else {
+                        resolvedIndicatorColor
+                    }
+                )
                 .size(width = indicatorWidth, height = indicatorHeight)
         )
     }
@@ -267,11 +283,17 @@ private fun sliderProgressEdge(
     ) + indicatorWidth * 0.5f
 }
 
-private fun sliderIndicatorShadow(trackColor: Color): Shadow {
-    val isLightContainer = trackColor.luminance() > 0.5f
+@Composable
+private fun sliderIndicatorShadow(trackColor: Color, enabled: Boolean): Shadow {
+    val isLight = trackColor.luminance() > 0.5f
+    val alphaLight = if (enabled) {
+        0.28f
+    } else {
+        0.15f
+    }
     return Shadow(
-        radius = if (isLightContainer) 12.dp else 8.dp,
-        offset = DpOffset(0.dp, if (isLightContainer) 3.dp else 2.dp),
-        color = Color.Black.copy(alpha = if (isLightContainer) 0.28f else 0.18f),
+        radius = if (isLight) 12.dp else 8.dp,
+        offset = DpOffset(0.dp, if (isLight) 3.dp else 2.dp),
+        color = ColorToken.Gray900.value().copy(alpha = if (isLight) alphaLight else 0.18f),
     )
 }
