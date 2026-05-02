@@ -8,6 +8,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.cortena.components.theme.LocalSpacing
 
+import androidx.compose.foundation.layout.safeDrawingPadding
+
 @Composable
 fun SafeArea(
     modifier: Modifier = Modifier,
@@ -15,5 +17,11 @@ fun SafeArea(
     vertical: Dp = LocalSpacing.current.None.dp, // 0dp
     content: @Composable () -> Unit,
 ) {
-    Box(modifier = modifier.padding(horizontal = horizontal, vertical = vertical)) { content() }
+    Box(
+        modifier = modifier
+            .safeDrawingPadding()
+            .padding(horizontal = horizontal, vertical = vertical)
+    ) {
+        content()
+    }
 }

@@ -24,13 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cortena.components.color.ColorToken
-import com.cortena.components.layout.AppBar
 import com.cortena.components.layout.Body
 import com.cortena.components.layout.ContentView
 import com.cortena.components.layout.SafeArea
 import com.cortena.components.layout.ScrollView
 import com.cortena.components.theme.LocalColors
-import com.cortena.components.theme.StatusBarIconMode
 import com.cortena.components.theme.ThemeMode
 import com.cortena.components.theme.value
 import com.cortena.components.ui.Button
@@ -43,22 +41,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val themeMode = mutableStateOf(ThemeMode.Light)
-        val statusBarIconMode = mutableStateOf(StatusBarIconMode.Dark)
 
-        ContentView(
-            appBar = {
-                val colors = LocalColors.current
-                AppBar(modifier = Modifier.background(Color(colors.surface))) {}
-            },
-            themeMode = { themeMode.value },
-            statusBarIconMode = { statusBarIconMode.value },
-        ) {
+        ContentView(themeMode = { themeMode.value }) {
             val colors = LocalColors.current
-            Body(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(colors.surface))
-            ) {
+            Body {
                 ScrollView(modifier = Modifier.fillMaxSize()) {
                     SafeArea {
                         Column(
@@ -75,11 +61,6 @@ class MainActivity : ComponentActivity() {
                                         ThemeMode.Light -> ThemeMode.Dark
                                         ThemeMode.Dark -> ThemeMode.Light
                                         ThemeMode.Auto -> ThemeMode.Light
-                                    }
-                                    statusBarIconMode.value = when (statusBarIconMode.value) {
-                                        StatusBarIconMode.Light -> StatusBarIconMode.Dark
-                                        StatusBarIconMode.Dark -> StatusBarIconMode.Light
-                                        StatusBarIconMode.Auto -> StatusBarIconMode.Dark
                                     }
                                 }
                             ) {

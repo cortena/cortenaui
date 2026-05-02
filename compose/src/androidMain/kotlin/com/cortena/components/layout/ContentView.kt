@@ -21,15 +21,14 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.cortena.components.annotation.ExperimentalComponentsApi
 import com.cortena.components.color.Palette
 import com.cortena.components.theme.ComponentsTheme
+import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.StatusBarIconMode
 import com.cortena.components.theme.ThemeMode
 import com.cortena.components.typography.DefaultTypography
 import com.cortena.components.typography.Typography
 
-@OptIn(ExperimentalComponentsApi::class)
 fun ComponentActivity.ContentView(
     // Parameters that can change at runtime → lambda
     themeMode: () -> ThemeMode = { ThemeMode.Auto },
@@ -57,25 +56,32 @@ fun ComponentActivity.ContentView(
         val currentStatusBarColor = statusBarColor()
         val currentStatusBarIconMode = statusBarIconMode()
 
-        val useDarkIcons = when (currentStatusBarIconMode) {
-            StatusBarIconMode.Auto -> currentStatusBarColor.luminance() > 0.5f
-            StatusBarIconMode.Light -> false
-            StatusBarIconMode.Dark -> true
-        }
-
-        // Update the status bar icon mode reactively using SideEffect
-        val view = LocalView.current
-        SideEffect {
-            val window = (view.context as Activity).window
-            WindowCompat.getInsetsController(window, view)
-                .isAppearanceLightStatusBars = useDarkIcons
-        }
-
         ComponentsTheme(
             themeMode = currentThemeMode,
             palette = palette,
             typography = typography,
         ) {
+            val colors = LocalColors.current
+            val useDarkIcons = when (currentStatusBarIconMode) {
+                StatusBarIconMode.Auto -> {
+                    val referenceColor = if (currentStatusBarColor == Color.Transparent) {
+                        Color(colors.surface)
+                    } else {
+                        currentStatusBarColor
+                    }
+                    referenceColor.luminance() > 0.5f
+                }
+                StatusBarIconMode.Light -> false
+                StatusBarIconMode.Dark -> true
+            }
+
+            val view = LocalView.current
+            SideEffect {
+                val window = (view.context as Activity).window
+                WindowCompat.getInsetsController(window, view)
+                    .isAppearanceLightStatusBars = useDarkIcons
+            }
+
             Box(modifier = Modifier.fillMaxSize()) {
                 Column {
                     appBar?.invoke()
