@@ -394,6 +394,102 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
                                 for (i in arrayOf(
+                                    ColorToken.Indigo50.value(),
+                                    ColorToken.Indigo100.value(),
+                                    ColorToken.Indigo200.value(),
+                                    ColorToken.Indigo300.value(),
+                                    ColorToken.Indigo400.value(),
+                                    ColorToken.Indigo500.value(),
+                                    ColorToken.Indigo600.value(),
+                                    ColorToken.Indigo700.value(),
+                                    ColorToken.Indigo800.value(),
+                                    ColorToken.Indigo900.value(),
+                                    ColorToken.Indigo950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                for (i in arrayOf(
+                                    ColorToken.Purple50.value(),
+                                    ColorToken.Purple100.value(),
+                                    ColorToken.Purple200.value(),
+                                    ColorToken.Purple300.value(),
+                                    ColorToken.Purple400.value(),
+                                    ColorToken.Purple500.value(),
+                                    ColorToken.Purple600.value(),
+                                    ColorToken.Purple700.value(),
+                                    ColorToken.Purple800.value(),
+                                    ColorToken.Purple900.value(),
+                                    ColorToken.Purple950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                for (i in arrayOf(
+                                    ColorToken.Pink50.value(),
+                                    ColorToken.Pink100.value(),
+                                    ColorToken.Pink200.value(),
+                                    ColorToken.Pink300.value(),
+                                    ColorToken.Pink400.value(),
+                                    ColorToken.Pink500.value(),
+                                    ColorToken.Pink600.value(),
+                                    ColorToken.Pink700.value(),
+                                    ColorToken.Pink800.value(),
+                                    ColorToken.Pink900.value(),
+                                    ColorToken.Pink950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                for (i in arrayOf(
+                                    ColorToken.Brown50.value(),
+                                    ColorToken.Brown100.value(),
+                                    ColorToken.Brown200.value(),
+                                    ColorToken.Brown300.value(),
+                                    ColorToken.Brown400.value(),
+                                    ColorToken.Brown500.value(),
+                                    ColorToken.Brown600.value(),
+                                    ColorToken.Brown700.value(),
+                                    ColorToken.Brown800.value(),
+                                    ColorToken.Brown900.value(),
+                                    ColorToken.Brown950.value()
+                                )) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .background(i)
+                                    )
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                for (i in arrayOf(
                                     ColorToken.Gray50.value(),
                                     ColorToken.Gray100.value(),
                                     ColorToken.Gray200.value(),

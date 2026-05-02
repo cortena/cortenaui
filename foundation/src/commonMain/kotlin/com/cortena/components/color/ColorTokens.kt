@@ -218,117 +218,109 @@ internal object ColorTokens {
     const val BlueDark900: Long = 0xFF001D33
     const val BlueDark950: Long = 0xFF000E1A
 
-    /**/
     // Indigo - Light
-    const val IndigoLight50: Long = 0xFF
-    const val IndigoLight100: Long = 0xFF
-    const val IndigoLight200: Long = 0xFF
-    const val IndigoLight300: Long = 0xFF
-    const val IndigoLight400: Long = 0xFF
-    const val IndigoLight500: Long = 0xFF
-    const val IndigoLight600: Long = 0xFF
-    const val IndigoLight700: Long = 0xFF
-    const val IndigoLight800: Long = 0xFF
-    const val IndigoLight900: Long = 0xFF
-    const val IndigoLight950: Long = 0xFF
+    const val IndigoLight50: Long = 0xFFEDECFE
+    const val IndigoLight100: Long = 0xFFD7D4FC
+    const val IndigoLight200: Long = 0xFFAFA8FA
+    const val IndigoLight300: Long = 0xFF8B82F8
+    const val IndigoLight400: Long = 0xFF6255F5 // Base
+    const val IndigoLight500: Long = 0xFF3221F2
+    const val IndigoLight600: Long = 0xFF1C0CCF
+    const val IndigoLight700: Long = 0xFF15099A
+    const val IndigoLight800: Long = 0xFF0E066A
+    const val IndigoLight900: Long = 0xFF070335
+    const val IndigoLight950: Long = 0xFF030118
 
-    /**/
     // Indigo - Dark
-    const val IndigoDark50: Long = 0xFF
-    const val IndigoDark100: Long = 0xFF
-    const val IndigoDark200: Long = 0xFF
-    const val IndigoDark300: Long = 0xFF
-    const val IndigoDark400: Long = 0xFF
-    const val IndigoDark500: Long = 0xFF
-    const val IndigoDark600: Long = 0xFF
-    const val IndigoDark700: Long = 0xFF
-    const val IndigoDark800: Long = 0xFF
-    const val IndigoDark900: Long = 0xFF
-    const val IndigoDark950: Long = 0xFF
+    const val IndigoDark50: Long = 0xFFE5E8FF
+    const val IndigoDark100: Long = 0xFFCCD1FF
+    const val IndigoDark200: Long = 0xFF9EA8FF
+    const val IndigoDark300: Long = 0xFF6D7CFF // Base
+    const val IndigoDark400: Long = 0xFF384DFF
+    const val IndigoDark500: Long = 0xFF051FFF
+    const val IndigoDark600: Long = 0xFF0015D1
+    const val IndigoDark700: Long = 0xFF00109E
+    const val IndigoDark800: Long = 0xFF000A66
+    const val IndigoDark900: Long = 0xFF000533
+    const val IndigoDark950: Long = 0xFF00031A
 
-    /**/
     // Purple - Light
-    const val PurpleLight50: Long = 0xFF
-    const val PurpleLight100: Long = 0xFF
-    const val PurpleLight200: Long = 0xFF
-    const val PurpleLight300: Long = 0xFF
-    const val PurpleLight400: Long = 0xFF
-    const val PurpleLight500: Long = 0xFF
-    const val PurpleLight600: Long = 0xFF
-    const val PurpleLight700: Long = 0xFF
-    const val PurpleLight800: Long = 0xFF
-    const val PurpleLight900: Long = 0xFF
-    const val PurpleLight950: Long = 0xFF
+    const val PurpleLight50: Long = 0xFFF9E9FC
+    const val PurpleLight100: Long = 0xFFF5D7F9
+    const val PurpleLight200: Long = 0xFFEAABF2
+    const val PurpleLight300: Long = 0xFFE083EC
+    const val PurpleLight400: Long = 0xFFD65BE6
+    const val PurpleLight500: Long = 0xFFCB30E0 // Base
+    const val PurpleLight600: Long = 0xFFAB1DBF
+    const val PurpleLight700: Long = 0xFF80158E
+    const val PurpleLight800: Long = 0xFF540E5D
+    const val PurpleLight900: Long = 0xFF2C0731
+    const val PurpleLight950: Long = 0xFF140316
 
-    /**/
     // Purple - Dark
-    const val PurpleDark50: Long = 0xFF
-    const val PurpleDark100: Long = 0xFF
-    const val PurpleDark200: Long = 0xFF
-    const val PurpleDark300: Long = 0xFF
-    const val PurpleDark400: Long = 0xFF
-    const val PurpleDark500: Long = 0xFF
-    const val PurpleDark600: Long = 0xFF
-    const val PurpleDark700: Long = 0xFF
-    const val PurpleDark800: Long = 0xFF
-    const val PurpleDark900: Long = 0xFF
-    const val PurpleDark950: Long = 0xFF
+    const val PurpleDark50: Long = 0xFFFCECFE
+    const val PurpleDark100: Long = 0xFFF8D9FD
+    const val PurpleDark200: Long = 0xFFF1AEFA
+    const val PurpleDark300: Long = 0xFFEA87F7
+    const val PurpleDark400: Long = 0xFFE35CF5
+    const val PurpleDark500: Long = 0xFFDC34F2 // Base
+    const val PurpleDark600: Long = 0xFFC50EDC
+    const val PurpleDark700: Long = 0xFF960BA8
+    const val PurpleDark800: Long = 0xFF62076E
+    const val PurpleDark900: Long = 0xFF33043A
+    const val PurpleDark950: Long = 0xFF1A021D
 
-    /**/
     // Pink - Light
-    const val PinkLight50: Long = 0xFF
-    const val PinkLight100: Long = 0xFF
-    const val PinkLight200: Long = 0xFF
-    const val PinkLight300: Long = 0xFF
-    const val PinkLight400: Long = 0xFF
-    const val PinkLight500: Long = 0xFF
-    const val PinkLight600: Long = 0xFF
-    const val PinkLight700: Long = 0xFF
-    const val PinkLight800: Long = 0xFF
-    const val PinkLight900: Long = 0xFF
-    const val PinkLight950: Long = 0xFF
+    const val PinkLight50: Long = 0xFFFFE5EA
+    const val PinkLight100: Long = 0xFFFFCCD6
+    const val PinkLight200: Long = 0xFFFF94A8
+    const val PinkLight300: Long = 0xFFFF617F
+    const val PinkLight400: Long = 0xFFFF2D55 // Base
+    const val PinkLight500: Long = 0xFFFA0030
+    const val PinkLight600: Long = 0xFFC70026
+    const val PinkLight700: Long = 0xFF94001C
+    const val PinkLight800: Long = 0xFF660013
+    const val PinkLight900: Long = 0xFF33000A
+    const val PinkLight950: Long = 0xFF1A0005
 
-    /**/
     // Pink - Dark
-    const val PinkDark50: Long = 0xFF
-    const val PinkDark100: Long = 0xFF
-    const val PinkDark200: Long = 0xFF
-    const val PinkDark300: Long = 0xFF
-    const val PinkDark400: Long = 0xFF
-    const val PinkDark500: Long = 0xFF
-    const val PinkDark600: Long = 0xFF
-    const val PinkDark700: Long = 0xFF
-    const val PinkDark800: Long = 0xFF
-    const val PinkDark900: Long = 0xFF
-    const val PinkDark950: Long = 0xFF
+    const val PinkDark50: Long = 0xFFFFE5EB
+    const val PinkDark100: Long = 0xFFFFCCD6
+    const val PinkDark200: Long = 0xFFFF99AD
+    const val PinkDark300: Long = 0xFFFF6B89
+    const val PinkDark400: Long = 0xFFFF375F // Base
+    const val PinkDark500: Long = 0xFFFF0537
+    const val PinkDark600: Long = 0xFFD1002A
+    const val PinkDark700: Long = 0xFF99001F
+    const val PinkDark800: Long = 0xFF660014
+    const val PinkDark900: Long = 0xFF33000A
+    const val PinkDark950: Long = 0xFF1A0005
 
-    /**/
     // Brown - Light
-    const val BrownLight50: Long = 0xFF
-    const val BrownLight100: Long = 0xFF
-    const val BrownLight200: Long = 0xFF
-    const val BrownLight300: Long = 0xFF
-    const val BrownLight400: Long = 0xFF
-    const val BrownLight500: Long = 0xFF
-    const val BrownLight600: Long = 0xFF
-    const val BrownLight700: Long = 0xFF
-    const val BrownLight800: Long = 0xFF
-    const val BrownLight900: Long = 0xFF
-    const val BrownLight950: Long = 0xFF
+    const val BrownLight50: Long = 0xFFF6F2EE
+    const val BrownLight100: Long = 0xFFEEE4DD
+    const val BrownLight200: Long = 0xFFDECCBF
+    const val BrownLight300: Long = 0xFFCDB19D
+    const val BrownLight400: Long = 0xFFBD997F
+    const val BrownLight500: Long = 0xFFAC7F5E // Base
+    const val BrownLight600: Long = 0xFF8D6649
+    const val BrownLight700: Long = 0xFF684B36
+    const val BrownLight800: Long = 0xFF473324
+    const val BrownLight900: Long = 0xFF221811
+    const val BrownLight950: Long = 0xFF110C09
 
-    /**/
     // Brown - Dark
-    const val BrownDark50: Long = 0xFF
-    const val BrownDark100: Long = 0xFF
-    const val BrownDark200: Long = 0xFF
-    const val BrownDark300: Long = 0xFF
-    const val BrownDark400: Long = 0xFF
-    const val BrownDark500: Long = 0xFF
-    const val BrownDark600: Long = 0xFF
-    const val BrownDark700: Long = 0xFF
-    const val BrownDark800: Long = 0xFF
-    const val BrownDark900: Long = 0xFF
-    const val BrownDark950: Long = 0xFF
+    const val BrownDark50: Long = 0xFFF8F4F1
+    const val BrownDark100: Long = 0xFFF0E7E0
+    const val BrownDark200: Long = 0xFFE2CFC1
+    const val BrownDark300: Long = 0xFFD5BAA5
+    const val BrownDark400: Long = 0xFFC6A286
+    const val BrownDark500: Long = 0xFFB78A66 // Base
+    const val BrownDark600: Long = 0xFF9C6E49
+    const val BrownDark700: Long = 0xFF765337
+    const val BrownDark800: Long = 0xFF4C3624
+    const val BrownDark900: Long = 0xFF261B12
+    const val BrownDark950: Long = 0xFF150F0A
 
     // Gray - Light
     const val GrayLight50: Long = 0xFFF5F5F5
