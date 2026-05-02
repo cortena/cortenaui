@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -64,8 +65,11 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            Button(
+                            Text(
+                                "Long click to switch ThemeMode",
                                 modifier = Modifier.padding(top = 16.dp),
+                            )
+                            Button(
                                 onLongClick = {
                                     themeMode.value = when (themeMode.value) {
                                         ThemeMode.Light -> ThemeMode.Dark
@@ -92,28 +96,16 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
-                                Button(
-                                    onClick = {},
-                                    style = ButtonStyle.Primary
-                                ) {
+                                Button(style = ButtonStyle.Primary) {
                                     Text("Primary")
                                 }
-                                Button(
-                                    onClick = {},
-                                    style = ButtonStyle.Secondary
-                                ) {
+                                Button(style = ButtonStyle.Secondary) {
                                     Text("Secondary")
                                 }
-                                Button(
-                                    onClick = {},
-                                    style = ButtonStyle.Ghost
-                                ) {
+                                Button(style = ButtonStyle.Ghost) {
                                     Text("Ghost")
                                 }
-                                Button(
-                                    onClick = {},
-                                    style = ButtonStyle.Destructive
-                                ) {
+                                Button(style = ButtonStyle.Destructive) {
                                     Text("Destructive")
                                 }
                             }
@@ -123,28 +115,24 @@ class MainActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 Button(
-                                    onClick = {},
                                     style = ButtonStyle.Primary,
                                     enabled = false
                                 ) {
                                     Text("Primary")
                                 }
                                 Button(
-                                    onClick = {},
                                     style = ButtonStyle.Secondary,
                                     enabled = false
                                 ) {
                                     Text("Secondary")
                                 }
                                 Button(
-                                    onClick = {},
                                     style = ButtonStyle.Ghost,
                                     enabled = false
                                 ) {
                                     Text("Ghost")
                                 }
                                 Button(
-                                    onClick = {},
                                     style = ButtonStyle.Destructive,
                                     enabled = false
                                 ) {
@@ -156,10 +144,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
-                                Button(
-                                    onClick = {},
-                                    background = ColorToken.Blue500.value(),
-                                ) {
+                                Button(background = ColorToken.Blue500.value()) {
                                     Icon(
                                         imageVector = Icons.Default.Favorite,
                                         contentDescription = "Favorite icon",
@@ -167,14 +152,10 @@ class MainActivity : ComponentActivity() {
                                     )
                                     Text("Favorite", color = ColorToken.Blue50.value())
                                 }
-                                Button(
-                                    onClick = {},
-                                    background = ColorToken.Orange500.value(),
-                                ) {
+                                Button(background = ColorToken.Orange500.value()) {
                                     Text("Orange")
                                 }
                                 Button(
-                                    onClick = {},
                                     background = Color(colors.surfaceVariant),
                                     foreground = ColorToken.Red300.value()
                                 ) {
@@ -189,12 +170,26 @@ class MainActivity : ComponentActivity() {
                                 valueRange = -4f..4f,
                             )
                             var sliderValue2 by rememberSaveable { mutableFloatStateOf(0f) }
+                            var sliderDisabled by remember { mutableStateOf(false) }
                             Text("Slider Disabled")
+                            Button(onClick = {
+                                sliderDisabled = when (sliderDisabled) {
+                                    true -> false
+                                    false -> true
+                                }
+                            }) {
+                                Text(
+                                    when (sliderDisabled) {
+                                        true -> "Disabled"
+                                        false -> "Enabled"
+                                    }
+                                )
+                            }
                             Slider(
                                 value = { sliderValue2 },
                                 onValueChange = { sliderValue2 = it },
                                 valueRange = -4f..4f,
-                                enabled = false,
+                                enabled = sliderDisabled,
                             )
                             Text("Colors")
                             Row(
