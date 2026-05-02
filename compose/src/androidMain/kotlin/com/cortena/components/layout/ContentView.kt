@@ -39,7 +39,7 @@ fun ComponentActivity.ContentView(
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
     dynamicColor: Boolean = false,
-    
+
     // Slots
     appBar: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,

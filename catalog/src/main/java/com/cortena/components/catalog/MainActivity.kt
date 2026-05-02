@@ -33,6 +33,7 @@ import com.cortena.components.theme.ThemeMode
 import com.cortena.components.theme.value
 import com.cortena.components.ui.Button
 import com.cortena.components.ui.ButtonStyle
+import com.cortena.components.ui.ButtonVariant
 import com.cortena.components.ui.Slider
 import com.cortena.components.ui.Text
 
@@ -83,10 +84,50 @@ class MainActivity : ComponentActivity() {
                                 Button(style = ButtonStyle.Secondary) {
                                     Text("Secondary")
                                 }
+                                Button(style = ButtonStyle.Accent) {
+                                    Text("Accent")
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
                                 Button(style = ButtonStyle.Ghost) {
                                     Text("Ghost")
                                 }
                                 Button(style = ButtonStyle.Destructive) {
+                                    Text("Destructive")
+                                }
+                            }
+                            Text("Button Soft Variant")
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(style = ButtonStyle.Primary, variant = ButtonVariant.Soft) {
+                                    Text("Primary")
+                                }
+                                Button(
+                                    style = ButtonStyle.Secondary,
+                                    variant = ButtonVariant.Soft
+                                ) {
+                                    Text("Secondary")
+                                }
+                                Button(style = ButtonStyle.Accent, variant = ButtonVariant.Soft) {
+                                    Text("Accent")
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(style = ButtonStyle.Ghost, variant = ButtonVariant.Soft) {
+                                    Text("Ghost")
+                                }
+                                Button(
+                                    style = ButtonStyle.Destructive,
+                                    variant = ButtonVariant.Soft
+                                ) {
                                     Text("Destructive")
                                 }
                             }
@@ -108,6 +149,17 @@ class MainActivity : ComponentActivity() {
                                     Text("Secondary")
                                 }
                                 Button(
+                                    style = ButtonStyle.Accent,
+                                    enabled = false
+                                ) {
+                                    Text("Accent")
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(
                                     style = ButtonStyle.Ghost,
                                     enabled = false
                                 ) {
@@ -115,6 +167,52 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Button(
                                     style = ButtonStyle.Destructive,
+                                    enabled = false
+                                ) {
+                                    Text("Destructive")
+                                }
+                            }
+                            Text("Button Disabled Soft Variant")
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(
+                                    style = ButtonStyle.Primary,
+                                    variant = ButtonVariant.Soft,
+                                    enabled = false
+                                ) {
+                                    Text("Primary")
+                                }
+                                Button(
+                                    style = ButtonStyle.Secondary,
+                                    variant = ButtonVariant.Soft,
+                                    enabled = false
+                                ) {
+                                    Text("Secondary")
+                                }
+                                Button(
+                                    style = ButtonStyle.Accent,
+                                    variant = ButtonVariant.Soft,
+                                    enabled = false
+                                ) {
+                                    Text("Accent")
+                                }
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Button(
+                                    style = ButtonStyle.Ghost,
+                                    variant = ButtonVariant.Soft,
+                                    enabled = false
+                                ) {
+                                    Text("Ghost")
+                                }
+                                Button(
+                                    style = ButtonStyle.Destructive,
+                                    variant = ButtonVariant.Soft,
                                     enabled = false
                                 ) {
                                     Text("Destructive")

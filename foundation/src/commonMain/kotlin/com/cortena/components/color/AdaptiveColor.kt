@@ -1,6 +1,6 @@
 package com.cortena.components.color
 
-// HOLDS A LIGHT + DARK COLOR PAIR AND RESOLVES TO THE CORRECT ONE BASED ON THEME
+// Holds a Light + Dark color pair and resolves to the correct one based on theme
 data class AdaptiveColor(
     val light: Long,
     val dark: Long,
