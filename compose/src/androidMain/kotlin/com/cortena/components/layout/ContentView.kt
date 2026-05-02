@@ -39,7 +39,7 @@ fun ComponentActivity.ContentView(
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
     dynamicColor: Boolean = false,
-
+    
     // Slots
     appBar: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,
@@ -71,6 +71,7 @@ fun ComponentActivity.ContentView(
                     }
                     referenceColor.luminance() > 0.5f
                 }
+
                 StatusBarIconMode.Light -> false
                 StatusBarIconMode.Dark -> true
             }
