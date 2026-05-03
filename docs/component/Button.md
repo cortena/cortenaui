@@ -6,12 +6,18 @@
 
 `Button` renders a capsule-shaped surface with an automatic tonal press highlight and damped drag response.
 
-Styles are driven by `LocalColors.current`:
+Styles and variants are driven by `LocalColors.current`:
 
-- `Primary`: `primary` background and `onPrimary` content.
-- `Secondary`: `primaryContainer` background and `onPrimaryContainer` content.
-- `Ghost`: `surfaceVariant` background and `onSurfaceVariant` content.
-- `Destructive`: `error` background and `onError` content.
+- `Primary`: `primary` background, `onPrimary` content.
+- `Secondary`: `secondary` background, `onSecondary` content.
+- `Accent`: `accent` background, `onAccent` content.
+- `Ghost`: `secondary @ 20%` background, `onSurfaceVariant` content.
+- `Destructive`: `error` background, `onError` content.
+
+Each style supports a `Soft` variant that reduces the background opacity, making the foreground color the visual focus:
+
+- `Default`: filled background.
+- `Soft`: low-opacity background (`8–12%`), style color as foreground.
 
 ## API Reference
 
@@ -24,47 +30,108 @@ fun Button(
     enabled: Boolean = true,
     interactive: Boolean = true,
     style: ButtonStyle = ButtonStyle.Primary,
+    variant: ButtonVariant = ButtonVariant.Default,
+    effect: ButtonEffect = ButtonEffect.Solid,
     background: Color = Color.Unspecified,
     foreground: Color = Color.Unspecified,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 )
 
 enum class ButtonStyle {
     Primary,
     Secondary,
+    Accent,
     Ghost,
-    Destructive
+    Destructive,
+}
+
+enum class ButtonVariant {
+    Default,
+    Soft,
+}
+
+enum class ButtonEffect {
+    Solid,
+    Blur, // Not yet implemented
 }
 ```
 
 ### Parameters
 
-| Name          | Data Type                         | Description                                                                           |
-| ------------- | --------------------------------- | ------------------------------------------------------------------------------------- |
-| `onClick`     | `(() -> Unit)? = null`            | Called when the button is clicked.                                                    |
-| `onLongClick` | `(() -> Unit)? = null`            | Called when the button is long clicked.                                               |
-| `modifier`    | `Modifier`                        | Standard Compose modifier.                                                            |
-| `enabled`     | `Boolean`                         | Disables click and gesture effects when `false`.                                      |
-| `interactive` | `Boolean`                         | Enables press/drag motion animation when `true`; the press highlight remains enabled. |
-| `style`       | `ButtonStyle`                     | Visual style of the button.                                                           |
-| `background`  | `Color.Unspecified`               | Background color of the button.                                                       |
-| `foreground`  | `Color.Unspecified`               | Foreground color of the button.                                                       |
-| `content`     | `@Composable RowScope.() -> Unit` | Row content rendered inside the button.                                               |
+| Name          | Type                              | Default                 | Description                                                                                                    |
+| ------------- | --------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `onClick`     | `(() -> Unit)?`                   | `null`                  | Called when the button is clicked.                                                                             |
+| `onLongClick` | `(() -> Unit)?`                   | `null`                  | Called when the button is long-clicked.                                                                        |
+| `modifier`    | `Modifier`                        | `Modifier`              | Standard Compose modifier.                                                                                     |
+| `enabled`     | `Boolean`                         | `true`                  | Disables interaction and renders the button at 38% opacity when `false`.                                       |
+| `interactive` | `Boolean`                         | `true`                  | Enables press scale, drag offset, and directional stretch animations when `true`.                              |
+| `style`       | `ButtonStyle`                     | `ButtonStyle.Primary`   | Determines the color role used for background and content.                                                     |
+| `variant`     | `ButtonVariant`                   | `ButtonVariant.Default` | `Default` renders a filled background. `Soft` renders a low-opacity background with style color as foreground. |
+| `effect`      | `ButtonEffect`                    | `ButtonEffect.Solid`    | Surface effect applied to the background. `Blur` is not yet implemented.                                       |
+| `background`  | `Color`                           | `Color.Unspecified`     | Overrides the style background color when specified.                                                           |
+| `foreground`  | `Color`                           | `Color.Unspecified`     | Overrides the style foreground color when specified.                                                           |
+| `content`     | `@Composable RowScope.() -> Unit` | —                       | Row content rendered inside the button.                                                                        |
 
-### Example
+### Style
+
+| Style         | Default Background | Default Foreground | Soft Background   | Soft Foreground    |
+| ------------- | ------------------ | ------------------ | ----------------- | ------------------ |
+| `Primary`     | `primary`          | `onPrimary`        | `primary @ 12%`   | `primary`          |
+| `Secondary`   | `secondary`        | `onSecondary`      | `secondary @ 12%` | `secondary`        |
+| `Accent`      | `accent`           | `onAccent`         | `accent @ 12%`    | `accent`           |
+| `Ghost`       | `secondary @ 20%`  | `onSurfaceVariant` | `secondary @ 8%`  | `onSurfaceVariant` |
+| `Destructive` | `error`            | `onError`          | `secondary @ 12%` | `error`            |
+
+## Examples
 
 ```kotlin
-Button(
-    onClick = { /* submit */ },
-    style = ButtonStyle.Primary,
-) {
+// Basic usage
+Button(onClick = { }) {
     Text("Submit")
 }
 
+// Accent style
 Button(
-    onClick = { /* cancel */ },
-    style = ButtonStyle.Destructive,
+    onClick = { },
+    style = ButtonStyle.Accent,
 ) {
-    Text("Cancel")
+    Text("Featured")
+}
+
+// Soft variant
+Button(
+    onClick = { },
+    style = ButtonStyle.Destructive,
+    variant = ButtonVariant.Soft,
+) {
+    Text("Delete")
+}
+
+// Disabled
+Button(
+    onClick = { },
+    style = ButtonStyle.Primary,
+    enabled = false,
+) {
+    Text("Unavailable")
+}
+
+// Custom color
+Button(
+    onClick = { },
+    background = Color(0xFFFF9500),
+    foreground = Color.White,
+) {
+    Text("Orange")
+}
+
+// With long click
+Button(
+    onClick = { },
+    onLongClick = { },
+    style = ButtonStyle.Secondary,
+) {
+    Icon(Icons.Default.Favorite, contentDescription = null)
+    Text("Favorite")
 }
 ```
