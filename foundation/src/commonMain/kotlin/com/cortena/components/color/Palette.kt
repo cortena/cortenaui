@@ -57,7 +57,7 @@ val LightPalette = Palette(
     onPrimaryContainer = ColorToken.Blue800.resolve(isDark = false),
     inversePrimary = ColorToken.Blue300.resolve(isDark = false),
 
-    // Secondary — Gray (Apple pakai gray sebagai secondary, bukan warna lain)
+    // Secondary — Gray
     secondary = ColorToken.Gray500.resolve(isDark = false),
     onSecondary = ColorToken.White.light,
     secondaryContainer = ColorToken.Gray100.resolve(isDark = false),
@@ -76,18 +76,16 @@ val LightPalette = Palette(
     onErrorContainer = ColorToken.Red800.resolve(isDark = false),
 
     // Background & Surface
-    // Apple light mode: pure white background, bukan off-white
     background = ColorToken.White.light,
     onBackground = ColorToken.Gray950.resolve(isDark = false),
     surface = ColorToken.White.light,
     onSurface = ColorToken.Gray900.resolve(isDark = false),
 
-    // surfaceVariant: slightly warm gray, bukan neutral
-    // Apple grouped table background: #F2F2F7
+    // surfaceVariant
     surfaceVariant = 0xFFF2F2F7,
     onSurfaceVariant = ColorToken.Gray600.resolve(isDark = false),
 
-    // Surface containers — Apple style: subtle elevation via lightness
+    // Surface containers
     surfaceDim = ColorToken.Gray100.resolve(isDark = false),
     surfaceBright = ColorToken.White.light,
     surfaceContainerLowest = ColorToken.White.light,
@@ -96,7 +94,7 @@ val LightPalette = Palette(
     surfaceContainerHigh = ColorToken.Gray100.resolve(isDark = false),
     surfaceContainerHighest = ColorToken.Gray200.resolve(isDark = false),
 
-    // Inverse — untuk snackbar/toast di atas light surface
+    // Inverse
     inverseSurface = ColorToken.Gray900.resolve(isDark = false),
     inverseOnSurface = ColorToken.Gray100.resolve(isDark = false),
 
@@ -104,7 +102,7 @@ val LightPalette = Palette(
     outline = 0xFFC6C6C8,
     outlineVariant = ColorToken.Gray200.resolve(isDark = false),
 
-    // Scrim — overlay di belakang modal/sheet
+    // Scrim
     scrim = ColorToken.Black.light,
 )
 
