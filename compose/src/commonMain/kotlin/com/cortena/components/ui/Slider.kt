@@ -1,6 +1,7 @@
 package com.cortena.components.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,11 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +37,6 @@ import com.cortena.components.theme.LocalColors
 import com.cortena.components.theme.LocalSpacing
 import com.cortena.components.theme.value
 import com.cortena.components.util.DampedAnimation
-import com.cortena.components.util.InteractiveHighlight
 import com.cortena.components.util.applyInteractiveAnimation
 import com.cortena.components.util.inspectDragGestures
 import kotlinx.coroutines.flow.collectLatest
@@ -64,7 +61,10 @@ fun Slider(
     val indicatorHeight = spacing.Lg.dp
     val resolvedTrackColor =
         if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
-    val resolvedIndicatorColor = if (indicatorColor.isSpecified) indicatorColor else Color.White
+    val resolvedIndicatorColor =
+        if (indicatorColor.isSpecified) indicatorColor
+        else if (isSystemInDarkTheme()) Color.White
+        else Color(colors.surfaceContainerHighest)
     val resolvedProgressColor =
         if (progressColor.isSpecified) progressColor else Color(colors.primary)
     val indicatorShadow = sliderIndicatorShadow(resolvedTrackColor, enabled)
@@ -77,7 +77,6 @@ fun Slider(
         val layoutDirection = LocalLayoutDirection.current
         val isLtr = layoutDirection == LayoutDirection.Ltr
         val animationScope = rememberCoroutineScope()
-        var didDrag by remember { mutableStateOf(false) }
         val dampedAnimation =
             remember(animationScope) {
                 DampedAnimation(
@@ -88,15 +87,8 @@ fun Slider(
                     initialScale = 1f,
                     pressedScale = 1.3f,
                     onDragStarted = {},
-                    onDragStopped = {
-                        if (didDrag) {
-                            onValueChange(targetValue)
-                        }
-                    },
+                    onDragStopped = {},
                     onDrag = { _, dragAmount ->
-                        if (!didDrag) {
-                            didDrag = dragAmount.x != 0f
-                        }
                         val delta =
                             (valueRange.endInclusive - valueRange.start) *
                                     (dragAmount.x / trackWidth)
@@ -117,15 +109,6 @@ fun Slider(
                 }
         }
 
-        val interactiveHighlight =
-            remember(animationScope, resolvedIndicatorColor) {
-                InteractiveHighlight(
-                    animationScope = animationScope,
-                    color = resolvedIndicatorColor,
-                ) { size, _ ->
-                    Offset(size.width * 0.5f, size.height * 0.5f)
-                }
-            }
         val gestureModifier =
             if (enabled) {
                 Modifier.pointerInput(valueRange, layoutDirection, trackWidth) {
@@ -217,8 +200,8 @@ fun Slider(
                             isLtr = isLtr,
                         )
                     applyInteractiveAnimation(
-                        pressProgress = interactiveHighlight.pressProgress,
-                        offset = interactiveHighlight.offset,
+                        pressProgress = dampedAnimation.pressProgress,
+                        offset = Offset.Zero,
                         baseTranslationX = sliderTranslation,
                         scaleXMultiplier = dampedAnimation.scaleX,
                         scaleYMultiplier = dampedAnimation.scaleY,
