@@ -16,19 +16,6 @@ For documentation, see:
 
 ## License
 
-This project is licensed under the **GNU Affero General Public License v3.0**.
-
-See the [`LICENSE`](LICENSE) file for full license text.
-
-```
-Copyright (C) 2026 CortenaOS
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-```
-
 This project includes third-party code, libraries, or modified components from external sources.
 
 All applicable third-party licenses, copyright notices, and attributions are documented in the [`THIRD_PARTY_LICENSES`](THIRD_PARTY_LICENSES) file.
