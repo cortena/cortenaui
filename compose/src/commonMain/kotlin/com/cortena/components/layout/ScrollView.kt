@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -78,6 +80,15 @@ fun ScrollView(
 
     content: @Composable () -> Unit,
 ) {
+    val safeModifier =
+        modifier.then(
+            if (orientation == ScrollOrientation.Vertical) {
+                Modifier.heightIn(min = 48.dp) // minimum sensible height
+            } else {
+                Modifier.widthIn(min = 48.dp)
+            }
+        )
+
     // Bounce Overscroll
     val bounceScope = rememberCoroutineScope()
     val overscrollEffect =
@@ -96,37 +107,34 @@ fun ScrollView(
     }
 
     // Layout
-    Box(modifier = modifier) {
-        val scrollModifier =
-            if (orientation == ScrollOrientation.Vertical) {
-                Modifier.verticalScroll(
-                    state = scrollState,
-                    enabled = enabled,
-                    flingBehavior = flingBehavior,
-                    reverseScrolling = reverseLayout,
-                    overscrollEffect = overscrollEffect,
-                )
-            } else {
-                Modifier.horizontalScroll(
-                    state = scrollState,
-                    enabled = enabled,
-                    flingBehavior = flingBehavior,
-                    reverseScrolling = reverseLayout,
-                    overscrollEffect = overscrollEffect,
-                )
-            }
+    Box(modifier = safeModifier) {
+        val scrollModifier = if (orientation == ScrollOrientation.Vertical) {
+            Modifier.verticalScroll(
+                state = scrollState,
+                enabled = enabled,
+                flingBehavior = flingBehavior,
+                reverseScrolling = reverseLayout,
+                overscrollEffect = overscrollEffect,
+            )
+        } else {
+            Modifier.horizontalScroll(
+                state = scrollState,
+                enabled = enabled,
+                flingBehavior = flingBehavior,
+                reverseScrolling = reverseLayout,
+                overscrollEffect = overscrollEffect,
+            )
+        }
 
         if (orientation == ScrollOrientation.Vertical) {
             Column(
-                modifier = scrollModifier.then(overscrollEffect.overscroll)
-                    .padding(contentPadding)
+                modifier = scrollModifier.then(overscrollEffect.overscroll).padding(contentPadding)
             ) {
                 content()
             }
         } else {
             Row(
-                modifier = scrollModifier.then(overscrollEffect.overscroll)
-                    .padding(contentPadding)
+                modifier = scrollModifier.then(overscrollEffect.overscroll).padding(contentPadding)
             ) {
                 content()
             }
@@ -206,10 +214,7 @@ private fun ScrollIndicator(
                 .graphicsLayer { translationX = indicatorOffset }
         }
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = alignment,
-    ) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = alignment) {
         Box(modifier = indicatorModifier.clip(shape).background(color, shape))
     }
 }

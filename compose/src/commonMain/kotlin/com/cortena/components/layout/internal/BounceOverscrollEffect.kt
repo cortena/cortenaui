@@ -74,8 +74,7 @@ internal class BounceOverscrollEffect(
         val availableUnconsumed =
             if (orientation == ScrollOrientation.Vertical) unconsumed.y else unconsumed.x
 
-        // Ignore tiny float precision remainders
-        if (!isReleased && kotlin.math.abs(availableUnconsumed) > 0.5f) {
+        if (!isReleased && kotlin.math.abs(availableUnconsumed) > 1f && source == NestedScrollSource.UserInput) {
             val newValue = overscrollOffset.value + availableUnconsumed * 0.3f
 
             if (kotlin.math.abs(newValue) >= maxOverscroll) {
