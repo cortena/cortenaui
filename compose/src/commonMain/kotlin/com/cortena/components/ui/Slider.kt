@@ -1,7 +1,6 @@
 package com.cortena.components.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -63,8 +62,7 @@ fun Slider(
         if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
     val resolvedIndicatorColor =
         if (indicatorColor.isSpecified) indicatorColor
-        else if (isSystemInDarkTheme()) Color.White
-        else Color(colors.surfaceContainerHighest)
+        else Color.White
     val resolvedProgressColor =
         if (progressColor.isSpecified) progressColor else Color(colors.primary)
     val indicatorShadow = sliderIndicatorShadow(resolvedTrackColor, enabled)
