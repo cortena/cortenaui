@@ -78,8 +78,8 @@ fun Button(
     val styleForegroundColor = when (variant) {
         ButtonVariant.Default -> when (style) {
             ButtonStyle.Primary -> Color(colors.onPrimary)
-            ButtonStyle.Secondary -> Color(colors.onSecondary)
-            ButtonStyle.Accent -> Color(colors.onAccent)
+            ButtonStyle.Secondary -> Color.White
+            ButtonStyle.Accent -> Color.White
             ButtonStyle.Ghost -> onSurfaceVariant
             ButtonStyle.Destructive -> Color(colors.onError)
         }
