@@ -223,10 +223,11 @@ class MainActivity : ComponentActivity() {
                 )
                 Text("Favorite", color = ColorToken.Blue50.value())
             }
-            Button(background = ColorToken.Orange500.value()) { Text("Orange") }
+            Button(background = ColorToken.Green500.value()) { Text("Green") }
+            Button(background = ColorToken.Brown500.value()) { Text("Brown") }
             Button(
                 background = Color(colors.surfaceVariant),
-                foreground = ColorToken.Red300.value(),
+                foreground = ColorToken.Red500.value(),
             ) {
                 Text("Delete")
             }
