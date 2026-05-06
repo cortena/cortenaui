@@ -82,3 +82,4 @@ Visit the component guides individually in the `docs/components/` directory:
 - [Text](components/Text.md)
 - [Button](components/Button.md)
 - [Slider](components/Slider.md)
+- [Toggle](components/Toggle.md)

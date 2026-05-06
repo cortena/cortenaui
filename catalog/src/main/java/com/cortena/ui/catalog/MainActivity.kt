@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.cortena.ui.catalog.demo.ButtonDemo
 import com.cortena.ui.catalog.demo.ColorDemo
 import com.cortena.ui.catalog.demo.SliderDemo
+import com.cortena.ui.catalog.demo.ToggleDemo
 import com.cortena.ui.components.Text
 import com.cortena.ui.layout.Body
 import com.cortena.ui.layout.ContentView
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                             )
                             ButtonDemo(themeMode)
                             SliderDemo()
+                            ToggleDemo()
                             ColorDemo()
                         }
                     }
