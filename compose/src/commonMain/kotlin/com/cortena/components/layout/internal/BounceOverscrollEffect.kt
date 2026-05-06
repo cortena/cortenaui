@@ -12,8 +12,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.unit.Velocity
 import com.cortena.components.layout.ScrollOrientation
+import kotlin.math.abs
 import kotlin.math.sign
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -25,7 +27,7 @@ internal class BounceOverscrollEffect(
     private val maxOverscroll = 800f
     private val overscrollOffset = Animatable(0f)
 
-    private var snapJob: kotlinx.coroutines.Job? = null
+    private var snapJob: Job? = null
 
     init {
         overscrollOffset.updateBounds(-maxOverscroll, maxOverscroll)
@@ -77,7 +79,7 @@ internal class BounceOverscrollEffect(
         val availableUnconsumed =
             if (orientation == ScrollOrientation.Vertical) unconsumed.y else unconsumed.x
 
-        if (kotlin.math.abs(availableUnconsumed) > 1f && source == NestedScrollSource.UserInput) {
+        if (abs(availableUnconsumed) > 1f && source == NestedScrollSource.UserInput) {
             val newValue = overscrollOffset.value + availableUnconsumed * 0.3f
             snapJob?.cancel()
             snapJob = scope.launch { overscrollOffset.snapTo(newValue) }
