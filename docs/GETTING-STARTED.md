@@ -77,5 +77,8 @@ Visit the component guides individually in the `docs/component/` directory:
 - [Theme](component/Theme.md)
 - [Body](component/Body.md)
 - [SafeArea](component/SafeArea.md)
+- [ScrollView](component/ScrollView.md)
 - [AppBar](component/AppBar.md)
 - [Text](component/Text.md)
+- [Button](component/Button.md)
+- [Slider](component/Slider.md)
