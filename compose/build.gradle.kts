@@ -9,20 +9,19 @@ plugins {
 
 kotlin {
     android {
-        minSdk = 35
-        compileSdk = 37
         namespace = "com.cortena.ui.compose"
+        compileSdk = 37
+        minSdk = 35
         compilerOptions { jvmTarget = JvmTarget.JVM_11 }
     }
 
     sourceSets {
         commonMain.dependencies {
             implementation(project(":foundation"))
-
-            // Compose runtime
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
         }
         androidMain.dependencies { implementation(libs.androidx.activity.compose) }
     }
