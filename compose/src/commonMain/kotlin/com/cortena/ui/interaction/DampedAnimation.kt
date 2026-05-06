@@ -2,19 +2,18 @@ package com.cortena.ui.interaction
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.MutatorMutex
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.unit.IntSize
+import kotlin.math.abs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 class DampedAnimation(
     private val animationScope: CoroutineScope,
@@ -40,8 +39,6 @@ class DampedAnimation(
     private val scaleXAnimation = Animatable(initialScale, 0.001f)
     private val scaleYAnimation = Animatable(initialScale, 0.001f)
 
-    private val mutatorMutex = MutatorMutex()
-
     private val velocityTracker = VelocityTracker()
 
     val value: Float
@@ -62,9 +59,6 @@ class DampedAnimation(
     val scaleY: Float
         get() = scaleYAnimation.value
 
-    val velocity: Float
-        get() = velocityAnimation.value
-
     val modifier: Modifier =
         Modifier.pointerInput(Unit) {
             inspectDragGestures(
@@ -80,7 +74,7 @@ class DampedAnimation(
                     onDragStopped()
                     release()
                 },
-            ) { change, dragAmount ->
+            ) { _, dragAmount ->
                 onDrag(size, dragAmount)
             }
         }
@@ -114,20 +108,6 @@ class DampedAnimation(
         animationScope.launch {
             launch {
                 valueAnimation.animateTo(targetValue, valueAnimationSpec) { updateVelocity() }
-            }
-        }
-    }
-
-    fun animateToValue(value: Float) {
-        animationScope.launch {
-            mutatorMutex.mutate {
-                press()
-                val targetValue = value.coerceIn(valueRange)
-                launch { valueAnimation.animateTo(targetValue, valueAnimationSpec) }
-                if (velocity != 0f) {
-                    launch { velocityAnimation.animateTo(0f, velocityAnimationSpec) }
-                }
-                release()
             }
         }
     }
