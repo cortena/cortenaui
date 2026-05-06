@@ -38,8 +38,8 @@ import com.cortena.components.theme.value
 import com.cortena.components.util.DampedAnimation
 import com.cortena.components.util.applyInteractiveAnimation
 import com.cortena.components.util.inspectDragGestures
-import kotlinx.coroutines.flow.collectLatest
 import kotlin.math.max
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun Slider(
@@ -60,9 +60,7 @@ fun Slider(
     val indicatorHeight = spacing.Lg.dp
     val resolvedTrackColor =
         if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
-    val resolvedIndicatorColor =
-        if (indicatorColor.isSpecified) indicatorColor
-        else Color.White
+    val resolvedIndicatorColor = if (indicatorColor.isSpecified) indicatorColor else Color.White
     val resolvedProgressColor =
         if (progressColor.isSpecified) progressColor else Color(colors.primary)
     val indicatorShadow = sliderIndicatorShadow(resolvedTrackColor, enabled)
@@ -89,7 +87,7 @@ fun Slider(
                     onDrag = { _, dragAmount ->
                         val delta =
                             (valueRange.endInclusive - valueRange.start) *
-                                    (dragAmount.x / trackWidth)
+                                (dragAmount.x / trackWidth)
                         onValueChange(
                             if (isLtr) (targetValue + delta).coerceIn(valueRange)
                             else (targetValue - delta).coerceIn(valueRange)
@@ -147,11 +145,11 @@ fun Slider(
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
                     val progressEdge =
                         sliderProgressEdge(
-                            trackWidth = size.width,
-                            indicatorWidth = indicatorWidth.toPx(),
-                            progress = progress,
-                            isLtr = isLtr,
-                        )
+                                trackWidth = size.width,
+                                indicatorWidth = indicatorWidth.toPx(),
+                                progress = progress,
+                                isLtr = isLtr,
+                            )
                             .fastCoerceIn(0f, size.width)
                     drawRect(
                         resolvedProgressColor.copy(
@@ -267,11 +265,12 @@ private fun sliderProgressEdge(
 @Composable
 private fun sliderIndicatorShadow(trackColor: Color, enabled: Boolean): Shadow {
     val isLight = trackColor.luminance() > 0.5f
-    val alphaLight = if (enabled) {
-        0.28f
-    } else {
-        0.15f
-    }
+    val alphaLight =
+        if (enabled) {
+            0.28f
+        } else {
+            0.15f
+        }
     return Shadow(
         radius = if (isLight) 12.dp else 8.dp,
         offset = DpOffset(0.dp, if (isLight) 3.dp else 2.dp),

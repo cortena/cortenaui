@@ -27,11 +27,23 @@ import com.cortena.components.theme.LocalSpacing
 import com.cortena.components.util.InteractiveHighlight
 import com.cortena.components.util.applyInteractiveAnimation
 
-enum class ButtonStyle { Primary, Secondary, Accent, Ghost, Destructive }
+enum class ButtonStyle {
+    Primary,
+    Secondary,
+    Accent,
+    Ghost,
+    Destructive,
+}
 
-enum class ButtonVariant { Default, Soft }
+enum class ButtonVariant {
+    Default,
+    Soft,
+}
 
-enum class ButtonEffect { Solid, Blur }
+enum class ButtonEffect {
+    Solid,
+    Blur,
+}
 
 @Suppress("ModifierParameter")
 @Composable
@@ -59,89 +71,91 @@ fun Button(
     val error = Color(colors.error)
     val onSurfaceVariant = Color(colors.onSurfaceVariant)
 
-    val styleBackgroundColor = when (variant) {
-        ButtonVariant.Default -> when (style) {
-            ButtonStyle.Primary -> primary
-            ButtonStyle.Secondary -> secondary
-            ButtonStyle.Accent -> accent
-            ButtonStyle.Ghost -> secondary.copy(alpha = 0.20f)
-            ButtonStyle.Destructive -> error
+    val styleBackgroundColor =
+        when (variant) {
+            ButtonVariant.Default ->
+                when (style) {
+                    ButtonStyle.Primary -> primary
+                    ButtonStyle.Secondary -> secondary
+                    ButtonStyle.Accent -> accent
+                    ButtonStyle.Ghost -> secondary.copy(alpha = 0.20f)
+                    ButtonStyle.Destructive -> error
+                }
+
+            ButtonVariant.Soft ->
+                when (style) {
+                    ButtonStyle.Primary -> primary.copy(alpha = 0.12f)
+                    ButtonStyle.Secondary -> secondary.copy(alpha = 0.12f)
+                    ButtonStyle.Accent -> accent.copy(alpha = 0.12f)
+                    ButtonStyle.Ghost -> secondary.copy(alpha = 0.08f)
+                    ButtonStyle.Destructive -> secondary.copy(alpha = 0.12f)
+                }
         }
 
-        ButtonVariant.Soft -> when (style) {
-            ButtonStyle.Primary -> primary.copy(alpha = 0.12f)
-            ButtonStyle.Secondary -> secondary.copy(alpha = 0.12f)
-            ButtonStyle.Accent -> accent.copy(alpha = 0.12f)
-            ButtonStyle.Ghost -> secondary.copy(alpha = 0.08f)
-            ButtonStyle.Destructive -> secondary.copy(alpha = 0.12f)
-        }
-    }
+    val styleForegroundColor =
+        when (variant) {
+            ButtonVariant.Default ->
+                when (style) {
+                    ButtonStyle.Primary -> Color(colors.onPrimary)
+                    ButtonStyle.Secondary -> Color.White
+                    ButtonStyle.Accent -> Color.White
+                    ButtonStyle.Ghost -> onSurfaceVariant
+                    ButtonStyle.Destructive -> Color(colors.onError)
+                }
 
-    val styleForegroundColor = when (variant) {
-        ButtonVariant.Default -> when (style) {
-            ButtonStyle.Primary -> Color(colors.onPrimary)
-            ButtonStyle.Secondary -> Color.White
-            ButtonStyle.Accent -> Color.White
-            ButtonStyle.Ghost -> onSurfaceVariant
-            ButtonStyle.Destructive -> Color(colors.onError)
+            ButtonVariant.Soft ->
+                when (style) {
+                    ButtonStyle.Primary -> primary
+                    ButtonStyle.Secondary -> secondary
+                    ButtonStyle.Accent -> accent
+                    ButtonStyle.Ghost -> onSurfaceVariant
+                    ButtonStyle.Destructive -> error
+                }
         }
-
-        ButtonVariant.Soft -> when (style) {
-            ButtonStyle.Primary -> primary
-            ButtonStyle.Secondary -> secondary
-            ButtonStyle.Accent -> accent
-            ButtonStyle.Ghost -> onSurfaceVariant
-            ButtonStyle.Destructive -> error
-        }
-    }
 
     val backgroundColor = if (background.isSpecified) background else styleBackgroundColor
     val contentColor = if (foreground.isSpecified) foreground else styleForegroundColor
 
     // Changes to the background color must not destroy and recreate the InteractiveHighlight
-    val interactiveHighlight = remember(animationScope) {
-        InteractiveHighlight(
-            animationScope = animationScope,
-            color = backgroundColor,
-        )
-    }
+    val interactiveHighlight =
+        remember(animationScope) {
+            InteractiveHighlight(animationScope = animationScope, color = backgroundColor)
+        }
 
     Row(
-        modifier = modifier
-            .graphicsLayer {
-                if (interactive) {
-                    applyInteractiveAnimation(
-                        pressProgress = interactiveHighlight.pressProgress,
-                        offset = interactiveHighlight.offset,
-                    )
+        modifier =
+            modifier
+                .graphicsLayer {
+                    if (interactive) {
+                        applyInteractiveAnimation(
+                            pressProgress = interactiveHighlight.pressProgress,
+                            offset = interactiveHighlight.offset,
+                        )
+                    }
+                    alpha = if (enabled) 1f else 0.38f
                 }
-                alpha = if (enabled) 1f else 0.38f
-            }
-            .clip(CapsuleShape())
-            .background(backgroundColor)
-            .then(if (enabled) interactiveHighlight.gestureModifier else Modifier)
-            .combinedClickable(
-                interactionSource = null,
-                indication = null,
-                enabled = enabled,
-                hapticFeedbackEnabled = false,
-                role = Role.Button,
-                onClick = { onClick?.invoke() },
-                onLongClick = { onLongClick?.invoke() },
-            )
-            .then(if (enabled) interactiveHighlight.modifier else Modifier)
-            .height(48.dp).then(
-                if (iconOnly) Modifier.width(48.dp)
-                else Modifier.padding(horizontal = spacing.Md.dp)
-            ),
-        horizontalArrangement = Arrangement.spacedBy(
-            space = spacing.Sm.dp,
-            alignment = Alignment.CenterHorizontally,
-        ),
+                .clip(CapsuleShape())
+                .background(backgroundColor)
+                .then(if (enabled) interactiveHighlight.gestureModifier else Modifier)
+                .combinedClickable(
+                    interactionSource = null,
+                    indication = null,
+                    enabled = enabled,
+                    hapticFeedbackEnabled = false,
+                    role = Role.Button,
+                    onClick = { onClick?.invoke() },
+                    onLongClick = { onLongClick?.invoke() },
+                )
+                .then(if (enabled) interactiveHighlight.modifier else Modifier)
+                .height(48.dp)
+                .then(
+                    if (iconOnly) Modifier.width(48.dp).padding(spacing.Xs.dp)
+                    else Modifier.padding(horizontal = spacing.Md.dp)
+                ),
+        horizontalArrangement =
+            Arrangement.spacedBy(space = spacing.Sm.dp, alignment = Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        CompositionLocalProvider(LocalContentColor provides contentColor) {
-            content()
-        }
+        CompositionLocalProvider(LocalContentColor provides contentColor) { content() }
     }
 }
