@@ -35,13 +35,13 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.cortena.ui.components.Text
 import com.cortena.ui.layout.AppBar
 import com.cortena.ui.layout.Body
 import com.cortena.ui.layout.ContentView
 import com.cortena.ui.layout.SafeArea
 import com.cortena.ui.theme.StatusBarIconMode
 import com.cortena.ui.theme.ThemeMode
-import com.cortena.ui.typography.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,14 +71,14 @@ class MainActivity : ComponentActivity() {
 
 ## Component References
 
-Visit the component guides individually in the `docs/component/` directory:
+Visit the component guides individually in the `docs/components/` directory:
 
-- [ContentView](component/ContentView.md)
-- [Theme](component/Theme.md)
-- [Body](component/Body.md)
-- [SafeArea](component/SafeArea.md)
-- [ScrollView](component/ScrollView.md)
-- [AppBar](component/AppBar.md)
-- [Text](component/Text.md)
-- [Button](component/Button.md)
-- [Slider](component/Slider.md)
+- [ContentView](components/ContentView.md)
+- [Theme](components/Theme.md)
+- [Body](components/Body.md)
+- [SafeArea](components/SafeArea.md)
+- [ScrollView](components/ScrollView.md)
+- [AppBar](components/AppBar.md)
+- [Text](components/Text.md)
+- [Button](components/Button.md)
+- [Slider](components/Slider.md)
