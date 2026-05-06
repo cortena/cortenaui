@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://res.cloudinary.com/dtptrqj5x/image/upload/v1777029971/banner_kjmi3r.webp" alt="CortenaOS" />
+  <img src="https://res.cloudinary.com/dtptrqj5x/image/upload/v1778033013/banner-ui_qsknjl.webp" alt="CortenaUI" />
 </p>
 
-## Cortena Components
+## CortenaUI
 
-Cortena Components is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
+CortenaUI is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
 
 ## Documentation
 

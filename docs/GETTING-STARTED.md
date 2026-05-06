@@ -1,6 +1,6 @@
-# Getting Started with Cortena Components
+# Getting Started with CortenaUI
 
-Cortena Components is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
+CortenaUI is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
 
 ## Project Structure
 
@@ -35,13 +35,13 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.cortena.components.layout.AppBar
-import com.cortena.components.layout.Body
-import com.cortena.components.layout.ContentView
-import com.cortena.components.layout.SafeArea
-import com.cortena.components.theme.StatusBarIconMode
-import com.cortena.components.theme.ThemeMode
-import com.cortena.components.typography.Text
+import com.cortena.ui.layout.AppBar
+import com.cortena.ui.layout.Body
+import com.cortena.ui.layout.ContentView
+import com.cortena.ui.layout.SafeArea
+import com.cortena.ui.theme.StatusBarIconMode
+import com.cortena.ui.theme.ThemeMode
+import com.cortena.ui.typography.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

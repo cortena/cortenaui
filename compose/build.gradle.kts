@@ -11,7 +11,7 @@ kotlin {
     android {
         minSdk = 35
         compileSdk = 37
-        namespace = "com.cortena.components.compose"
+        namespace = "com.cortena.ui.compose"
         compilerOptions { jvmTarget = JvmTarget.JVM_11 }
     }
 

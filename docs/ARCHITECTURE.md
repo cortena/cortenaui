@@ -22,7 +22,7 @@ can be consumed by Compose, the Android View system, and AOSP build system
 (`Android.bp`) without modification.
 
 ```
-foundation/src/commonMain/kotlin/com/cortena/components/
+foundation/src/commonMain/kotlin/com/cortena/ui/
 ├── color/
 │   ├── ColorTokens.kt      # raw ARGB Long values (internal)
 │   ├── AdaptiveColor.kt    # light + dark color pair
@@ -31,10 +31,8 @@ foundation/src/commonMain/kotlin/com/cortena/components/
 ├── typography/
 │   ├── TypeScale.kt        # raw sp Float values
 │   └── Typography.kt       # semantic roles (bodyMedium, titleLarge…)
-├── spacing/
-│   └── Spacing.kt          # 4dp grid (Xs=4, Sm=8, Md=16…)
-└── shape/
-    └── ShapeTokens.kt      # corner radius (Small=8, Medium=12, Full=9999)
+└── spacing/
+    └── Spacing.kt          # 4dp grid (Xs=4, Sm=8, Md=16…)
 ```
 
 ### `:compose`

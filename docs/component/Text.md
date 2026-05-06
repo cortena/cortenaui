@@ -1,6 +1,6 @@
 # Text
 
-`Text` is the fundamental component in Cortena Components to render strings/sentences on the screen. Unlike standard `Text` functions of Jetpack Compose or Material3, _Cortena Text_ is hardwired into the standard typography theme of the Cortena operating system, eliminating the need for developers to depend on the Material Theme.
+`Text` is the fundamental component in CortenaUI to render strings/sentences on the screen. Unlike standard `Text` functions of Jetpack Compose or Material3, _Cortena Text_ is hardwired into the standard typography theme of the Cortena operating system, eliminating the need for developers to depend on the Material Theme.
 
 ## Concept
 

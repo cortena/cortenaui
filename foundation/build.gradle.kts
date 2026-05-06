@@ -9,10 +9,8 @@ kotlin {
     android {
         minSdk = 21
         compileSdk = 37
-        namespace = "com.cortena.components.foundation"
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
-        }
+        namespace = "com.cortena.ui.foundation"
+        compilerOptions { jvmTarget = JvmTarget.JVM_11 }
     }
 
     sourceSets {
