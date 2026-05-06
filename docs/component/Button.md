@@ -26,6 +26,7 @@ Each style supports a `Soft` variant that reduces the background opacity, making
 fun Button(
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
+    iconOnly: Boolean = false,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactive: Boolean = true,
@@ -62,6 +63,7 @@ enum class ButtonEffect {
 | ------------- | --------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `onClick`     | `(() -> Unit)?`                   | `null`                  | Called when the button is clicked.                                                                             |
 | `onLongClick` | `(() -> Unit)?`                   | `null`                  | Called when the button is long-clicked.                                                                        |
+| `iconOnly`    | `Boolean`                         | `false`                 | If `true`, applies specific sizing and padding to make the button perfectly round/square for icons.            |
 | `modifier`    | `Modifier`                        | `Modifier`              | Standard Compose modifier.                                                                                     |
 | `enabled`     | `Boolean`                         | `true`                  | Disables interaction and renders the button at 38% opacity when `false`.                                       |
 | `interactive` | `Boolean`                         | `true`                  | Enables press scale, drag offset, and directional stretch animations when `true`.                              |
