@@ -3,11 +3,9 @@
 ## Module Graph
 
 ```
-:catalog  ──────────────────────────────────┐
-                                            │ depends on
-:compose  (coming next) ──── depends on ────►  :foundation
-                                            │
-:view     (future)      ──── depends on ────┘
+:catalog  ──────────────────┐     depends on
+                            ├──►  :foundation
+:compose  ── depends on ────┘
 ```
 
 ## Modules
