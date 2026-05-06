@@ -23,6 +23,14 @@ data class Palette(
     val onAccent: Long,
     val accentContainer: Long,
     val onAccentContainer: Long,
+    val success: Long,
+    val onSuccess: Long,
+    val successContainer: Long,
+    val onSuccessContainer: Long,
+    val warning: Long,
+    val onWarning: Long,
+    val warningContainer: Long,
+    val onWarningContainer: Long,
     val error: Long,
     val onError: Long,
     val errorContainer: Long,
@@ -39,13 +47,6 @@ data class Palette(
     val inverseSurface: Long,
     val inverseOnSurface: Long,
     val inversePrimary: Long,
-    val surfaceDim: Long,
-    val surfaceBright: Long,
-    val surfaceContainerLowest: Long,
-    val surfaceContainerLow: Long,
-    val surfaceContainer: Long,
-    val surfaceContainerHigh: Long,
-    val surfaceContainerHighest: Long,
 )
 
 // Built-in palettes
@@ -70,6 +71,18 @@ val LightPalette =
         accentContainer = ColorToken.Orange100.resolve(isDark = false),
         onAccentContainer = ColorToken.Orange800.resolve(isDark = false),
 
+        // Success — Green
+        success = ColorToken.Green400.resolve(isDark = false),
+        onSuccess = ColorToken.Green50.resolve(isDark = false),
+        successContainer = ColorToken.Green100.resolve(isDark = false),
+        onSuccessContainer = ColorToken.Green800.resolve(isDark = false),
+
+        // Warning — Yellow
+        warning = ColorToken.Yellow400.resolve(isDark = false),
+        onWarning = ColorToken.Yellow50.resolve(isDark = false),
+        warningContainer = ColorToken.Yellow100.resolve(isDark = false),
+        onWarningContainer = ColorToken.Yellow800.resolve(isDark = false),
+
         // Error — Red
         error = ColorToken.Red400.resolve(isDark = false),
         onError = ColorToken.White.light,
@@ -85,15 +98,6 @@ val LightPalette =
         // surfaceVariant
         surfaceVariant = 0xFFF2F2F7,
         onSurfaceVariant = ColorToken.Gray600.resolve(isDark = false),
-
-        // Surface containers
-        surfaceDim = ColorToken.Gray100.resolve(isDark = false),
-        surfaceBright = ColorToken.White.light,
-        surfaceContainerLowest = ColorToken.White.light,
-        surfaceContainerLow = 0xFFF9F9F9,
-        surfaceContainer = 0xFFF2F2F7, // grouped background Apple
-        surfaceContainerHigh = ColorToken.Gray100.resolve(isDark = false),
-        surfaceContainerHighest = ColorToken.Gray200.resolve(isDark = false),
 
         // Inverse
         inverseSurface = ColorToken.Gray900.resolve(isDark = false),
@@ -128,6 +132,18 @@ val DarkPalette =
         accentContainer = ColorToken.Orange800.resolve(isDark = true),
         onAccentContainer = ColorToken.Orange200.resolve(isDark = true),
 
+        // Success — Green
+        success = ColorToken.Green400.resolve(isDark = true),
+        onSuccess = ColorToken.Green50.resolve(isDark = true),
+        successContainer = ColorToken.Green100.resolve(isDark = true),
+        onSuccessContainer = ColorToken.Green800.resolve(isDark = true),
+
+        // Warning — Yellow
+        warning = ColorToken.Yellow400.resolve(isDark = true),
+        onWarning = ColorToken.Yellow50.resolve(isDark = true),
+        warningContainer = ColorToken.Yellow100.resolve(isDark = true),
+        onWarningContainer = ColorToken.Yellow800.resolve(isDark = true),
+
         // Error — Red
         error = ColorToken.Red400.resolve(isDark = true),
         onError = ColorToken.White.dark,
@@ -143,15 +159,6 @@ val DarkPalette =
         // surfaceVariant
         surfaceVariant = 0xFF1C1C1E,
         onSurfaceVariant = ColorToken.Gray400.resolve(isDark = true),
-
-        // Surface containers
-        surfaceDim = ColorToken.Black.dark,
-        surfaceBright = 0xFF2C2C2E,
-        surfaceContainerLowest = ColorToken.Black.dark,
-        surfaceContainerLow = 0xFF0D0D0D,
-        surfaceContainer = 0xFF1C1C1E,
-        surfaceContainerHigh = 0xFF2C2C2E,
-        surfaceContainerHighest = 0xFF3A3A3C,
 
         // Inverse
         inverseSurface = ColorToken.Gray100.resolve(isDark = true),
