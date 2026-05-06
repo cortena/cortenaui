@@ -38,8 +38,8 @@ foundation/src/commonMain/kotlin/com/cortena/ui/
 ### `:compose`
 
 Compose wrappers and theme layer. Depends on `:foundation`.
-Converts foundation tokens (Long/Float) to Compose types (Color, TextUnit, Dp).
-Provides `ComponentsTheme { }` entry point via CompositionLocalProvider.
+Converts foundation tokens (`Long`/`Float`) to Compose types (`Color`, `TextUnit`, `Dp`).
+Provides `Theme { }` entry point via CompositionLocalProvider.
 
 ### `:catalog`
 

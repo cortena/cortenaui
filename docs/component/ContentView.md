@@ -6,7 +6,7 @@
 
 - **Not a standard @Composable**: This function is equivalent to `setContent {}`. Therefore, it is called once during `onCreate()` in the `Activity`.
 - **Built-In Edge-to-Edge**: Directly calls `enableEdgeToEdge()` so the content spans across System Bars and Navigation Bars.
-- **Auto Theme Wrapping**: This function wraps its content in `ComponentsTheme` directly to execute Dependency Injection for _Design Tokens_.
+- **Auto Theme Wrapping**: This function wraps its content in `Theme` directly to execute Dependency Injection for _Design Tokens_.
 - **Status Bar Layering**: It uses the highest Compose z-index to render the `statusBarColor`, ensuring it remains visible even if you render a header (e.g. `AppBar`) that overlaps into the status bar insets.
 
 ## API Reference

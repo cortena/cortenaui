@@ -1,6 +1,6 @@
-# ComponentsTheme
+# Theme
 
-`ComponentsTheme` is the _Root Theming Container_ of the Cortena Components design system. It is the heart that maps the _ThemeMode_ (Dark/Light/Auto) and utilizes the _CompositionLocalProvider_ from Compose to distribute all UI properties to all child composables that use it.
+`Theme` is the _Root Theming Container_ of the Cortena Components design system. It is the heart that maps the _ThemeMode_ (Dark/Light/Auto) and utilizes the _CompositionLocalProvider_ from Compose to distribute all UI properties to all child composables that use it.
 
 ## Concept
 
@@ -10,15 +10,14 @@ Any component written to Cortena specifications, such as `Text` or `SafeArea`, r
 - `LocalColors.current`
 - `LocalTypography.current`
 - `LocalSpacing.current`
-- `LocalShapes.current`
 
-The function of `ComponentsTheme` is to provide these actual values at the top of the hierarchy (root node). `ContentView` already calls this internally, so you rarely need to call it directly unless you are inside a preview function (`@Preview`) of pure compose.
+The function of `Theme` is to provide these actual values at the top of the hierarchy (root node). `ContentView` already calls this internally, so you rarely need to call it directly unless you are inside a preview function (`@Preview`) of pure compose.
 
 ## API Reference
 
 ```kotlin
 @Composable
-fun ComponentsTheme(
+fun Theme(
     themeMode: ThemeMode = ThemeMode.Auto,
     palette: Palette? = null,
     typography: Typography = DefaultTypography,

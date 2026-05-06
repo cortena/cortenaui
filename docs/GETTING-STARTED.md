@@ -24,7 +24,7 @@ implementation(project(":compose"))
    - Call `enableEdgeToEdge()`.
    - Redraw the status bar color as needed.
    - Enable status bar icons contrast detection.
-   - Wrap its content using **`ComponentsTheme`**.
+   - Wrap its content using **`Theme`**.
 3. Compose your UI using `Body`, `SafeArea`, `AppBar`, `Text`, and so on.
 
 ### Simple Implementation Example (Android)
@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity() {
 Visit the component guides individually in the `docs/component/` directory:
 
 - [ContentView](component/ContentView.md)
-- [ComponentsTheme](component/ComponentsTheme.md)
+- [Theme](component/Theme.md)
 - [Body](component/Body.md)
 - [SafeArea](component/SafeArea.md)
 - [AppBar](component/AppBar.md)

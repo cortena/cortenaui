@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.cortena.ui.color.Palette
-import com.cortena.ui.theme.ComponentsTheme
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.StatusBarIconMode
 import com.cortena.ui.theme.ThemeMode
@@ -56,7 +55,7 @@ fun ComponentActivity.ContentView(
         val currentStatusBarColor = statusBarColor()
         val currentStatusBarIconMode = statusBarIconMode()
 
-        ComponentsTheme(themeMode = currentThemeMode, palette = palette, typography = typography) {
+        Theme(themeMode = currentThemeMode, palette = palette, typography = typography) {
             val colors = LocalColors.current
             val useDarkIcons =
                 when (currentStatusBarIconMode) {

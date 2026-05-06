@@ -11,7 +11,7 @@ import com.cortena.ui.typography.DefaultTypography
 import com.cortena.ui.typography.Typography
 
 @Composable
-fun ComponentsTheme(
+fun Theme(
     themeMode: ThemeMode = ThemeMode.Auto,
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
