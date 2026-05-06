@@ -87,6 +87,7 @@ fun Toggle(
                     if (didDrag) {
                         val target = targetValue >= 0.5f
                         currentOnCheckedChange?.invoke(target)
+                        updateValue(if (target) 1f else 0f)
                         didDrag = false
                     } else {
                         currentOnCheckedChange?.invoke(!currentChecked)
