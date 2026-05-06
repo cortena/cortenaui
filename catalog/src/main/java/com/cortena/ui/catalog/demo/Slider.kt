@@ -7,9 +7,9 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.cortena.ui.component.Button
-import com.cortena.ui.component.Slider
-import com.cortena.ui.component.Text
+import com.cortena.ui.components.Button
+import com.cortena.ui.components.Slider
+import com.cortena.ui.components.Text
 
 @Composable
 fun SliderDemo() {

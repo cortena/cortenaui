@@ -1,4 +1,4 @@
-package com.cortena.ui.component
+package com.cortena.ui.components
 
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable

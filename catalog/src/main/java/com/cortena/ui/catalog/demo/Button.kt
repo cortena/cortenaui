@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cortena.ui.color.ColorToken
-import com.cortena.ui.component.Button
-import com.cortena.ui.component.ButtonStyle
-import com.cortena.ui.component.ButtonVariant
-import com.cortena.ui.component.Text
+import com.cortena.ui.components.Button
+import com.cortena.ui.components.ButtonStyle
+import com.cortena.ui.components.ButtonVariant
+import com.cortena.ui.components.Text
 import com.cortena.ui.theme.ThemeMode
 import com.cortena.ui.theme.value
 

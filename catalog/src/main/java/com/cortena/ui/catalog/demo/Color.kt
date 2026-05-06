@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.cortena.ui.color.ColorToken
-import com.cortena.ui.component.Text
+import com.cortena.ui.components.Text
 import com.cortena.ui.theme.value
 
 @Composable

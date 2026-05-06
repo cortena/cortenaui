@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.cortena.ui.component.Text
+import com.cortena.ui.components.Text
 import com.cortena.ui.layout.ScrollOrientation
 import com.cortena.ui.layout.ScrollView
 import kotlin.random.Random

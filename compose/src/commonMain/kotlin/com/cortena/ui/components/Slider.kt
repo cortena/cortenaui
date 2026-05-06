@@ -1,4 +1,4 @@
-package com.cortena.ui.component
+package com.cortena.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -38,9 +38,9 @@ import com.cortena.ui.theme.value
 import com.cortena.ui.util.DampedAnimation
 import com.cortena.ui.util.applyInteractiveAnimation
 import com.cortena.ui.util.inspectDragGestures
-import kotlinx.coroutines.flow.collectLatest
 import kotlin.math.max
 import kotlin.math.round
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun Slider(
@@ -89,7 +89,7 @@ fun Slider(
                     onDrag = { _, dragAmount ->
                         val delta =
                             (valueRange.endInclusive - valueRange.start) *
-                                    (dragAmount.x / trackWidth)
+                                (dragAmount.x / trackWidth)
                         onValueChange(
                             if (isLtr) (targetValue + delta).coerceIn(valueRange)
                             else (targetValue - delta).coerceIn(valueRange)
@@ -153,11 +153,11 @@ fun Slider(
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
                     val progressEdge =
                         sliderProgressEdge(
-                            trackWidth = size.width,
-                            indicatorWidth = indicatorWidth.toPx(),
-                            progress = progress,
-                            isLtr = isLtr,
-                        )
+                                trackWidth = size.width,
+                                indicatorWidth = indicatorWidth.toPx(),
+                                progress = progress,
+                                isLtr = isLtr,
+                            )
                             .fastCoerceIn(0f, size.width)
                     drawRect(
                         resolvedProgressColor.copy(
