@@ -51,16 +51,16 @@ fun SliderDemo() {
     Slider(
         value = { sliderDiscreteValue },
         onValueChange = { sliderDiscreteValue = it },
-        valueRange = -4f..4f,
-        steps = 7, // Creates 8 intervals between -4 and 4, meaning a step size of 1.
+        valueRange = -2f..2f,
+        steps = 3, // Creates 4 intervals between -2 and 2, meaning a step size of 1f.
     )
     var sliderDiscreteDisabledValue by remember { mutableFloatStateOf(0f) }
     Text("Slider Discrete (Disabled)")
     Slider(
         value = { sliderDiscreteDisabledValue },
         onValueChange = { sliderDiscreteDisabledValue = it },
-        valueRange = -4f..4f,
-        steps = 7,
+        valueRange = -2f..2f,
+        steps = 3,
         enabled = false,
     )
 }
