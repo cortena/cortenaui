@@ -31,13 +31,13 @@ import androidx.compose.ui.zIndex
 import com.cortena.ui.color.ColorToken
 import com.cortena.ui.graphics.shadow.Shadow
 import com.cortena.ui.graphics.shadow.componentShadow
+import com.cortena.ui.interaction.DampedAnimation
+import com.cortena.ui.interaction.applyInteractiveAnimation
+import com.cortena.ui.interaction.inspectDragGestures
 import com.cortena.ui.shape.CapsuleShape
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.LocalSpacing
 import com.cortena.ui.theme.value
-import com.cortena.ui.util.DampedAnimation
-import com.cortena.ui.util.applyInteractiveAnimation
-import com.cortena.ui.util.inspectDragGestures
 import kotlin.math.max
 import kotlin.math.round
 import kotlinx.coroutines.flow.collectLatest

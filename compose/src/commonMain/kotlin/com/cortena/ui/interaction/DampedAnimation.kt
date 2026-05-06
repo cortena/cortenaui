@@ -1,4 +1,4 @@
-package com.cortena.ui.util
+package com.cortena.ui.interaction
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
@@ -9,12 +9,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.unit.IntSize
-import kotlin.math.abs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 class DampedAnimation(
     private val animationScope: CoroutineScope,

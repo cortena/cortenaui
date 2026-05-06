@@ -1,4 +1,4 @@
-package com.cortena.ui.util
+package com.cortena.ui.interaction
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset

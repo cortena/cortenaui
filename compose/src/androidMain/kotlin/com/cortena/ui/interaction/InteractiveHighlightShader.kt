@@ -1,4 +1,4 @@
-package com.cortena.ui.util
+package com.cortena.ui.interaction
 
 internal const val InteractiveHighlightShaderSource =
     """

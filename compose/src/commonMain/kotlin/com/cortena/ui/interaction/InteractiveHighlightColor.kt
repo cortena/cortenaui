@@ -1,4 +1,4 @@
-package com.cortena.ui.util
+package com.cortena.ui.interaction
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.isSpecified

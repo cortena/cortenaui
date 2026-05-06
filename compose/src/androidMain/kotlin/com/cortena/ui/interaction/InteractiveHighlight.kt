@@ -1,4 +1,4 @@
-package com.cortena.ui.util
+package com.cortena.ui.interaction
 
 import android.graphics.RuntimeShader
 import androidx.compose.animation.core.Animatable

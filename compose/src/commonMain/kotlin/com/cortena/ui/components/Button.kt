@@ -20,12 +20,12 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.cortena.ui.interaction.InteractiveHighlight
+import com.cortena.ui.interaction.applyInteractiveAnimation
 import com.cortena.ui.shape.CapsuleShape
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.LocalContentColor
 import com.cortena.ui.theme.LocalSpacing
-import com.cortena.ui.util.InteractiveHighlight
-import com.cortena.ui.util.applyInteractiveAnimation
 
 enum class ButtonStyle {
     Primary,
