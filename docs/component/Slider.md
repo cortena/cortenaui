@@ -22,6 +22,7 @@ fun Slider(
     valueRange: ClosedFloatingPointRange<Float>,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    steps: Int = 0,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified
@@ -30,16 +31,17 @@ fun Slider(
 
 ### Parameters
 
-| Name             | Data Type                         | Description                                     |
-| ---------------- | --------------------------------- | ----------------------------------------------- |
-| `value`          | `() -> Float`                     | Current slider value.                           |
-| `onValueChange`  | `(Float) -> Unit`                 | Called with a coerced value while dragging.     |
-| `valueRange`     | `ClosedFloatingPointRange<Float>` | Minimum and maximum allowed values.             |
-| `modifier`       | `Modifier`                        | Standard Compose modifier.                      |
-| `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`. |
-| `indicatorColor` | `Color`                           | Indicator pill color. Default: white.           |
-| `trackColor`     | `Color`                           | Track color. Default: surface variant.          |
-| `progressColor`  | `Color`                           | Filled progress color. Default: primary.        |
+| Name             | Data Type                         | Description                                                                                                        |
+| ---------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `value`          | `() -> Float`                     | Current slider value.                                                                                              |
+| `onValueChange`  | `(Float) -> Unit`                 | Called with a coerced value while dragging.                                                                        |
+| `valueRange`     | `ClosedFloatingPointRange<Float>` | Minimum and maximum allowed values.                                                                                |
+| `modifier`       | `Modifier`                        | Standard Compose modifier.                                                                                         |
+| `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.                                                                    |
+| `steps`          | `Int`                             | Number of discrete steps (tick marks) evenly distributed across the track. If 0, behaves continuously. Default: 0. |
+| `indicatorColor` | `Color`                           | Indicator pill color. Default: white.                                                                              |
+| `trackColor`     | `Color`                           | Track color. Default: surface variant.                                                                             |
+| `progressColor`  | `Color`                           | Filled progress color. Default: primary.                                                                           |
 
 ### Example
 
@@ -65,5 +67,20 @@ Slider(
     indicatorColor = Color.White,
     trackColor = Color(LocalColors.current.surface),
     progressColor = Color(LocalColors.current.primary).copy(alpha = 0.24f),
+)
+```
+
+### Discrete Slider
+
+If `steps > 0`, the slider behaves discretely, jumping to specific values and rendering visual tick marks.
+
+```kotlin
+var discreteValue by rememberSaveable { mutableFloatStateOf(0f) }
+
+Slider(
+    value = { discreteValue },
+    onValueChange = { discreteValue = it },
+    valueRange = -4f..4f,
+    steps = 7, // Creates 8 intervals, snapping exactly to integers like -4, -3, ... 4
 )
 ```

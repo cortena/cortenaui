@@ -38,8 +38,9 @@ import com.cortena.ui.theme.value
 import com.cortena.ui.util.DampedAnimation
 import com.cortena.ui.util.applyInteractiveAnimation
 import com.cortena.ui.util.inspectDragGestures
-import kotlin.math.max
 import kotlinx.coroutines.flow.collectLatest
+import kotlin.math.max
+import kotlin.math.round
 
 @Composable
 fun Slider(
@@ -48,6 +49,7 @@ fun Slider(
     valueRange: ClosedFloatingPointRange<Float>,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    steps: Int = 0,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified,
@@ -87,7 +89,7 @@ fun Slider(
                     onDrag = { _, dragAmount ->
                         val delta =
                             (valueRange.endInclusive - valueRange.start) *
-                                (dragAmount.x / trackWidth)
+                                    (dragAmount.x / trackWidth)
                         onValueChange(
                             if (isLtr) (targetValue + delta).coerceIn(valueRange)
                             else (targetValue - delta).coerceIn(valueRange)
@@ -119,6 +121,12 @@ fun Slider(
                                 indicatorWidth = indicatorWidth.toPx(),
                                 isLtr = isLtr,
                             )
+                        if (steps > 0) {
+                            val intervalCount = steps + 1
+                            val snappedProgress =
+                                round(positionProgress * intervalCount) / intervalCount
+                            return lerp(valueRange.start, valueRange.endInclusive, snappedProgress)
+                        }
                         return lerp(valueRange.start, valueRange.endInclusive, positionProgress)
                     }
                     inspectDragGestures(
@@ -145,11 +153,11 @@ fun Slider(
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
                     val progressEdge =
                         sliderProgressEdge(
-                                trackWidth = size.width,
-                                indicatorWidth = indicatorWidth.toPx(),
-                                progress = progress,
-                                isLtr = isLtr,
-                            )
+                            trackWidth = size.width,
+                            indicatorWidth = indicatorWidth.toPx(),
+                            progress = progress,
+                            isLtr = isLtr,
+                        )
                             .fastCoerceIn(0f, size.width)
                     drawRect(
                         resolvedProgressColor.copy(
@@ -176,6 +184,33 @@ fun Slider(
                                     }
                             ),
                     )
+
+                    if (steps > 0) {
+                        val intervalCount = steps + 1
+                        val tickRadius = 4.dp.toPx()
+                        for (i in 0..intervalCount) {
+                            val tickProgress = i.toFloat() / intervalCount
+                            val cx =
+                                sliderProgressEdge(
+                                    trackWidth = size.width,
+                                    indicatorWidth = indicatorWidth.toPx(),
+                                    progress = tickProgress,
+                                    isLtr = isLtr,
+                                )
+                            val isTickActive = tickProgress <= progress
+                            val tickColor =
+                                if (isTickActive) {
+                                    resolvedTrackColor.copy(alpha = 0.38f)
+                                } else {
+                                    resolvedProgressColor.copy(alpha = 0.38f)
+                                }
+                            drawCircle(
+                                color = tickColor,
+                                radius = tickRadius,
+                                center = Offset(cx, size.height / 2f),
+                            )
+                        }
+                    }
                 }
                 .then(gestureModifier)
                 .fillMaxWidth()
