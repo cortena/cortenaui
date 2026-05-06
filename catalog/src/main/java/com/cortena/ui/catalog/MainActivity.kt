@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val themeMode = mutableStateOf(ThemeMode.Light)
+        val themeMode = mutableStateOf(ThemeMode.Auto)
 
         ContentView(themeMode = { themeMode.value }) {
             Body {
