@@ -62,7 +62,6 @@ internal class BounceOverscrollEffect(
         }
 
         // Pass the remaining delta to the underlying list/scrollable
-
         val remainingDelta =
             if (orientation == ScrollOrientation.Vertical) {
                 delta.copy(y = delta.y - consumed)
@@ -102,39 +101,45 @@ internal class BounceOverscrollEffect(
             if (orientation == ScrollOrientation.Vertical) velocity.y else velocity.x
         var consumedVelocity = 0f
 
-        // Pre-fling: If overscroll, predict if the fling will return to 0 or cross 0
         if (overscrollOffset.value != 0f && availableVelocity != 0f) {
             val previousSign = overscrollOffset.value.sign
-            consumedVelocity = availableVelocity
+            val velocitySign = availableVelocity.sign
 
-            val predictedEndValue =
-                exponentialDecay<Float>()
-                    .calculateTargetValue(
-                        initialValue = overscrollOffset.value,
+            if (previousSign * velocitySign < 0) {
+                consumedVelocity = availableVelocity
+
+                val predictedEndValue =
+                    exponentialDecay<Float>()
+                        .calculateTargetValue(
+                            initialValue = overscrollOffset.value,
+                            initialVelocity = availableVelocity,
+                        )
+
+                if (predictedEndValue.sign == previousSign) {
+                    overscrollOffset.animateTo(
+                        targetValue = 0f,
                         initialVelocity = availableVelocity,
+                        animationSpec = spring(stiffness = 300f, dampingRatio = 0.7f),
                     )
-
-            if (predictedEndValue.sign == previousSign) {
-                // The fling won't cross 0, just animate to 0
-                overscrollOffset.animateTo(
-                    targetValue = 0f,
-                    initialVelocity = availableVelocity,
-                    animationSpec = spring(stiffness = 300f, dampingRatio = 0.7f),
-                )
-            } else {
-                // The fling is strong enough to cross 0, decay until 0 then pass remaining velocity
-                try {
-                    overscrollOffset.animateDecay(
-                        initialVelocity = availableVelocity,
-                        animationSpec = exponentialDecay(),
-                    ) {
-                        if (value.sign != previousSign) {
-                            consumedVelocity -= this.velocity
-                            scope.launch { overscrollOffset.snapTo(0f) }
+                } else {
+                    try {
+                        overscrollOffset.animateDecay(
+                            initialVelocity = availableVelocity,
+                            animationSpec = exponentialDecay(),
+                        ) {
+                            if (value.sign != previousSign) {
+                                consumedVelocity -= this.velocity
+                                scope.launch { overscrollOffset.snapTo(0f) }
+                            }
                         }
-                    }
-                } catch (_: Exception) {
-                    // Intentionally caught since snapTo throws MutationInterruptedException
+                    } catch (_: Exception) {}
+                }
+            } else {
+                scope.launch {
+                    overscrollOffset.animateTo(
+                        targetValue = 0f,
+                        animationSpec = spring(stiffness = 300f, dampingRatio = 0.7f),
+                    )
                 }
             }
         }
@@ -148,7 +153,6 @@ internal class BounceOverscrollEffect(
 
         val flingConsumed = performFling(remainingVelocity)
 
-        // Post-fling: If the list hit the bounds and couldn't consume all velocity, overscroll!
         val unconsumedVelocity = remainingVelocity - flingConsumed
         val postFlingAvailable =
             if (orientation == ScrollOrientation.Vertical) unconsumedVelocity.y
