@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -31,7 +31,7 @@ fun ColorDemo() {
                 ColorToken.Red900.value(),
                 ColorToken.Red950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -49,7 +49,7 @@ fun ColorDemo() {
                 ColorToken.Orange900.value(),
                 ColorToken.Orange950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -67,7 +67,7 @@ fun ColorDemo() {
                 ColorToken.Yellow900.value(),
                 ColorToken.Yellow950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -85,7 +85,7 @@ fun ColorDemo() {
                 ColorToken.Green900.value(),
                 ColorToken.Green950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -103,7 +103,7 @@ fun ColorDemo() {
                 ColorToken.Mint900.value(),
                 ColorToken.Mint950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -121,7 +121,7 @@ fun ColorDemo() {
                 ColorToken.Teal900.value(),
                 ColorToken.Teal950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -139,7 +139,7 @@ fun ColorDemo() {
                 ColorToken.Cyan900.value(),
                 ColorToken.Cyan950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -157,7 +157,7 @@ fun ColorDemo() {
                 ColorToken.Blue900.value(),
                 ColorToken.Blue950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -175,7 +175,7 @@ fun ColorDemo() {
                 ColorToken.Indigo900.value(),
                 ColorToken.Indigo950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -193,7 +193,7 @@ fun ColorDemo() {
                 ColorToken.Purple900.value(),
                 ColorToken.Purple950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -211,7 +211,7 @@ fun ColorDemo() {
                 ColorToken.Pink900.value(),
                 ColorToken.Pink950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -229,7 +229,7 @@ fun ColorDemo() {
                 ColorToken.Brown900.value(),
                 ColorToken.Brown950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -247,7 +247,7 @@ fun ColorDemo() {
                 ColorToken.Gray900.value(),
                 ColorToken.Gray950.value(),
             )) {
-            Box(modifier = Modifier.size(32.dp).background(i))
+            Box(modifier = Modifier.height(32.dp).weight(1f).background(i))
         }
     }
 }
