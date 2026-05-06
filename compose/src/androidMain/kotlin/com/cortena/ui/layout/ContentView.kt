@@ -24,6 +24,7 @@ import androidx.core.view.WindowCompat
 import com.cortena.ui.color.Palette
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.StatusBarIconMode
+import com.cortena.ui.theme.Theme
 import com.cortena.ui.theme.ThemeMode
 import com.cortena.ui.typography.DefaultTypography
 import com.cortena.ui.typography.Typography
