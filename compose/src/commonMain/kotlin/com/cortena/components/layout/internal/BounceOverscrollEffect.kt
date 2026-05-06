@@ -12,19 +12,20 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.unit.Velocity
 import com.cortena.components.layout.ScrollOrientation
+import kotlin.math.sign
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlin.math.sign
 
 @OptIn(ExperimentalFoundationApi::class)
 internal class BounceOverscrollEffect(
     private val scope: CoroutineScope,
-    private val orientation: ScrollOrientation
+    private val orientation: ScrollOrientation,
 ) : OverscrollEffect {
 
     private val maxOverscroll = 800f
     private val overscrollOffset = Animatable(0f)
-    private var isReleased = false
+
+    private var snapJob: kotlinx.coroutines.Job? = null
 
     init {
         overscrollOffset.updateBounds(-maxOverscroll, maxOverscroll)
@@ -39,57 +40,48 @@ internal class BounceOverscrollEffect(
         var consumed = 0f
 
         // Pre-scroll: Only intercept if dragging in the OPPOSITE direction of the overscroll
-        if (!isReleased && overscrollOffset.value != 0f && source != NestedScrollSource.SideEffect) {
+        if (overscrollOffset.value != 0f && source != NestedScrollSource.SideEffect) {
             val previousSign = overscrollOffset.value.sign
             val availableSign = available.sign
 
             if (previousSign * availableSign < 0) {
                 val newValue = overscrollOffset.value + available * 0.3f
 
-                val clampedNewValue = when {
-                    previousSign > 0 -> newValue.coerceAtLeast(0f)
-                    previousSign < 0 -> newValue.coerceAtMost(0f)
-                    else -> newValue
-                }
+                val clampedNewValue =
+                    when {
+                        previousSign > 0 -> newValue.coerceAtLeast(0f)
+                        previousSign < 0 -> newValue.coerceAtMost(0f)
+                        else -> newValue
+                    }
 
                 consumed = (clampedNewValue - overscrollOffset.value) / 0.3f
 
-                scope.launch {
-                    overscrollOffset.snapTo(clampedNewValue)
-                }
+                snapJob?.cancel()
+                snapJob = scope.launch { overscrollOffset.snapTo(clampedNewValue) }
             }
         }
 
         // Pass the remaining delta to the underlying list/scrollable
-        val remainingDelta = if (orientation == ScrollOrientation.Vertical) {
-            delta.copy(y = delta.y - consumed)
-        } else {
-            delta.copy(x = delta.x - consumed)
-        }
+
+        val remainingDelta =
+            if (orientation == ScrollOrientation.Vertical) {
+                delta.copy(y = delta.y - consumed)
+            } else {
+                delta.copy(x = delta.x - consumed)
+            }
 
         val scrollConsumed = performScroll(remainingDelta)
 
-        // Post-scroll: If the list couldn't consume all the scroll (hit the bounds), add it to overscroll
+        // Post-scroll: If the list couldn't consume all the scroll (hit the bounds), add it to
+        // overscroll
         val unconsumed = remainingDelta - scrollConsumed
         val availableUnconsumed =
             if (orientation == ScrollOrientation.Vertical) unconsumed.y else unconsumed.x
 
-        if (!isReleased && kotlin.math.abs(availableUnconsumed) > 1f && source == NestedScrollSource.UserInput) {
+        if (kotlin.math.abs(availableUnconsumed) > 1f && source == NestedScrollSource.UserInput) {
             val newValue = overscrollOffset.value + availableUnconsumed * 0.3f
-
-            if (kotlin.math.abs(newValue) >= maxOverscroll) {
-                isReleased = true
-                scope.launch {
-                    overscrollOffset.animateTo(
-                        targetValue = 0f,
-                        animationSpec = spring(stiffness = 300f, dampingRatio = 0.7f)
-                    )
-                }
-            } else {
-                scope.launch {
-                    overscrollOffset.snapTo(newValue)
-                }
-            }
+            snapJob?.cancel()
+            snapJob = scope.launch { overscrollOffset.snapTo(newValue) }
         }
 
         return if (orientation == ScrollOrientation.Vertical) {
@@ -103,7 +95,9 @@ internal class BounceOverscrollEffect(
         velocity: Velocity,
         performFling: suspend (Velocity) -> Velocity,
     ) {
-        isReleased = false
+        snapJob?.cancel()
+        snapJob = null
+
         val availableVelocity =
             if (orientation == ScrollOrientation.Vertical) velocity.y else velocity.x
         var consumedVelocity = 0f
@@ -113,10 +107,12 @@ internal class BounceOverscrollEffect(
             val previousSign = overscrollOffset.value.sign
             consumedVelocity = availableVelocity
 
-            val predictedEndValue = exponentialDecay<Float>().calculateTargetValue(
-                initialValue = overscrollOffset.value,
-                initialVelocity = availableVelocity,
-            )
+            val predictedEndValue =
+                exponentialDecay<Float>()
+                    .calculateTargetValue(
+                        initialValue = overscrollOffset.value,
+                        initialVelocity = availableVelocity,
+                    )
 
             if (predictedEndValue.sign == previousSign) {
                 // The fling won't cross 0, just animate to 0
@@ -130,13 +126,11 @@ internal class BounceOverscrollEffect(
                 try {
                     overscrollOffset.animateDecay(
                         initialVelocity = availableVelocity,
-                        animationSpec = exponentialDecay()
+                        animationSpec = exponentialDecay(),
                     ) {
                         if (value.sign != previousSign) {
                             consumedVelocity -= this.velocity
-                            scope.launch {
-                                overscrollOffset.snapTo(0f)
-                            }
+                            scope.launch { overscrollOffset.snapTo(0f) }
                         }
                     }
                 } catch (_: Exception) {
@@ -145,18 +139,20 @@ internal class BounceOverscrollEffect(
             }
         }
 
-        val remainingVelocity = if (orientation == ScrollOrientation.Vertical) {
-            velocity.copy(y = velocity.y - consumedVelocity)
-        } else {
-            velocity.copy(x = velocity.x - consumedVelocity)
-        }
+        val remainingVelocity =
+            if (orientation == ScrollOrientation.Vertical) {
+                velocity.copy(y = velocity.y - consumedVelocity)
+            } else {
+                velocity.copy(x = velocity.x - consumedVelocity)
+            }
 
         val flingConsumed = performFling(remainingVelocity)
 
         // Post-fling: If the list hit the bounds and couldn't consume all velocity, overscroll!
         val unconsumedVelocity = remainingVelocity - flingConsumed
         val postFlingAvailable =
-            if (orientation == ScrollOrientation.Vertical) unconsumedVelocity.y else unconsumedVelocity.x
+            if (orientation == ScrollOrientation.Vertical) unconsumedVelocity.y
+            else unconsumedVelocity.x
 
         if (postFlingAvailable != 0f) {
             overscrollOffset.animateTo(
@@ -176,11 +172,12 @@ internal class BounceOverscrollEffect(
         get() = overscrollOffset.value != 0f
 
     val overscroll: Modifier
-        get() = Modifier.graphicsLayer {
-            if (orientation == ScrollOrientation.Vertical) {
-                translationY = overscrollOffset.value
-            } else {
-                translationX = overscrollOffset.value
+        get() =
+            Modifier.graphicsLayer {
+                if (orientation == ScrollOrientation.Vertical) {
+                    translationY = overscrollOffset.value
+                } else {
+                    translationX = overscrollOffset.value
+                }
             }
-        }
 }
