@@ -16,7 +16,7 @@ For documentation, see:
 
 ## License
 
-````
+```
 Copyright (C) 2026  CortenaOS
 
 This program is free software: you can redistribute it and/or modify
@@ -41,4 +41,7 @@ This project includes third-party code, libraries, assets, or modified component
 All applicable copyright notices, attributions, and license information are documented in the [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES) file.
 
 Please review that file for complete licensing details regarding externally sourced material used in this project.
-````
+
+```
+
+```
