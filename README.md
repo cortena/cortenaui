@@ -12,7 +12,7 @@ For documentation, see:
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Getting Started](docs/GETTING-STARTED.md)
-- [Components Documentation](docs/component)
+- [Components Documentation](docs/components)
 
 ## License
 
