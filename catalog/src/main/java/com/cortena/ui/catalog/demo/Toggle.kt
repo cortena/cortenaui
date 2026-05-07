@@ -10,13 +10,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.cortena.ui.color.ColorToken
+import androidx.compose.ui.graphics.Color
 import com.cortena.ui.components.Text
+import com.cortena.ui.components.TextRole
 import com.cortena.ui.components.Toggle
-import com.cortena.ui.theme.value
+import com.cortena.ui.theme.LocalColors
 
 @Composable
 fun ToggleDemo() {
+    val colors = LocalColors.current
+    Text("Toggle", color = Color(colors.primary), role = TextRole.TitleMedium)
     var defaultChecked by remember { mutableStateOf(true) }
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -26,7 +29,6 @@ fun ToggleDemo() {
         Text("Default Toggle")
         Toggle(checked = defaultChecked, onCheckedChange = { defaultChecked = it })
     }
-    var disabledChecked by remember { mutableStateOf(true) }
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -34,8 +36,8 @@ fun ToggleDemo() {
     ) {
         Text("Disabled Toggle")
         Toggle(
-            checked = disabledChecked,
-            onCheckedChange = { disabledChecked = it },
+            checked = defaultChecked,
+            onCheckedChange = { defaultChecked = it },
             enabled = false,
         )
     }
@@ -49,7 +51,7 @@ fun ToggleDemo() {
         Toggle(
             checked = customChecked,
             onCheckedChange = { customChecked = it },
-            activeColor = ColorToken.Yellow400.value(),
+            activeColor = Color(colors.primary),
         )
     }
 }

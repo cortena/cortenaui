@@ -9,7 +9,11 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -18,84 +22,57 @@ import com.cortena.ui.components.Button
 import com.cortena.ui.components.ButtonStyle
 import com.cortena.ui.components.ButtonVariant
 import com.cortena.ui.components.Text
-import com.cortena.ui.theme.ThemeMode
+import com.cortena.ui.components.TextRole
+import com.cortena.ui.components.Toggle
+import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.value
 
 @Composable
-fun ButtonDemo(themeMode: MutableState<ThemeMode>) {
-    Button(
-        onLongClick = {
-            themeMode.value =
-                when (themeMode.value) {
-                    ThemeMode.Light -> ThemeMode.Dark
-                    ThemeMode.Dark -> ThemeMode.Light
-                    ThemeMode.Auto -> ThemeMode.Light
-                }
-        }
+fun ButtonDemo() {
+    val colors = LocalColors.current
+    Text("Button", color = Color(colors.primary), role = TextRole.TitleMedium)
+    var enable by remember { mutableStateOf(true) }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
-            when (themeMode.value) {
-                ThemeMode.Light -> "Switch to Dark"
-                ThemeMode.Dark -> "Switch to Light"
-                ThemeMode.Auto -> "Switch to Light"
-            }
-        )
+        Text("Enable Button")
+        Toggle(checked = enable, onCheckedChange = { enable = it })
     }
-    Text("Button")
+    Text("Button Default")
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Primary) { Text("Primary") }
-        Button(style = ButtonStyle.Secondary) { Text("Secondary") }
-        Button(style = ButtonStyle.Accent) { Text("Accent") }
+        Button(enabled = enable, style = ButtonStyle.Primary) { Text("Primary") }
+        Button(enabled = enable, style = ButtonStyle.Secondary) { Text("Secondary") }
+        Button(enabled = enable, style = ButtonStyle.Accent) { Text("Accent") }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Ghost) { Text("Ghost") }
-        Button(style = ButtonStyle.Destructive) { Text("Destructive") }
+        Button(enabled = enable, style = ButtonStyle.Ghost) { Text("Ghost") }
+        Button(enabled = enable, style = ButtonStyle.Destructive) { Text("Destructive") }
     }
     Text("Button Soft Variant")
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Primary, variant = ButtonVariant.Soft) { Text("Primary") }
-        Button(style = ButtonStyle.Secondary, variant = ButtonVariant.Soft) { Text("Secondary") }
-        Button(style = ButtonStyle.Accent, variant = ButtonVariant.Soft) { Text("Accent") }
-    }
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Ghost, variant = ButtonVariant.Soft) { Text("Ghost") }
-        Button(style = ButtonStyle.Destructive, variant = ButtonVariant.Soft) {
-            Text("Destructive")
-        }
-    }
-    Text("Button Disabled")
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Primary, enabled = false) { Text("Primary") }
-        Button(style = ButtonStyle.Secondary, enabled = false) { Text("Secondary") }
-        Button(style = ButtonStyle.Accent, enabled = false) { Text("Accent") }
-    }
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Ghost, enabled = false) { Text("Ghost") }
-        Button(style = ButtonStyle.Destructive, enabled = false) { Text("Destructive") }
-    }
-    Text("Button Disabled Soft Variant")
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Primary, variant = ButtonVariant.Soft, enabled = false) {
+        Button(enabled = enable, style = ButtonStyle.Primary, variant = ButtonVariant.Soft) {
             Text("Primary")
         }
-        Button(style = ButtonStyle.Secondary, variant = ButtonVariant.Soft, enabled = false) {
+        Button(enabled = enable, style = ButtonStyle.Secondary, variant = ButtonVariant.Soft) {
             Text("Secondary")
         }
-        Button(style = ButtonStyle.Accent, variant = ButtonVariant.Soft, enabled = false) {
+        Button(enabled = enable, style = ButtonStyle.Accent, variant = ButtonVariant.Soft) {
             Text("Accent")
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(style = ButtonStyle.Ghost, variant = ButtonVariant.Soft, enabled = false) {
+        Button(enabled = enable, style = ButtonStyle.Ghost, variant = ButtonVariant.Soft) {
             Text("Ghost")
         }
-        Button(style = ButtonStyle.Destructive, variant = ButtonVariant.Soft, enabled = false) {
+        Button(enabled = enable, style = ButtonStyle.Destructive, variant = ButtonVariant.Soft) {
             Text("Destructive")
         }
     }
     Text("Other")
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(background = ColorToken.Blue500.value()) {
+        Button(enabled = enable, background = ColorToken.Blue500.value()) {
             Icon(
                 imageVector = Icons.Default.Favorite,
                 contentDescription = "Favorite icon",
@@ -103,15 +80,15 @@ fun ButtonDemo(themeMode: MutableState<ThemeMode>) {
             )
             Text("Favorite", color = ColorToken.Blue50.value())
         }
-        Button(background = ColorToken.Green600.value()) { Text("Green") }
-        Button(iconOnly = true, background = ColorToken.Orange500.value()) {
+        Button(enabled = enable, background = ColorToken.Green600.value()) { Text("Green") }
+        Button(enabled = enable, iconOnly = true, background = ColorToken.Orange500.value()) {
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = "Add icon",
                 tint = Color.White,
             )
         }
-        Button(iconOnly = true, background = ColorToken.Pink500.value()) {
+        Button(enabled = enable, iconOnly = true, background = ColorToken.Pink500.value()) {
             Icon(
                 imageVector = Icons.Default.Edit,
                 contentDescription = "Edit icon",
