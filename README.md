@@ -16,8 +16,14 @@ For documentation, see:
 
 ## License
 
-This project includes third-party code, libraries, or modified components from external sources.
+CortenaUI is licensed under the GNU General Public License v3.0 (GPL-3.0).
 
-All applicable third-party licenses, copyright notices, and attributions are documented in the [`THIRD_PARTY_LICENSES`](THIRD_PARTY_LICENSES) file.
+See the [LICENSE](LICENSE) file for full license text.
 
-Please review that file for complete licensing details regarding externally sourced code used in this project.
+## Third-Party Licenses
+
+This project includes third-party code, libraries, assets, or modified components from external sources.
+
+All applicable copyright notices, attributions, and license information are documented in the [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES) file.
+
+Please review that file for complete licensing details regarding externally sourced material used in this project.
