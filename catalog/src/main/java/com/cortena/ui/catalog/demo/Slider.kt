@@ -1,49 +1,48 @@
 package com.cortena.ui.catalog.demo
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.cortena.ui.components.Button
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.cortena.ui.components.Slider
 import com.cortena.ui.components.Text
+import com.cortena.ui.components.TextRole
+import com.cortena.ui.components.Toggle
+import com.cortena.ui.theme.LocalColors
 
 @Composable
 fun SliderDemo() {
+    val colors = LocalColors.current
+    Text("Slider", color = Color(colors.primary), role = TextRole.TitleMedium)
+    var enable by remember { mutableStateOf(true) }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text("Enable Slider")
+        Toggle(checked = enable, onCheckedChange = { enable = it })
+    }
     var sliderValue by remember { mutableFloatStateOf(0f) }
     Text("Slider")
     Column {
         Text("value int: ${sliderValue.toInt()}")
         Text("value float: $sliderValue")
     }
-    Slider(value = { sliderValue }, onValueChange = { sliderValue = it }, valueRange = -4f..4f)
-    var sliderValue2 by remember { mutableFloatStateOf(0f) }
-    var sliderDisabled by remember { mutableStateOf(false) }
-    Text("Slider Disabled")
-    Button(
-        onClick = {
-            sliderDisabled =
-                when (sliderDisabled) {
-                    true -> false
-                    false -> true
-                }
-        }
-    ) {
-        Text(
-            when (sliderDisabled) {
-                true -> "Disabled"
-                false -> "Enabled"
-            }
-        )
-    }
     Slider(
-        value = { sliderValue2 },
-        onValueChange = { sliderValue2 = it },
+        value = { sliderValue },
+        onValueChange = { sliderValue = it },
         valueRange = -4f..4f,
-        enabled = sliderDisabled,
+        enabled = enable
     )
     var sliderDiscreteValue by remember { mutableFloatStateOf(0f) }
     Text("Slider Discrete")
@@ -53,14 +52,6 @@ fun SliderDemo() {
         onValueChange = { sliderDiscreteValue = it },
         valueRange = -2f..2f,
         steps = 3, // Creates 4 intervals between -2 and 2, meaning a step size of 1f.
-    )
-    var sliderDiscreteDisabledValue by remember { mutableFloatStateOf(0f) }
-    Text("Slider Discrete (Disabled)")
-    Slider(
-        value = { sliderDiscreteDisabledValue },
-        onValueChange = { sliderDiscreteDisabledValue = it },
-        valueRange = -2f..2f,
-        steps = 3,
-        enabled = false,
+        enabled = enable
     )
 }

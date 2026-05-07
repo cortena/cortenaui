@@ -1,23 +1,46 @@
+/*
+ * CortenaUI Catalog
+ * Copyright (C) 2026  CortenaOS
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
 package com.cortena.ui.catalog
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cortena.ui.catalog.demo.ButtonDemo
 import com.cortena.ui.catalog.demo.ColorDemo
 import com.cortena.ui.catalog.demo.SliderDemo
 import com.cortena.ui.catalog.demo.ToggleDemo
+import com.cortena.ui.catalog.demo.TypographyDemo
+import com.cortena.ui.components.Separator
 import com.cortena.ui.components.Text
+import com.cortena.ui.components.TextRole
+import com.cortena.ui.components.Toggle
 import com.cortena.ui.layout.Body
 import com.cortena.ui.layout.ContentView
 import com.cortena.ui.layout.SafeArea
 import com.cortena.ui.layout.ScrollView
+import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.ThemeMode
 
 class MainActivity : ComponentActivity() {
@@ -34,13 +57,42 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(16.dp),
                         ) {
+                            val colors = LocalColors.current
                             Text(
-                                "Long click to switch ThemeMode",
-                                modifier = Modifier.padding(top = 16.dp),
+                                "Theme",
+                                color = Color(colors.primary),
+                                role = TextRole.TitleMedium,
                             )
-                            ButtonDemo(themeMode)
+                            val isSystemDark = isSystemInDarkTheme()
+                            val isDark =
+                                when (themeMode.value) {
+                                    ThemeMode.Light -> false
+                                    ThemeMode.Dark -> true
+                                    ThemeMode.Auto -> isSystemDark
+                                }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text("Dark Mode")
+                                Toggle(
+                                    checked = isDark,
+                                    onCheckedChange = {
+                                        themeMode.value =
+                                            if (isDark) ThemeMode.Light else ThemeMode.Dark
+                                    },
+                                )
+                            }
+                            Separator(modifier = Modifier.padding(vertical = 12.dp))
+                            TypographyDemo()
+                            Separator(modifier = Modifier.padding(vertical = 12.dp))
+                            ButtonDemo()
+                            Separator(modifier = Modifier.padding(vertical = 12.dp))
                             SliderDemo()
+                            Separator(modifier = Modifier.padding(vertical = 12.dp))
                             ToggleDemo()
+                            Separator(modifier = Modifier.padding(vertical = 12.dp))
                             ColorDemo()
                         }
                     }
