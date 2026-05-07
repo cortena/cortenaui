@@ -19,7 +19,7 @@ import com.cortena.ui.theme.LocalColors
 fun TypographyDemo() {
     val colors = LocalColors.current
     Text("Typography", color = Color(colors.primary), role = TextRole.TitleMedium)
-    Text("Display", color = Color(colors.secondary), role = TextRole.LabelLarge)
+    Text("Display", color = Color(colors.secondary), role = TextRole.TitleMedium)
     Column {
         Text("Display Large", role = TextRole.DisplayLarge)
         Text("Display Medium", role = TextRole.DisplayMedium)
@@ -40,7 +40,7 @@ fun TypographyDemo() {
             style = TextStyle(fontStyle = FontStyle.Italic),
         )
     }
-    Text("Headline", color = Color(colors.secondary), role = TextRole.LabelLarge)
+    Text("Headline", color = Color(colors.secondary), role = TextRole.TitleMedium)
     Column {
         Text("Headline Large", role = TextRole.HeadlineLarge)
         Text("Headline Medium", role = TextRole.HeadlineMedium)
@@ -61,7 +61,7 @@ fun TypographyDemo() {
             style = TextStyle(fontStyle = FontStyle.Italic),
         )
     }
-    Text("Title", color = Color(colors.secondary), role = TextRole.LabelLarge)
+    Text("Title", color = Color(colors.secondary), role = TextRole.TitleMedium)
     Column {
         Text("Title Large", role = TextRole.TitleLarge)
         Text("Title Medium", role = TextRole.TitleMedium)
@@ -82,12 +82,7 @@ fun TypographyDemo() {
             style = TextStyle(fontStyle = FontStyle.Italic),
         )
     }
-    Text(
-        "Body",
-        color = Color(colors.secondary),
-        role = TextRole.LabelLarge,
-        style = TextStyle(fontStyle = FontStyle.Italic),
-    )
+    Text("Body", color = Color(colors.secondary), role = TextRole.TitleMedium)
     Column {
         Text("Body Large", role = TextRole.BodyLarge)
         Text("Body Medium", role = TextRole.BodyMedium)
@@ -108,7 +103,7 @@ fun TypographyDemo() {
             style = TextStyle(fontStyle = FontStyle.Italic),
         )
     }
-    Text("Label", color = Color(colors.secondary), role = TextRole.LabelLarge)
+    Text("Label", color = Color(colors.secondary), role = TextRole.TitleMedium)
     Column {
         Text("Label Large", role = TextRole.LabelLarge)
         Text("Label Medium", role = TextRole.LabelMedium)
@@ -129,7 +124,7 @@ fun TypographyDemo() {
             style = TextStyle(fontStyle = FontStyle.Italic),
         )
     }
-    Text("Advanced Features", color = Color(colors.secondary), role = TextRole.LabelLarge)
+    Text("Advanced Features", color = Color(colors.secondary), role = TextRole.TitleMedium)
     Column {
         Text(
             "Custom Color (Accent Role Color)",
