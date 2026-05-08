@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.components
 
 import androidx.compose.foundation.background
@@ -10,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -21,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.Role
@@ -54,6 +60,8 @@ fun Toggle(
     thumbColor: Color = Color.Unspecified,
 ) {
     val colors = LocalColors.current
+    val shape = CapsuleShape()
+
     val trackWidth = 64.dp
     val trackHeight = 28.dp
     val thumbPadding = 2.dp
@@ -64,14 +72,15 @@ fun Toggle(
     val resolvedInactiveColor =
         if (inactiveColor.isSpecified) inactiveColor else Color(colors.surfaceVariant)
     val resolvedThumbColor = if (thumbColor.isSpecified) thumbColor else Color.White
+    val thumbShadow = thumbShadow(resolvedThumbColor, enabled)
 
     val layoutDirection = LocalLayoutDirection.current
     val isLtr = layoutDirection == LayoutDirection.Ltr
     val animationScope = rememberCoroutineScope()
     var didDrag by remember { mutableStateOf(false) }
 
-    val currentChecked by androidx.compose.runtime.rememberUpdatedState(checked)
-    val currentOnCheckedChange by androidx.compose.runtime.rememberUpdatedState(onCheckedChange)
+    val currentChecked by rememberUpdatedState(checked)
+    val currentOnCheckedChange by rememberUpdatedState(onCheckedChange)
 
     val dampedAnimation =
         remember(animationScope) {
@@ -149,7 +158,7 @@ fun Toggle(
     ) {
         Box(
             modifier =
-                Modifier.matchParentSize().clip(CapsuleShape()).drawBehind {
+                Modifier.matchParentSize().clip(shape).drawBehind {
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
                     drawRect(lerp(resolvedInactiveColor, resolvedActiveColor, progress))
                 }
@@ -171,17 +180,26 @@ fun Toggle(
                             scaleYMultiplier = dampedAnimation.scaleY,
                         )
                     }
-                    .componentShadow(
-                        Shadow(
-                            radius = 4.dp,
-                            offset = DpOffset(0.dp, 2.dp),
-                            color = ColorToken.Gray900.value().copy(alpha = 0.15f),
-                        ),
-                        CapsuleShape(),
-                    )
-                    .clip(CapsuleShape())
+                    .componentShadow(thumbShadow, shape)
+                    .clip(shape)
                     .background(resolvedThumbColor)
                     .size(thumbWidth, thumbHeight)
         )
     }
+}
+
+@Composable
+private fun thumbShadow(thumbColor: Color, enabled: Boolean): Shadow {
+    val isLight = thumbColor.luminance() > 0.5f
+    val alphaLight =
+        if (enabled) {
+            0.28f
+        } else {
+            0.15f
+        }
+    return Shadow(
+        radius = if (isLight) 12.dp else 8.dp,
+        offset = DpOffset(0.dp, if (isLight) 3.dp else 2.dp),
+        color = ColorToken.Gray900.value().copy(alpha = if (isLight) alphaLight else 0.18f),
+    )
 }
