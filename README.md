@@ -19,8 +19,6 @@ CortenaUI is built around several core principles:
 - Consistent motion and physics
 - Adaptive layouts for future Android form factors
 - Lightweight architecture
-- Minimal third-party dependencies
-- Compose-native APIs without heavy Material dependency
 - System-level scalability for the CortenaOS ecosystem
 
 The framework takes inspiration from the clarity and restraint of Apple platforms combined with fluid and interactive motion systems commonly seen in modern motion-driven interfaces.
@@ -48,7 +46,7 @@ Current documentation:
 ## License
 
 ```
-Copyright (C) 2026  CortenaOS
+Copyright (C) 2026-present  The CortenaOS Project
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
