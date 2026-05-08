@@ -49,7 +49,10 @@ class MainActivity : ComponentActivity() {
 
         val themeMode = mutableStateOf(ThemeMode.Auto)
 
-        ContentView(themeMode = { themeMode.value }) {
+        ContentView(
+            themeMode = { themeMode.value }
+            // fontFamily = FontFamily(Font(R.font.jetbrainsnerdfont_regular))
+        ) {
             Body {
                 ScrollView {
                     SafeArea {

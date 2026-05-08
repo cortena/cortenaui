@@ -9,6 +9,7 @@ Every text automatically resolves its style based on a semantic role (`TextRole`
 1. **Default Color**: Automatically resolves against `LocalContentColor.current` or `LocalColors.current.onBackground`.
 2. **Default Role**: Defaults to `TextRole.BodyMedium` for regular body sentences.
 3. **Typography Scaling**: Automatically resolves font sizes, weights, and line heights in SP based on the chosen semantic role.
+4. **Font Family**: Automatically uses `LocalFontFamily.current`, which is provided by `Theme` or `ContentView`. If no custom font is set, the system default font is used. Can be overridden per-instance via the `style` parameter.
 
 ## API Reference
 
@@ -77,5 +78,17 @@ Text(
         textDecoration = TextDecoration.Underline,
         letterSpacing = 1.5.sp
     )
+)
+```
+
+#### Overriding Font Family Per-Instance
+
+```kotlin
+// All Text components automatically use the font set in ContentView/Theme.
+// To override a specific instance, pass fontFamily via the style parameter:
+Text(
+    text = "Monospaced code snippet",
+    role = TextRole.BodyMedium,
+    style = TextStyle(fontFamily = FontFamily.Monospace)
 )
 ```
