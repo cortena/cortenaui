@@ -148,6 +148,7 @@ fun Slider(
 
         Box(
             Modifier.clip(shape)
+                .graphicsLayer { alpha = if (enabled) 1f else 0.38f }
                 .background(resolvedTrackColor)
                 .drawBehind {
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
@@ -160,14 +161,7 @@ fun Slider(
                             )
                             .fastCoerceIn(0f, size.width)
                     drawRect(
-                        resolvedProgressColor.copy(
-                            alpha =
-                                if (!enabled) {
-                                    0.38f
-                                } else {
-                                    1f
-                                }
-                        ),
+                        resolvedProgressColor,
                         topLeft =
                             if (isLtr) {
                                 Offset.Zero
@@ -184,7 +178,6 @@ fun Slider(
                                     }
                             ),
                     )
-
                     if (steps > 0) {
                         val intervalCount = steps + 1
                         val tickRadius = 4.dp.toPx()
