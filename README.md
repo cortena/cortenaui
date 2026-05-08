@@ -2,13 +2,44 @@
   <img src="https://res.cloudinary.com/dtptrqj5x/image/upload/v1778033013/banner-ui_qsknjl.webp" alt="CortenaUI" />
 </p>
 
-## CortenaUI
+# CortenaUI
 
-CortenaUI is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
+CortenaUI is an interaction-focused UI framework built with Kotlin and Jetpack Compose for the CortenaOS ecosystem.
+
+The project focuses on building responsive, tactile, and motion-rich user interfaces with a strong emphasis on interaction consistency, custom physics, adaptive design systems, and long-term platform scalability.
+
+Unlike traditional Android design systems that primarily focus on visual components, CortenaUI treats behavior, motion, touch feedback, and physics as first-class parts of the framework architecture.
+
+## Philosophy
+
+CortenaUI is built around several core principles:
+
+- Minimal visual noise
+- Rich tactile interaction
+- Consistent motion and physics
+- Adaptive layouts for future Android form factors
+- Lightweight architecture
+- Minimal third-party dependencies
+- Compose-native APIs without heavy Material dependency
+- System-level scalability for the CortenaOS ecosystem
+
+The framework takes inspiration from the clarity and restraint of Apple platforms combined with fluid and interactive motion systems commonly seen in modern motion-driven interfaces.
+
+## Goals
+
+CortenaUI is designed as a long-term foundation for:
+
+- CortenaOS system applications
+- Adaptive Android interfaces
+- Future tablet and desktop Android experiences
+- Motion-driven UI experimentation
+- Consistent cross-application interaction behavior
 
 ## Documentation
 
-For documentation, see:
+Documentation is still being expanded.
+
+Current documentation:
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Getting Started](docs/GETTING-STARTED.md)
@@ -32,7 +63,7 @@ GNU General Public License for more details.
 
 CortenaUI is licensed under the GNU General Public License v3.0 (GPL-3.0).
 
-See the [LICENSE](LICENSE) file for full license text.
+See the [LICENSE](LICENSE) file for the full license text.
 
 ## Third-Party Licenses
 
