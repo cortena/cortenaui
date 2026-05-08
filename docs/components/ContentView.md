@@ -19,6 +19,7 @@ fun ComponentActivity.ContentView(
     statusBarColor: () -> Color = { Color.Transparent },
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
+    fontFamily: FontFamily? = null,
     dynamicColor: Boolean = false,
     appBar: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,
@@ -46,6 +47,7 @@ enum class ThemeMode {
 | `statusBarColor`    | `(() -> Color)? = null -> Color.Transparent`                  | The color of the status bar. It is recommended to match this with the _AppBar_ color.                                                                   |
 | `palette`           | `Palette?`                                                    | Allows developers to override colors. If `null`, it will automatically follow `themeMode`.                                                              |
 | `typography`        | `(() -> Typography)? = null -> DefaultTypography`             | Override the design's typography scale. Default: `DefaultTypography`.                                                                                   |
+| `fontFamily`        | `FontFamily?`                                                 | Custom font family applied globally to all `Text` components. If `null`, uses the system default font (`FontFamily.Default`).                           |
 | `dynamicColor`      | `Boolean`                                                     | _[Experimental]_ Provides the dynamic color feature (Material You). Not fully implemented yet, currently only gives a warning in Logcat.                |
 | `appBar`            | `(@Composable () -> Unit)? = null`                            | A dedicated layout slot for the AppBar. Fills the slot provided in the topmost `Column`.                                                                |
 | `content`           | `@Composable () -> Unit`                                      | The main content slot of your application (e.g., `Body`).                                                                                               |

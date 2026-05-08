@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.FontFamily
 import androidx.core.view.WindowCompat
 import com.cortena.ui.color.Palette
 import com.cortena.ui.theme.LocalColors
@@ -38,6 +39,7 @@ fun ComponentActivity.ContentView(
     // Parameters that do not change at runtime → regular values
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
+    fontFamily: FontFamily? = null,
     dynamicColor: Boolean = false,
 
     // Slots
@@ -56,7 +58,12 @@ fun ComponentActivity.ContentView(
         val currentStatusBarColor = statusBarColor()
         val currentStatusBarIconMode = statusBarIconMode()
 
-        Theme(themeMode = currentThemeMode, palette = palette, typography = typography) {
+        Theme(
+            themeMode = currentThemeMode,
+            palette = palette,
+            typography = typography,
+            fontFamily = fontFamily,
+        ) {
             val colors = LocalColors.current
             val useDarkIcons =
                 when (currentStatusBarIconMode) {

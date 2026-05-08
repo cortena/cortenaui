@@ -11,6 +11,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.LocalContentColor
+import com.cortena.ui.theme.LocalFontFamily
 import com.cortena.ui.theme.LocalTypography
 import com.cortena.ui.typography.FontStyle
 
@@ -44,6 +45,7 @@ fun Text(
 ) {
     val colors = LocalColors.current
     val typography = LocalTypography.current
+    val fontFamily = LocalFontFamily.current
 
     val localContentColor = LocalContentColor.current
     val resolvedColor =
@@ -74,15 +76,16 @@ fun Text(
 
     val resolvedStyle =
         TextStyle(
-            fontSize = roleStyle.fontSize.sp,
-            lineHeight = roleStyle.lineHeight.sp,
-            letterSpacing = roleStyle.letterSpacing.sp,
-            fontWeight = FontWeight(roleStyle.fontWeight),
-            fontStyle =
-                if (roleStyle.fontStyle == FontStyle.Italic)
-                    androidx.compose.ui.text.font.FontStyle.Italic
-                else androidx.compose.ui.text.font.FontStyle.Normal,
-        )
+                fontFamily = fontFamily,
+                fontSize = roleStyle.fontSize.sp,
+                lineHeight = roleStyle.lineHeight.sp,
+                letterSpacing = roleStyle.letterSpacing.sp,
+                fontWeight = FontWeight(roleStyle.fontWeight),
+                fontStyle =
+                    if (roleStyle.fontStyle == FontStyle.Italic)
+                        androidx.compose.ui.text.font.FontStyle.Italic
+                    else androidx.compose.ui.text.font.FontStyle.Normal,
+            )
             .merge(style)
 
     BasicText(
