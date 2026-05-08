@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.components
 
 import androidx.compose.foundation.background
@@ -193,9 +197,27 @@ fun Slider(
                             val isTickActive = tickProgress <= progress
                             val tickColor =
                                 if (isTickActive) {
-                                    resolvedTrackColor.copy(alpha = 0.38f)
+                                    // Covered by progress: lighten the progressColor
+                                    Color(
+                                        red =
+                                            (resolvedProgressColor.red +
+                                                (1f - resolvedProgressColor.red) * 0.50f),
+                                        green =
+                                            (resolvedProgressColor.green +
+                                                (1f - resolvedProgressColor.green) * 0.50f),
+                                        blue =
+                                            (resolvedProgressColor.blue +
+                                                (1f - resolvedProgressColor.blue) * 0.50f),
+                                        alpha = resolvedProgressColor.alpha,
+                                    )
                                 } else {
-                                    resolvedProgressColor.copy(alpha = 0.38f)
+                                    // Not covered: darken the trackColor
+                                    Color(
+                                        red = resolvedTrackColor.red * 0.50f,
+                                        green = resolvedTrackColor.green * 0.50f,
+                                        blue = resolvedTrackColor.blue * 0.50f,
+                                        alpha = resolvedTrackColor.alpha,
+                                    )
                                 }
                             drawCircle(
                                 color = tickColor,
