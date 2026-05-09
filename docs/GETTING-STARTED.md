@@ -1,6 +1,6 @@
-# Getting Started with CortenaUI
+# Getting Started
 
-CortenaUI is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
+**CortenaUI** is a Kotlin Multiplatform design system library specifically designed to build user interfaces for the Cortena operating system (an AOSP-based custom ROM) and its app ecosystem.
 
 ## Project Structure
 
