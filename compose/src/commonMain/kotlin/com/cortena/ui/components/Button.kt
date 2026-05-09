@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.components
 
 import androidx.compose.foundation.background
@@ -23,9 +27,14 @@ import androidx.compose.ui.unit.dp
 import com.cortena.ui.interaction.InteractiveHighlight
 import com.cortena.ui.interaction.applyInteractiveAnimation
 import com.cortena.ui.shape.CapsuleShape
+import com.cortena.ui.size.SizeToken
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.LocalContentColor
+import com.cortena.ui.theme.LocalSizeToken
 import com.cortena.ui.theme.LocalSpacing
+import com.cortena.ui.theme.componentHeight
+import com.cortena.ui.theme.contentGap
+import com.cortena.ui.theme.horizontalPadding
 
 enum class ButtonStyle {
     Primary,
@@ -54,6 +63,7 @@ fun Button(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactive: Boolean = true,
+    size: SizeToken = LocalSizeToken.current,
     style: ButtonStyle = ButtonStyle.Primary,
     variant: ButtonVariant = ButtonVariant.Default,
     effect: ButtonEffect = ButtonEffect.Solid, // TODO: Implement ButtonEffect
@@ -147,13 +157,13 @@ fun Button(
                     onLongClick = { onLongClick?.invoke() },
                 )
                 .then(if (enabled) interactiveHighlight.modifier else Modifier)
-                .height(48.dp)
+                .height(size.componentHeight)
                 .then(
-                    if (iconOnly) Modifier.width(48.dp).padding(spacing.Xs.dp)
-                    else Modifier.padding(horizontal = spacing.Md.dp)
+                    if (iconOnly) Modifier.width(size.componentHeight).padding(spacing.Xs.dp)
+                    else Modifier.padding(horizontal = size.horizontalPadding)
                 ),
         horizontalArrangement =
-            Arrangement.spacedBy(space = spacing.Sm.dp, alignment = Alignment.CenterHorizontally),
+            Arrangement.spacedBy(space = size.contentGap, alignment = Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         CompositionLocalProvider(LocalContentColor provides contentColor) { content() }

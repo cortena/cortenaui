@@ -45,7 +45,13 @@ import com.cortena.ui.graphics.shadow.componentShadow
 import com.cortena.ui.interaction.DampedAnimation
 import com.cortena.ui.interaction.applyInteractiveAnimation
 import com.cortena.ui.shape.CapsuleShape
+import com.cortena.ui.size.SizeToken
 import com.cortena.ui.theme.LocalColors
+import com.cortena.ui.theme.LocalSizeToken
+import com.cortena.ui.theme.toggleThumbPadding
+import com.cortena.ui.theme.toggleThumbWidth
+import com.cortena.ui.theme.toggleTrackHeight
+import com.cortena.ui.theme.toggleTrackWidth
 import com.cortena.ui.theme.value
 import kotlinx.coroutines.flow.collectLatest
 
@@ -55,6 +61,7 @@ fun Toggle(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    size: SizeToken = LocalSizeToken.current,
     activeColor: Color = Color.Unspecified,
     inactiveColor: Color = Color.Unspecified,
     thumbColor: Color = Color.Unspecified,
@@ -62,11 +69,11 @@ fun Toggle(
     val colors = LocalColors.current
     val shape = CapsuleShape()
 
-    val trackWidth = 64.dp
-    val trackHeight = 28.dp
-    val thumbPadding = 2.dp
-    val thumbWidth = 40.dp
-    val thumbHeight = 24.dp
+    val trackWidth = size.toggleTrackWidth
+    val trackHeight = size.toggleTrackHeight
+    val thumbPadding = size.toggleThumbPadding
+    val thumbWidth = size.toggleThumbWidth
+    val thumbHeight = trackHeight - (thumbPadding * 2)
 
     val resolvedActiveColor = if (activeColor.isSpecified) activeColor else Color(colors.success)
     val resolvedInactiveColor =

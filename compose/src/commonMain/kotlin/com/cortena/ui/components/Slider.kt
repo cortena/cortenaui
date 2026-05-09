@@ -39,8 +39,12 @@ import com.cortena.ui.interaction.DampedAnimation
 import com.cortena.ui.interaction.applyInteractiveAnimation
 import com.cortena.ui.interaction.inspectDragGestures
 import com.cortena.ui.shape.CapsuleShape
+import com.cortena.ui.size.SizeToken
 import com.cortena.ui.theme.LocalColors
+import com.cortena.ui.theme.LocalSizeToken
 import com.cortena.ui.theme.LocalSpacing
+import com.cortena.ui.theme.sliderIndicatorWidth
+import com.cortena.ui.theme.sliderTrackHeight
 import com.cortena.ui.theme.value
 import kotlin.math.max
 import kotlin.math.round
@@ -54,6 +58,7 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     steps: Int = 0,
+    sizeToken: SizeToken = LocalSizeToken.current,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified,
@@ -62,8 +67,9 @@ fun Slider(
     val spacing = LocalSpacing.current
 
     val shape = CapsuleShape()
-    val indicatorWidth = 48.dp
-    val indicatorHeight = spacing.Lg.dp
+    val indicatorWidth = sizeToken.sliderIndicatorWidth
+    val indicatorHeight = sizeToken.sliderTrackHeight + spacing.Sm.dp
+    val trackHeight = sizeToken.sliderTrackHeight
     val resolvedTrackColor =
         if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
     val resolvedIndicatorColor = if (indicatorColor.isSpecified) indicatorColor else Color.White
@@ -230,7 +236,7 @@ fun Slider(
                 .then(gestureModifier)
                 .fillMaxWidth()
         ) {
-            Box(modifier = Modifier.height(spacing.Md.dp))
+            Box(modifier = Modifier.height(trackHeight))
         }
 
         // Indicator

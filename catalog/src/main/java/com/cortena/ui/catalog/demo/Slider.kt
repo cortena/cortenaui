@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.catalog.demo
 
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +21,7 @@ import com.cortena.ui.components.Slider
 import com.cortena.ui.components.Text
 import com.cortena.ui.components.TextRole
 import com.cortena.ui.components.Toggle
+import com.cortena.ui.size.SizeToken
 import com.cortena.ui.theme.LocalColors
 
 @Composable
@@ -42,7 +47,7 @@ fun SliderDemo() {
         value = { sliderValue },
         onValueChange = { sliderValue = it },
         valueRange = -4f..4f,
-        enabled = enable
+        enabled = enable,
     )
     var sliderDiscreteValue by remember { mutableFloatStateOf(0f) }
     Text("Slider Discrete")
@@ -52,6 +57,19 @@ fun SliderDemo() {
         onValueChange = { sliderDiscreteValue = it },
         valueRange = -2f..2f,
         steps = 3, // Creates 4 intervals between -2 and 2, meaning a step size of 1f.
-        enabled = enable
+        enabled = enable,
     )
+    Text("Sizes")
+    val sizeLabels = listOf("XS", "S", "M", "L", "XL")
+    SizeToken.entries.forEachIndexed { index, sizeToken ->
+        var sizeValue by remember { mutableFloatStateOf(0.5f) }
+        Text(sizeLabels[index], role = TextRole.LabelSmall)
+        Slider(
+            value = { sizeValue },
+            onValueChange = { sizeValue = it },
+            valueRange = 0f..1f,
+            sizeToken = sizeToken,
+            enabled = enable,
+        )
+    }
 }

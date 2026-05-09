@@ -11,6 +11,7 @@ Any component written to Cortena specifications, such as `Text` or `SafeArea`, r
 - `LocalTypography.current`
 - `LocalFontFamily.current`
 - `LocalSpacing.current`
+- `LocalSizeToken.current`
 
 The function of `Theme` is to provide these actual values at the top of the hierarchy (root node). `ContentView` already calls this internally, so you rarely need to call it directly unless you are inside a preview function (`@Preview`) of pure compose.
 
@@ -23,6 +24,7 @@ fun Theme(
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
     fontFamily: FontFamily? = null,
+    sizeToken: SizeToken = SizeToken.Medium,
     content: @Composable () -> Unit
 )
 ```
@@ -35,4 +37,5 @@ fun Theme(
 | `palette`    | `Palette?`               | Ignores automatic OS detection and forces the specific palette you want. If `null`, it will automatically resolve following `themeMode`. |
 | `typography` | `Typography`             | Overrides the adjusted _font scale_. Default: `DefaultTypography`.                                                                       |
 | `fontFamily` | `FontFamily?`            | Custom font family applied to all `Text` components. If `null`, uses the system default font (`FontFamily.Default`).                     |
+| `sizeToken`  | `SizeToken`              | Sets the global component size tier. All sized components inherit this. Default: `SizeToken.Medium`.                                     |
 | `content`    | `@Composable () -> Unit` | Lambda for your child Composable function placed under the umbrella of this theme.                                                       |

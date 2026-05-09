@@ -20,6 +20,7 @@ fun ComponentActivity.ContentView(
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
     fontFamily: FontFamily? = null,
+    sizeToken: SizeToken = SizeToken.Medium,
     dynamicColor: Boolean = false,
     appBar: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,

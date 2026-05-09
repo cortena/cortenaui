@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.catalog.demo
 
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +28,7 @@ import com.cortena.ui.components.ButtonVariant
 import com.cortena.ui.components.Text
 import com.cortena.ui.components.TextRole
 import com.cortena.ui.components.Toggle
+import com.cortena.ui.size.SizeToken
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.value
 
@@ -95,5 +100,17 @@ fun ButtonDemo() {
                 tint = Color.White,
             )
         }
+    }
+    Text("Sizes")
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Button(enabled = enable, size = SizeToken.ExtraSmall) { Text("XS") }
+        Button(enabled = enable, size = SizeToken.Small) { Text("S") }
+        Button(enabled = enable, size = SizeToken.Medium) { Text("M") }
+        Button(enabled = enable, size = SizeToken.Large) { Text("L") }
+        Button(enabled = enable, size = SizeToken.ExtraLarge) { Text("XL") }
     }
 }

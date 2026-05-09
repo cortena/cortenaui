@@ -30,6 +30,7 @@ fun Button(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactive: Boolean = true,
+    size: SizeToken = LocalSizeToken.current,
     style: ButtonStyle = ButtonStyle.Primary,
     variant: ButtonVariant = ButtonVariant.Default,
     effect: ButtonEffect = ButtonEffect.Solid,
@@ -59,20 +60,21 @@ enum class ButtonEffect {
 
 ### Parameters
 
-| Name          | Type                              | Default                 | Description                                                                                                    |
-| ------------- | --------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `onClick`     | `(() -> Unit)?`                   | `null`                  | Called when the button is clicked.                                                                             |
-| `onLongClick` | `(() -> Unit)?`                   | `null`                  | Called when the button is long-clicked.                                                                        |
-| `iconOnly`    | `Boolean`                         | `false`                 | If `true`, applies specific sizing and padding to make the button perfectly round/square for icons.            |
-| `modifier`    | `Modifier`                        | `Modifier`              | Standard Compose modifier.                                                                                     |
-| `enabled`     | `Boolean`                         | `true`                  | Disables interaction and renders the button at 38% opacity when `false`.                                       |
-| `interactive` | `Boolean`                         | `true`                  | Enables press scale, drag offset, and directional stretch animations when `true`.                              |
-| `style`       | `ButtonStyle`                     | `ButtonStyle.Primary`   | Determines the color role used for background and content.                                                     |
-| `variant`     | `ButtonVariant`                   | `ButtonVariant.Default` | `Default` renders a filled background. `Soft` renders a low-opacity background with style color as foreground. |
-| `effect`      | `ButtonEffect`                    | `ButtonEffect.Solid`    | Surface effect applied to the background. `Blur` is not yet implemented.                                       |
-| `background`  | `Color`                           | `Color.Unspecified`     | Overrides the style background color when specified.                                                           |
-| `foreground`  | `Color`                           | `Color.Unspecified`     | Overrides the style foreground color when specified.                                                           |
-| `content`     | `@Composable RowScope.() -> Unit` | —                       | Row content rendered inside the button.                                                                        |
+| Name          | Type                              | Default                  | Description                                                                                                    |
+| ------------- | --------------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `onClick`     | `(() -> Unit)?`                   | `null`                   | Called when the button is clicked.                                                                             |
+| `onLongClick` | `(() -> Unit)?`                   | `null`                   | Called when the button is long-clicked.                                                                        |
+| `iconOnly`    | `Boolean`                         | `false`                  | If `true`, applies specific sizing and padding to make the button perfectly round/square for icons.            |
+| `modifier`    | `Modifier`                        | `Modifier`               | Standard Compose modifier.                                                                                     |
+| `enabled`     | `Boolean`                         | `true`                   | Disables interaction and renders the button at 38% opacity when `false`.                                       |
+| `interactive` | `Boolean`                         | `true`                   | Enables press scale, drag offset, and directional stretch animations when `true`.                              |
+| `size`        | `SizeToken`                       | `LocalSizeToken.current` | Controls the button height, horizontal padding, icon-only width, and content gap.                              |
+| `style`       | `ButtonStyle`                     | `ButtonStyle.Primary`    | Determines the color role used for background and content.                                                     |
+| `variant`     | `ButtonVariant`                   | `ButtonVariant.Default`  | `Default` renders a filled background. `Soft` renders a low-opacity background with style color as foreground. |
+| `effect`      | `ButtonEffect`                    | `ButtonEffect.Solid`     | Surface effect applied to the background. `Blur` is not yet implemented.                                       |
+| `background`  | `Color`                           | `Color.Unspecified`      | Overrides the style background color when specified.                                                           |
+| `foreground`  | `Color`                           | `Color.Unspecified`      | Overrides the style foreground color when specified.                                                           |
+| `content`     | `@Composable RowScope.() -> Unit` | —                        | Row content rendered inside the button.                                                                        |
 
 ### Style
 
@@ -135,5 +137,21 @@ Button(
 ) {
     Icon(Icons.Default.Favorite, contentDescription = null)
     Text("Favorite")
+}
+
+// Small size
+Button(
+    onClick = { },
+    size = SizeToken.Small,
+) {
+    Text("Compact")
+}
+
+// Extra large size
+Button(
+    onClick = { },
+    size = SizeToken.ExtraLarge,
+) {
+    Text("XL Action")
 }
 ```

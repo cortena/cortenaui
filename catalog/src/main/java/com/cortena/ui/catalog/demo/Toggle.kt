@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.catalog.demo
 
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import com.cortena.ui.components.Text
 import com.cortena.ui.components.TextRole
 import com.cortena.ui.components.Toggle
+import com.cortena.ui.size.SizeToken
 import com.cortena.ui.theme.LocalColors
 
 @Composable
@@ -35,11 +40,7 @@ fun ToggleDemo() {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text("Disabled Toggle")
-        Toggle(
-            checked = defaultChecked,
-            onCheckedChange = { defaultChecked = it },
-            enabled = false,
-        )
+        Toggle(checked = defaultChecked, onCheckedChange = { defaultChecked = it }, enabled = false)
     }
     var customChecked by remember { mutableStateOf(false) }
     Row(
@@ -53,5 +54,16 @@ fun ToggleDemo() {
             onCheckedChange = { customChecked = it },
             activeColor = Color(colors.primary),
         )
+    }
+    Text("Sizes")
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        SizeToken.entries.forEachIndexed { index, sizeToken ->
+            var checked by remember { mutableStateOf(true) }
+            Toggle(checked = checked, onCheckedChange = { checked = it }, size = sizeToken)
+        }
     }
 }
