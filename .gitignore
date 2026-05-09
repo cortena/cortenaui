@@ -1,3 +1,4 @@
+# android
 *.iml
 .gradle
 .idea/
@@ -9,3 +10,6 @@
 .cxx
 local.properties
 /reference
+
+# zensical
+/site
