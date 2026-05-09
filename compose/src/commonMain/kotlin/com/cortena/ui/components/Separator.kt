@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.components
 
 import androidx.compose.foundation.background
@@ -13,17 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.cortena.ui.geometry.Orientation
 import com.cortena.ui.theme.LocalColors
-
-enum class SeparatorOrientation {
-    Horizontal,
-    Vertical,
-}
 
 @Composable
 fun Separator(
     modifier: Modifier = Modifier,
-    orientation: SeparatorOrientation = SeparatorOrientation.Horizontal,
+    orientation: Orientation = Orientation.Horizontal,
     thickness: Dp = 1.dp,
     color: Color = Color.Unspecified,
     indent: Dp = 0.dp,
@@ -32,7 +32,7 @@ fun Separator(
     val resolvedColor = if (color.isSpecified) color else Color(colors.outlineVariant)
 
     val layoutModifier =
-        if (orientation == SeparatorOrientation.Horizontal) {
+        if (orientation == Orientation.Horizontal) {
             Modifier.fillMaxWidth().height(thickness).padding(start = indent, end = indent)
         } else {
             Modifier.fillMaxHeight().width(thickness).padding(top = indent, bottom = indent)
