@@ -33,7 +33,6 @@ fun Button(
     size: SizeToken = LocalSizeToken.current,
     style: ButtonStyle = ButtonStyle.Primary,
     variant: ButtonVariant = ButtonVariant.Default,
-    effect: ButtonEffect = ButtonEffect.Solid,
     background: Color = Color.Unspecified,
     foreground: Color = Color.Unspecified,
     content: @Composable RowScope.() -> Unit,
@@ -51,11 +50,6 @@ enum class ButtonVariant {
     Default,
     Soft,
 }
-
-enum class ButtonEffect {
-    Solid,
-    Blur, // Not yet implemented
-}
 ```
 
 ### Parameters
@@ -71,7 +65,6 @@ enum class ButtonEffect {
 | `size`        | `SizeToken`                       | `LocalSizeToken.current` | Controls the button height, horizontal padding, icon-only width, and content gap.                              |
 | `style`       | `ButtonStyle`                     | `ButtonStyle.Primary`    | Determines the color role used for background and content.                                                     |
 | `variant`     | `ButtonVariant`                   | `ButtonVariant.Default`  | `Default` renders a filled background. `Soft` renders a low-opacity background with style color as foreground. |
-| `effect`      | `ButtonEffect`                    | `ButtonEffect.Solid`     | Surface effect applied to the background. `Blur` is not yet implemented.                                       |
 | `background`  | `Color`                           | `Color.Unspecified`      | Overrides the style background color when specified.                                                           |
 | `foreground`  | `Color`                           | `Color.Unspecified`      | Overrides the style foreground color when specified.                                                           |
 | `content`     | `@Composable RowScope.() -> Unit` | —                        | Row content rendered inside the button.                                                                        |
