@@ -1,10 +1,14 @@
 # AppBar
 
-`AppBar` is the top navigation bar or header component in Cortena Components. This component is purely created by detecting _window insets_ (specifically operating system paddings) so it perfectly adapts to the _Edge-to-Edge_ design.
+`AppBar` is the top navigation bar or header component in CortenaUI. This component is purely created by detecting _window insets_ (specifically operating system paddings) so it perfectly adapts to the _Edge-to-Edge_ design.
+
+!!! warning "Experimental API"
+
+    This component is annotated with `@ExperimentalComponentsApi` and its API is subject to change.
 
 ## Concept
 
-Unlike a standard `TopAppBar` which is unaware of insets unless modified, the Cortena `AppBar` proactively reads the OS's `WindowInsets.statusBars` height and adds it to its default size parameter (`STATUS_BAR_HEIGHT_DEFAULT` which is 56dp). This means you simply place your layout inside the AppBar, and it will automatically shift down, safely avoiding the _notch_ (the phone's top camera) overlaps.
+Unlike a standard `TopAppBar` which is unaware of insets unless modified, the Cortena `AppBar` proactively reads the OS's `WindowInsets.statusBars` height and adds it to its default size parameter (`APP_BAR_HEIGHT_DEFAULT` which is 56dp). This means you simply place your layout inside the AppBar, and it will automatically shift down, safely avoiding the _notch_ (the phone's top camera) overlaps.
 
 ## API Reference
 

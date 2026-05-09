@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.layout
 
 import androidx.compose.foundation.layout.Box
@@ -9,9 +13,11 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.cortena.ui.annotation.ExperimentalComponentsApi
 
 private val APP_BAR_HEIGHT_DEFAULT = 56.dp
 
+@ExperimentalComponentsApi
 @Composable
 fun AppBar(modifier: Modifier = Modifier, content: @Composable () -> Unit = {}) {
     Box(
