@@ -23,7 +23,7 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     steps: Int = 0,
-    sizeToken: SizeToken = LocalSizeToken.current,
+    size: SizeToken = LocalSizeToken.current,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified
@@ -40,7 +40,7 @@ fun Slider(
 | `modifier`       | `Modifier`                        | Standard Compose modifier.                                                                                         |
 | `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.                                                                    |
 | `steps`          | `Int`                             | Number of discrete steps (tick marks) evenly distributed across the track. If 0, behaves continuously. Default: 0. |
-| `sizeToken`      | `SizeToken`                       | Controls the indicator width, track height, and indicator height. Default: `LocalSizeToken.current`.               |
+| `size`           | `SizeToken`                       | Controls the indicator width, track height, and indicator height. Default: `LocalSizeToken.current`.               |
 | `indicatorColor` | `Color`                           | Indicator pill color. Default: white.                                                                              |
 | `trackColor`     | `Color`                           | Track color. Default: surface variant.                                                                             |
 | `progressColor`  | `Color`                           | Filled progress color. Default: primary.                                                                           |
@@ -96,6 +96,6 @@ Slider(
     value = { volume },
     onValueChange = { volume = it },
     valueRange = 0f..1f,
-    sizeToken = SizeToken.Large,
+    size = SizeToken.Large,
 )
 ```

@@ -58,7 +58,7 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     steps: Int = 0,
-    sizeToken: SizeToken = LocalSizeToken.current,
+    size: SizeToken = LocalSizeToken.current,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified,
@@ -67,9 +67,9 @@ fun Slider(
     val spacing = LocalSpacing.current
 
     val shape = CapsuleShape()
-    val indicatorWidth = sizeToken.sliderIndicatorWidth
-    val indicatorHeight = sizeToken.sliderTrackHeight + spacing.Sm.dp
-    val trackHeight = sizeToken.sliderTrackHeight
+    val indicatorWidth = size.sliderIndicatorWidth
+    val indicatorHeight = size.sliderTrackHeight + spacing.Sm.dp
+    val trackHeight = size.sliderTrackHeight
     val resolvedTrackColor =
         if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
     val resolvedIndicatorColor = if (indicatorColor.isSpecified) indicatorColor else Color.White
@@ -121,13 +121,13 @@ fun Slider(
             if (enabled) {
                 Modifier.pointerInput(valueRange, layoutDirection, trackWidth) {
                     fun valueFromPosition(x: Float): Float {
-                        if (size.width == 0) {
+                        if (this.size.width == 0) {
                             return value()
                         }
                         val positionProgress =
                             sliderProgressFromPosition(
                                 x = x,
-                                trackWidth = size.width.toFloat(),
+                                trackWidth = this.size.width.toFloat(),
                                 indicatorWidth = indicatorWidth.toPx(),
                                 isLtr = isLtr,
                             )
@@ -164,12 +164,12 @@ fun Slider(
                     val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
                     val progressEdge =
                         sliderProgressEdge(
-                                trackWidth = size.width,
+                                trackWidth = this.size.width,
                                 indicatorWidth = indicatorWidth.toPx(),
                                 progress = progress,
                                 isLtr = isLtr,
                             )
-                            .fastCoerceIn(0f, size.width)
+                            .fastCoerceIn(0f, this.size.width)
                     drawRect(
                         resolvedProgressColor,
                         topLeft =
@@ -179,12 +179,12 @@ fun Slider(
                                 Offset(progressEdge, 0f)
                             },
                         size =
-                            size.copy(
+                            this.size.copy(
                                 width =
                                     if (isLtr) {
                                         progressEdge
                                     } else {
-                                        size.width - progressEdge
+                                        this.size.width - progressEdge
                                     }
                             ),
                     )
@@ -195,7 +195,7 @@ fun Slider(
                             val tickProgress = i.toFloat() / intervalCount
                             val cx =
                                 sliderProgressEdge(
-                                    trackWidth = size.width,
+                                    trackWidth = this.size.width,
                                     indicatorWidth = indicatorWidth.toPx(),
                                     progress = tickProgress,
                                     isLtr = isLtr,
@@ -228,7 +228,7 @@ fun Slider(
                             drawCircle(
                                 color = tickColor,
                                 radius = tickRadius,
-                                center = Offset(cx, size.height / 2f),
+                                center = Offset(cx, this.size.height / 2f),
                             )
                         }
                     }
@@ -247,7 +247,7 @@ fun Slider(
                     val sliderTranslation =
                         sliderIndicatorStart(
                             trackWidth = trackWidth.toFloat(),
-                            indicatorWidth = size.width,
+                            indicatorWidth = this.size.width,
                             progress = progress,
                             isLtr = isLtr,
                         )

@@ -68,7 +68,7 @@ fun SliderDemo() {
             value = { sizeValue },
             onValueChange = { sizeValue = it },
             valueRange = 0f..1f,
-            sizeToken = sizeToken,
+            size = sizeToken,
             enabled = enable,
         )
     }
