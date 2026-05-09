@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.catalog.demo
 
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.cortena.ui.components.Text
-import com.cortena.ui.layout.ScrollOrientation
+import com.cortena.ui.geometry.Orientation
 import com.cortena.ui.layout.ScrollView
 import kotlin.random.Random
 
@@ -27,7 +31,7 @@ fun ScrollViewDemo() {
             }
         }
         Text("Nested Scroll Horizontal")
-        ScrollView(modifier = Modifier.height(100.dp), orientation = ScrollOrientation.Horizontal) {
+        ScrollView(modifier = Modifier.height(100.dp), orientation = Orientation.Horizontal) {
             items1.forEach { item -> Text(text = item) }
         }
     }

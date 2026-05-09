@@ -35,7 +35,7 @@ Key behaviors:
 @Composable
 fun ScrollView(
     modifier: Modifier = Modifier,
-    orientation: ScrollOrientation = ScrollOrientation.Vertical,
+    orientation: Orientation = Orientation.Vertical,
     scrollState: ScrollState = rememberScrollState(),
     enabled: Boolean = true,
     reverseLayout: Boolean = false,
@@ -53,11 +53,6 @@ fun ScrollView(
     content: @Composable () -> Unit,
 )
 
-enum class ScrollOrientation {
-    Vertical,
-    Horizontal
-}
-
 enum class ScrollIndicatorPosition {
     Start,
     End
@@ -69,7 +64,7 @@ enum class ScrollIndicatorPosition {
 | Name                  | Data Type                 | Description                                                          |
 | --------------------- | ------------------------- | -------------------------------------------------------------------- |
 | `modifier`            | `Modifier`                | Standard Compose modifier.                                           |
-| `orientation`         | `ScrollOrientation`       | Scroll direction. Default: `Vertical`.                               |
+| `orientation`         | `Orientation`             | Scroll direction. Default: `Orientation.Vertical`.                   |
 | `scrollState`         | `ScrollState`             | Externally hoisted scroll state. Default: `rememberScrollState()`.   |
 | `enabled`             | `Boolean`                 | Enables or disables scrolling. Default: `true`.                      |
 | `reverseLayout`       | `Boolean`                 | Reverses the scroll direction. Default: `false`.                     |
@@ -104,7 +99,7 @@ ScrollView(modifier = Modifier.fillMaxSize()) {
 
 ```kotlin
 ScrollView(
-    orientation = ScrollOrientation.Horizontal,
+    orientation = Orientation.Horizontal,
     modifier = Modifier.fillMaxWidth(),
 ) {
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {

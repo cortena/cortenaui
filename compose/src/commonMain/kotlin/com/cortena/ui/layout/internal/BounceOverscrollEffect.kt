@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.layout.internal
 
 import androidx.compose.animation.core.Animatable
@@ -11,7 +15,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.unit.Velocity
-import com.cortena.ui.layout.ScrollOrientation
+import com.cortena.ui.geometry.Orientation
 import kotlin.math.abs
 import kotlin.math.sign
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +25,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 internal class BounceOverscrollEffect(
     private val scope: CoroutineScope,
-    private val orientation: ScrollOrientation,
+    private val orientation: Orientation,
 ) : OverscrollEffect {
 
     private val maxOverscroll = 800f
@@ -38,7 +42,7 @@ internal class BounceOverscrollEffect(
         source: NestedScrollSource,
         performScroll: (Offset) -> Offset,
     ): Offset {
-        val available = if (orientation == ScrollOrientation.Vertical) delta.y else delta.x
+        val available = if (orientation == Orientation.Vertical) delta.y else delta.x
         var consumed = 0f
 
         // Pre-scroll: Only intercept if dragging in the OPPOSITE direction of the overscroll
@@ -65,7 +69,7 @@ internal class BounceOverscrollEffect(
 
         // Pass the remaining delta to the underlying list/scrollable
         val remainingDelta =
-            if (orientation == ScrollOrientation.Vertical) {
+            if (orientation == Orientation.Vertical) {
                 delta.copy(y = delta.y - consumed)
             } else {
                 delta.copy(x = delta.x - consumed)
@@ -77,7 +81,7 @@ internal class BounceOverscrollEffect(
         // overscroll
         val unconsumed = remainingDelta - scrollConsumed
         val availableUnconsumed =
-            if (orientation == ScrollOrientation.Vertical) unconsumed.y else unconsumed.x
+            if (orientation == Orientation.Vertical) unconsumed.y else unconsumed.x
 
         if (abs(availableUnconsumed) > 1f && source == NestedScrollSource.UserInput) {
             val newValue = overscrollOffset.value + availableUnconsumed * 0.3f
@@ -85,7 +89,7 @@ internal class BounceOverscrollEffect(
             snapJob = scope.launch { overscrollOffset.snapTo(newValue) }
         }
 
-        return if (orientation == ScrollOrientation.Vertical) {
+        return if (orientation == Orientation.Vertical) {
             Offset(scrollConsumed.x, consumed + scrollConsumed.y)
         } else {
             Offset(consumed + scrollConsumed.x, scrollConsumed.y)
@@ -99,8 +103,7 @@ internal class BounceOverscrollEffect(
         snapJob?.cancel()
         snapJob = null
 
-        val availableVelocity =
-            if (orientation == ScrollOrientation.Vertical) velocity.y else velocity.x
+        val availableVelocity = if (orientation == Orientation.Vertical) velocity.y else velocity.x
         var consumedVelocity = 0f
 
         if (overscrollOffset.value != 0f && availableVelocity != 0f) {
@@ -147,7 +150,7 @@ internal class BounceOverscrollEffect(
         }
 
         val remainingVelocity =
-            if (orientation == ScrollOrientation.Vertical) {
+            if (orientation == Orientation.Vertical) {
                 velocity.copy(y = velocity.y - consumedVelocity)
             } else {
                 velocity.copy(x = velocity.x - consumedVelocity)
@@ -157,8 +160,7 @@ internal class BounceOverscrollEffect(
 
         val unconsumedVelocity = remainingVelocity - flingConsumed
         val postFlingAvailable =
-            if (orientation == ScrollOrientation.Vertical) unconsumedVelocity.y
-            else unconsumedVelocity.x
+            if (orientation == Orientation.Vertical) unconsumedVelocity.y else unconsumedVelocity.x
 
         if (postFlingAvailable != 0f) {
             overscrollOffset.animateTo(
@@ -180,7 +182,7 @@ internal class BounceOverscrollEffect(
     val overscroll: Modifier
         get() =
             Modifier.graphicsLayer {
-                if (orientation == ScrollOrientation.Vertical) {
+                if (orientation == Orientation.Vertical) {
                     translationY = overscrollOffset.value
                 } else {
                     translationX = overscrollOffset.value
