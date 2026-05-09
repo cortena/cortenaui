@@ -1,61 +1,46 @@
-<p align="center">
+<p>
   <img src="https://res.cloudinary.com/dtptrqj5x/image/upload/v1778033013/banner-ui_qsknjl.webp" alt="CortenaUI" />
 </p>
 
-# CortenaUI
+## CortenaUI
 
-CortenaUI is an interaction-focused UI framework built with Kotlin and Jetpack Compose for the CortenaOS ecosystem.
+An interaction-focused UI framework for the CortenaOS ecosystem, built with Kotlin and Jetpack Compose.
 
-The project focuses on building responsive, tactile, and motion-rich user interfaces with a strong emphasis on interaction consistency, custom physics, adaptive design systems, and long-term platform scalability.
+CortenaUI treats motion, touch physics, and behavior as first-class citizens of the framework — not afterthoughts layered on top of visual components.
 
-Unlike traditional Android design systems that primarily focus on visual components, CortenaUI treats behavior, motion, touch feedback, and physics as first-class parts of the framework architecture.
+## Designed around behavior
 
-## Philosophy
+Most UI frameworks start with components. CortenaUI starts with interaction.
 
-CortenaUI is built around several core principles:
+Every element is built with a clear contract for how it responds — to touch, to motion, to context. The result is an interface that feels considered at every layer: from the spring physics behind a toggle, to the way surfaces adapt across screen sizes.
 
-- Minimal visual noise
-- Rich tactile interaction
-- Consistent motion and physics
-- Adaptive layouts for future Android form factors
-- Lightweight architecture
-- System-level scalability for the CortenaOS ecosystem
+## Principles
 
-The framework takes inspiration from the clarity and restraint of Apple platforms combined with fluid and interactive motion systems commonly seen in modern motion-driven interfaces.
+**Restraint.** Visual noise is a failure mode. Every element earns its presence.
 
-## Goals
+**Tactility.** Interfaces should feel physical. Touch feedback, motion, and physics are part of the design — not decoration.
 
-CortenaUI is designed as a long-term foundation for:
+**Consistency.** Interaction behavior is as much a design language as color or type. CortenaUI enforces both.
+
+**Scalability.** Built for today's phones. Designed for tomorrow's form factors.
+
+## Built for
 
 - CortenaOS system applications
 - Adaptive Android interfaces
-- Future tablet and desktop Android experiences
-- Motion-driven UI experimentation
-- Consistent cross-application interaction behavior
+- Tablet and large-screen Android experiences
+- Cross-application interaction consistency
+- Long-term platform scalability within the CortenaOS ecosystem
 
 ## Documentation
 
-Documentation is still being expanded.
+Full documentation is available at [cortena.github.io/cortenaui](https://cortena.github.io/cortenaui).
 
-Current documentation:
-
-- [Architecture](docs/ARCHITECTURE.md)
-- [Getting Started](docs/GETTING-STARTED.md)
-- [Components Documentation](docs/components)
-
-All Support Documenation is avaiable at [https://cortena.github.io/cortenaui](https://cortena.github.io/cortenaui/).
-
-We are using zensical to build our latest next-gen ready docs.
-
-### Preview Documentation
-
-```bash
-uv run zensical serve
-```
-
----
+Built with [Zensical](https://github.com/zensical/zensical).
 
 ## License
+
+CortenaUI is free software, licensed under the **GNU General Public License v3.0**.
 
 ```
 Copyright (C) 2026-present  The CortenaOS Project
@@ -71,14 +56,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 ```
 
-CortenaUI is licensed under the GNU General Public License v3.0 (GPL-3.0).
+See [LICENSE](LICENSE) for the full license text.
 
-See the [LICENSE](LICENSE) file for the full license text.
-
-## Third-Party Licenses
-
-This project includes third-party code, libraries, assets, or modified components from external sources.
-
-All applicable copyright notices, attributions, and license information are documented in the [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES) file.
-
-Please review that file for complete licensing details regarding externally sourced material used in this project.
+Third-party attributions are documented in [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES).
