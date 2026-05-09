@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.layout
 
 import android.app.Activity
@@ -23,6 +27,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontFamily
 import androidx.core.view.WindowCompat
 import com.cortena.ui.color.Palette
+import com.cortena.ui.size.SizeToken
 import com.cortena.ui.theme.LocalColors
 import com.cortena.ui.theme.StatusBarIconMode
 import com.cortena.ui.theme.Theme
@@ -40,6 +45,7 @@ fun ComponentActivity.ContentView(
     palette: Palette? = null,
     typography: Typography = DefaultTypography,
     fontFamily: FontFamily? = null,
+    sizeToken: SizeToken = SizeToken.Medium,
     dynamicColor: Boolean = false,
 
     // Slots
@@ -63,6 +69,7 @@ fun ComponentActivity.ContentView(
             palette = palette,
             typography = typography,
             fontFamily = fontFamily,
+            sizeToken = sizeToken,
         ) {
             val colors = LocalColors.current
             val useDarkIcons =

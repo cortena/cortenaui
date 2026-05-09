@@ -21,6 +21,7 @@ fun Toggle(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    size: SizeToken = LocalSizeToken.current,
     activeColor: Color = Color.Unspecified,
     inactiveColor: Color = Color.Unspecified,
     thumbColor: Color = Color.Unspecified,
@@ -35,6 +36,7 @@ fun Toggle(
 | `onCheckedChange` | `((Boolean) -> Unit)?` | Called when the user clicks or drags the toggle to change its state.                |
 | `modifier`        | `Modifier`             | Standard Compose modifier.                                                          |
 | `enabled`         | `Boolean`              | Disables clicks, gestures, and dims the toggle visually with an alpha when `false`. |
+| `size`            | `SizeToken`            | Controls the track and thumb dimensions. Default: `LocalSizeToken.current`.         |
 | `activeColor`     | `Color`                | Track background color when active (`checked = true`). Default: success.            |
 | `inactiveColor`   | `Color`                | Track background color when inactive (`checked = false`). Default: surface variant. |
 | `thumbColor`      | `Color`                | Color of the sliding inner thumb capsule. Default: white.                           |
@@ -71,5 +73,17 @@ Toggle(
     checked = true,
     onCheckedChange = null, // Or pass a callback with `enabled = false`
     enabled = false
+)
+```
+
+### Small Size
+
+```kotlin
+var isCompact by rememberSaveable { mutableStateOf(false) }
+
+Toggle(
+    checked = isCompact,
+    onCheckedChange = { isCompact = it },
+    size = SizeToken.Small
 )
 ```
