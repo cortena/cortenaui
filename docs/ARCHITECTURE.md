@@ -2,10 +2,11 @@
 
 ## Module Graph
 
-```
-:catalog  ──────────────────┐     depends on
-                            ├──►  :foundation
-:compose  ── depends on ────┘
+```mermaid
+graph TD
+    catalog["`:catalog`"] --> compose["`:compose`"]
+    catalog --> foundation["`:foundation`"]
+    compose --> foundation["`:foundation`"]
 ```
 
 `:catalog` depends on `:compose` (and transitively on `:foundation`).
