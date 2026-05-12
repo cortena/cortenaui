@@ -1,0 +1,33 @@
+# .github/release.yml
+
+changelog:
+  categories:
+    - title: 🌟 Highlights
+      labels:
+        - highlights
+
+    - title: 🚀 New Features
+      labels:
+        - feature
+        - enhancement
+
+    - title: 🐛 Bug Fixes
+      labels:
+        - bug
+
+    - title: 🛠 Code Refactoring
+      labels:
+        - refactor
+
+    - title: 📚 Documentation
+      labels:
+        - documentation
+
+    - title: 📦 Dependency Updates
+      labels:
+        - dependencies
+        - dependabot
+
+    - title: Other Changes
+      labels:
+        - "*"
