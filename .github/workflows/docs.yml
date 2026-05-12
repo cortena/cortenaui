@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '**.toml'
+      - '**.txt'
+      - 'docs/**.md'
+      - '.github/workflows/**.yml'
 
 permissions:
   contents: read
