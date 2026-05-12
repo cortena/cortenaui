@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
 package com.cortena.ui.layout
 
 import androidx.compose.foundation.ScrollState
@@ -28,17 +32,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.cortena.ui.geometry.Orientation
 import com.cortena.ui.layout.internal.BounceOverscrollEffect
 import com.cortena.ui.shape.CapsuleShape
 import com.cortena.ui.theme.LocalColors
-
-enum class ScrollOrientation {
-    Vertical,
-    Horizontal,
-}
 
 enum class ScrollIndicatorPosition {
     Start,
@@ -50,7 +51,7 @@ fun ScrollView(
     modifier: Modifier = Modifier,
 
     // Orientation
-    orientation: ScrollOrientation = ScrollOrientation.Vertical,
+    orientation: Orientation = Orientation.Vertical,
 
     // Scroll Control
     scrollState: ScrollState = rememberScrollState(),
@@ -63,11 +64,11 @@ fun ScrollView(
 
     // Scroll Indicator
     showScrollIndicator: Boolean = true,
-    scrollIndicatorThickness: Dp = 3.dp,
-    scrollIndicatorColor: Color = Color(LocalColors.current.outline),
-    scrollIndicatorShape: Shape = CapsuleShape(),
-    scrollIndicatorPadding: Dp = 2.dp,
-    scrollIndicatorPosition: ScrollIndicatorPosition = ScrollIndicatorPosition.End,
+    indicatorThickness: Dp = 3.dp,
+    indicatorColor: Color = Color.Unspecified,
+    indicatorShape: Shape = CapsuleShape(),
+    indicatorPadding: Dp = 2.dp,
+    indicatorPosition: ScrollIndicatorPosition = ScrollIndicatorPosition.End,
 
     // Callbacks
     onScrolled: ((scrollValue: Int, maxScrollValue: Int) -> Unit)? = null,
@@ -82,12 +83,16 @@ fun ScrollView(
 ) {
     val safeModifier =
         modifier.then(
-            if (orientation == ScrollOrientation.Vertical) {
+            if (orientation == Orientation.Vertical) {
                 Modifier.heightIn(min = 48.dp) // minimum sensible height
             } else {
                 Modifier.widthIn(min = 48.dp)
             }
         )
+
+    val colors = LocalColors.current
+    val resolvedIndicatorColor =
+        if (indicatorColor.isSpecified) indicatorColor else Color(colors.outline)
 
     // Bounce Overscroll
     val bounceScope = rememberCoroutineScope()
@@ -109,7 +114,7 @@ fun ScrollView(
     // Layout
     Box(modifier = safeModifier) {
         val scrollModifier =
-            if (orientation == ScrollOrientation.Vertical) {
+            if (orientation == Orientation.Vertical) {
                 Modifier.verticalScroll(
                     state = scrollState,
                     enabled = enabled,
@@ -127,7 +132,7 @@ fun ScrollView(
                 )
             }
 
-        if (orientation == ScrollOrientation.Vertical) {
+        if (orientation == Orientation.Vertical) {
             Column(
                 modifier = scrollModifier.then(overscrollEffect.overscroll).padding(contentPadding)
             ) {
@@ -146,11 +151,11 @@ fun ScrollView(
             ScrollIndicator(
                 scrollState = scrollState,
                 orientation = orientation,
-                thickness = scrollIndicatorThickness,
-                color = scrollIndicatorColor,
-                shape = scrollIndicatorShape,
-                padding = scrollIndicatorPadding,
-                position = scrollIndicatorPosition,
+                thickness = indicatorThickness,
+                color = resolvedIndicatorColor,
+                shape = indicatorShape,
+                padding = indicatorPadding,
+                position = indicatorPosition,
             )
         }
     }
@@ -160,7 +165,7 @@ fun ScrollView(
 @Composable
 private fun ScrollIndicator(
     scrollState: ScrollState,
-    orientation: ScrollOrientation,
+    orientation: Orientation,
     thickness: Dp,
     color: Color,
     shape: Shape,
@@ -175,13 +180,13 @@ private fun ScrollIndicator(
 
     val alignment =
         when (orientation) {
-            ScrollOrientation.Vertical ->
+            Orientation.Vertical ->
                 when (position) {
                     ScrollIndicatorPosition.End -> Alignment.TopEnd
                     ScrollIndicatorPosition.Start -> Alignment.TopStart
                 }
 
-            ScrollOrientation.Horizontal ->
+            Orientation.Horizontal ->
                 when (position) {
                     ScrollIndicatorPosition.End -> Alignment.BottomStart
                     ScrollIndicatorPosition.Start -> Alignment.TopStart
@@ -196,7 +201,7 @@ private fun ScrollIndicator(
         }
 
     val indicatorModifier =
-        if (orientation == ScrollOrientation.Vertical) {
+        if (orientation == Orientation.Vertical) {
             val indicatorHeight = (viewportSize * indicatorRatio).coerceAtLeast(minIndicatorSize)
             val trackSize = viewportSize - indicatorHeight
             val indicatorOffset = scrollFraction * trackSize

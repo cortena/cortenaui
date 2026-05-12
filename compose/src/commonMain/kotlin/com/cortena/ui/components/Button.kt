@@ -49,11 +49,6 @@ enum class ButtonVariant {
     Soft,
 }
 
-enum class ButtonEffect {
-    Solid,
-    Blur,
-}
-
 @Suppress("ModifierParameter")
 @Composable
 fun Button(
@@ -66,7 +61,6 @@ fun Button(
     size: SizeToken = LocalSizeToken.current,
     style: ButtonStyle = ButtonStyle.Primary,
     variant: ButtonVariant = ButtonVariant.Default,
-    effect: ButtonEffect = ButtonEffect.Solid, // TODO: Implement ButtonEffect
     background: Color = Color.Unspecified,
     foreground: Color = Color.Unspecified,
     content: @Composable RowScope.() -> Unit,

@@ -16,7 +16,7 @@ The component is a clean line with:
 @Composable
 fun Separator(
     modifier: Modifier = Modifier,
-    orientation: SeparatorOrientation = SeparatorOrientation.Horizontal,
+    orientation: Orientation = Orientation.Horizontal,
     thickness: Dp = 1.dp,
     color: Color = Color.Unspecified,
     indent: Dp = 0.dp,
@@ -25,13 +25,13 @@ fun Separator(
 
 ### Parameters
 
-| Name          | Data Type              | Description                                                                                                    |
-| ------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `modifier`    | `Modifier`             | Standard Compose modifier.                                                                                     |
-| `orientation` | `SeparatorOrientation` | Layout direction: `SeparatorOrientation.Horizontal` or `SeparatorOrientation.Vertical`. Default: `Horizontal`. |
-| `thickness`   | `Dp`                   | Line thickness. Default: `1.dp`.                                                                               |
-| `color`       | `Color`                | Color of the separator line. Defaults to semantic `outlineVariant` from current theme palette.                 |
-| `indent`      | `Dp`                   | Padding applied at both ends of the line (start/end for horizontal, top/bottom for vertical). Default: `0.dp`. |
+| Name          | Data Type     | Description                                                                                                    |
+| ------------- | ------------- | -------------------------------------------------------------------------------------------------------------- |
+| `modifier`    | `Modifier`    | Standard Compose modifier.                                                                                     |
+| `orientation` | `Orientation` | Layout direction: `Orientation.Horizontal` or `Orientation.Vertical`. Default: `Orientation.Horizontal`.       |
+| `thickness`   | `Dp`          | Line thickness. Default: `1.dp`.                                                                               |
+| `color`       | `Color`       | Color of the separator line. Defaults to semantic `outlineVariant` from current theme palette.                 |
+| `indent`      | `Dp`          | Padding applied at both ends of the line (start/end for horizontal, top/bottom for vertical). Default: `0.dp`. |
 
 ### Example
 
@@ -51,7 +51,7 @@ Column {
 Row(modifier = Modifier.height(24.dp)) {
     Text("Left")
     Separator(
-        orientation = SeparatorOrientation.Vertical,
+        orientation = Orientation.Vertical,
         indent = 4.dp
     )
     Text("Right")

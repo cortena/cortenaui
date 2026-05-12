@@ -2,12 +2,11 @@
 
 `ScrollView` is Cortena's scrollable container with bounce overscroll and an automatic scroll indicator.
 
-
 !!! warning "Known Limitation With ScrollView"
 
-    Currently, if you wish to use `SafeArea` & `ScrollView` composables together. you need to wrapper the SafeView inside ScrollView, 
+    Currently, if you wish to use `SafeArea` & `ScrollView` composables together. you need to wrapper the SafeView inside ScrollView,
     otherwise thier are very wired quirks with the placement of scrollbars.
-    
+
     We know its unintuative and are currently trying to fix it.
 
     ```kotlin
@@ -36,50 +35,51 @@ Key behaviors:
 @Composable
 fun ScrollView(
     modifier: Modifier = Modifier,
-    orientation: ScrollOrientation = ScrollOrientation.Vertical,
+    orientation: Orientation = Orientation.Vertical,
     scrollState: ScrollState = rememberScrollState(),
     enabled: Boolean = true,
     reverseLayout: Boolean = false,
     flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
     showScrollIndicator: Boolean = true,
-    scrollIndicatorThickness: Dp = 3.dp,
-    scrollIndicatorColor: Color = Color(LocalColors.current.outline),
-    scrollIndicatorShape: Shape = CapsuleShape(),
-    scrollIndicatorPadding: Dp = 2.dp,
-    scrollIndicatorPosition: ScrollIndicatorPosition = ScrollIndicatorPosition.End,
+    indicatorThickness: Dp = 3.dp,
+    indicatorColor: Color = Color.Unspecified,
+    indicatorShape: Shape = CapsuleShape(),
+    indicatorPadding: Dp = 2.dp,
+    indicatorPosition: ScrollIndicatorPosition = ScrollIndicatorPosition.End,
     onScrolled: ((scrollValue: Int, maxScrollValue: Int) -> Unit)? = null,
     onReachedTop: (() -> Unit)? = null,
     onReachedBottom: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 )
 
-enum class ScrollOrientation { Vertical, Horizontal }
-
-enum class ScrollIndicatorPosition { Start, End }
+enum class ScrollIndicatorPosition {
+    Start,
+    End
+}
 ```
 
 ### Parameters
 
-| Name                       | Data Type                 | Description                                                          |
-| -------------------------- | ------------------------- | -------------------------------------------------------------------- |
-| `modifier`                 | `Modifier`                | Standard Compose modifier.                                           |
-| `orientation`              | `ScrollOrientation`       | Scroll direction. Default: `Vertical`.                               |
-| `scrollState`              | `ScrollState`             | Externally hoisted scroll state. Default: `rememberScrollState()`.   |
-| `enabled`                  | `Boolean`                 | Enables or disables scrolling. Default: `true`.                      |
-| `reverseLayout`            | `Boolean`                 | Reverses the scroll direction. Default: `false`.                     |
-| `flingBehavior`            | `FlingBehavior`           | Fling physics. Default: platform default via `ScrollableDefaults`.   |
-| `contentPadding`           | `PaddingValues`           | Inner padding applied to the scrollable content. Default: `0.dp`.    |
-| `showScrollIndicator`      | `Boolean`                 | Shows/hides the scroll indicator. Default: `true`.                   |
-| `scrollIndicatorThickness` | `Dp`                      | Thickness of the indicator bar. Default: `3.dp`.                     |
-| `scrollIndicatorColor`     | `Color`                   | Color of the indicator. Default: `outline` token from `LocalColors`. |
-| `scrollIndicatorShape`     | `Shape`                   | Shape of the indicator. Default: `CapsuleShape()`.                   |
-| `scrollIndicatorPadding`   | `Dp`                      | Padding around the indicator. Default: `2.dp`.                       |
-| `scrollIndicatorPosition`  | `ScrollIndicatorPosition` | Indicator placement (`Start` or `End`). Default: `End`.              |
-| `onScrolled`               | `((Int, Int) -> Unit)?`   | Called with `(scrollValue, maxScrollValue)` on every scroll change.  |
-| `onReachedTop`             | `(() -> Unit)?`           | Called when scroll position reaches the top (value == 0).            |
-| `onReachedBottom`          | `(() -> Unit)?`           | Called when scroll position reaches the bottom (value == maxValue).  |
-| `content`                  | `@Composable () -> Unit`  | The scrollable content.                                              |
+| Name                  | Data Type                 | Description                                                          |
+| --------------------- | ------------------------- | -------------------------------------------------------------------- |
+| `modifier`            | `Modifier`                | Standard Compose modifier.                                           |
+| `orientation`         | `Orientation`             | Scroll direction. Default: `Orientation.Vertical`.                   |
+| `scrollState`         | `ScrollState`             | Externally hoisted scroll state. Default: `rememberScrollState()`.   |
+| `enabled`             | `Boolean`                 | Enables or disables scrolling. Default: `true`.                      |
+| `reverseLayout`       | `Boolean`                 | Reverses the scroll direction. Default: `false`.                     |
+| `flingBehavior`       | `FlingBehavior`           | Fling physics. Default: platform default via `ScrollableDefaults`.   |
+| `contentPadding`      | `PaddingValues`           | Inner padding applied to the scrollable content. Default: `0.dp`.    |
+| `showScrollIndicator` | `Boolean`                 | Shows/hides the scroll indicator. Default: `true`.                   |
+| `indicatorThickness`  | `Dp`                      | Thickness of the indicator bar. Default: `3.dp`.                     |
+| `indicatorColor`      | `Color`                   | Color of the indicator. Default: `outline` token from `LocalColors`. |
+| `indicatorShape`      | `Shape`                   | Shape of the indicator. Default: `CapsuleShape()`.                   |
+| `indicatorPadding`    | `Dp`                      | Padding around the indicator. Default: `2.dp`.                       |
+| `indicatorPosition`   | `ScrollIndicatorPosition` | Indicator placement (`Start` or `End`). Default: `End`.              |
+| `onScrolled`          | `((Int, Int) -> Unit)?`   | Called with `(scrollValue, maxScrollValue)` on every scroll change.  |
+| `onReachedTop`        | `(() -> Unit)?`           | Called when scroll position reaches the top (value == 0).            |
+| `onReachedBottom`     | `(() -> Unit)?`           | Called when scroll position reaches the bottom (value == maxValue).  |
+| `content`             | `@Composable () -> Unit`  | The scrollable content.                                              |
 
 ### Example
 
@@ -99,7 +99,7 @@ ScrollView(modifier = Modifier.fillMaxSize()) {
 
 ```kotlin
 ScrollView(
-    orientation = ScrollOrientation.Horizontal,
+    orientation = Orientation.Horizontal,
     modifier = Modifier.fillMaxWidth(),
 ) {
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -130,9 +130,9 @@ ScrollView(
 ```kotlin
 ScrollView(
     modifier = Modifier.fillMaxSize(),
-    scrollIndicatorColor = Color(LocalColors.current.primary),
-    scrollIndicatorThickness = 4.dp,
-    scrollIndicatorPosition = ScrollIndicatorPosition.Start,
+    indicatorColor = Color(LocalColors.current.primary),
+    indicatorThickness = 4.dp,
+    indicatorPosition = ScrollIndicatorPosition.Start,
 ) {
     Column {
         repeat(50) { Text("Item $it") }
