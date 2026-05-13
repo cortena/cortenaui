@@ -35,13 +35,13 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.cortena.ui.components.Text
-import com.cortena.ui.layout.AppBar
-import com.cortena.ui.layout.Body
-import com.cortena.ui.layout.ContentView
-import com.cortena.ui.layout.SafeArea
-import com.cortena.ui.theme.StatusBarIconMode
-import com.cortena.ui.theme.ThemeMode
+import framework.cortena.ui.components.Text
+import framework.cortena.ui.layout.AppBar
+import framework.cortena.ui.layout.Body
+import framework.cortena.ui.layout.ContentView
+import framework.cortena.ui.layout.SafeArea
+import framework.cortena.ui.theme.StatusBarIconMode
+import framework.cortena.ui.theme.ThemeMode
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -25,7 +25,7 @@ can be consumed by Compose, the Android View system, and AOSP build system
 (`Android.bp`) without modification.
 
 ```
-foundation/src/commonMain/kotlin/com/cortena/ui/
+foundation/src/commonMain/kotlin/framework/cortena/ui/
 ├── color/
 │   ├── ColorTokens.kt      # raw ARGB Long values (internal)
 │   ├── AdaptiveColor.kt    # light + dark color pair
@@ -49,7 +49,7 @@ The module is split into `commonMain` (multiplatform-ready) and `androidMain` (A
 #### `commonMain` — Shared Compose Layer
 
 ```
-compose/src/commonMain/kotlin/com/cortena/ui/
+compose/src/commonMain/kotlin/framework/cortena/ui/
 ├── annotation/
 │   └── ExperimentalComponentsApi.kt   # opt-in annotation for unstable APIs
 ├── components/
@@ -96,7 +96,7 @@ compose/src/commonMain/kotlin/com/cortena/ui/
 #### `androidMain` — Android Platform Code
 
 ```
-compose/src/androidMain/kotlin/com/cortena/ui/
+compose/src/androidMain/kotlin/framework/cortena/ui/
 ├── graphics/
 │   └── shadow/              # platform shadow rendering (RenderNode)
 ├── interaction/
@@ -112,7 +112,7 @@ Showcase app. Depends on `:compose` (and transitively `:foundation`).
 Used to develop and visually verify all components in a live environment.
 
 ```
-catalog/src/main/java/com/cortena/ui/catalog/
+catalog/src/main/java/framework/cortena/ui/catalog/
 ├── MainActivity.kt          # main activity with theme toggle
 └── demo/
     ├── Button.kt            # ButtonDemo()
