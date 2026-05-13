@@ -23,7 +23,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CortenaUI"
+rootProject.name = "cortenaui"
 
 // Foundation: pure Kotlin token layer, zero framework dependency
 include(":foundation")
