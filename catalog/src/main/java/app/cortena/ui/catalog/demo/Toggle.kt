@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  * Copyright (C) 2026-present The CortenaOS Project
  */
-package framework.cortena.ui.catalog.demo
+package app.cortena.ui.catalog.demo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
