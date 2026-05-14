@@ -1,4 +1,8 @@
-package framework.cortena.ui.catalog.demo
+/*
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Copyright (C) 2026-present The CortenaOS Project
+ */
+package app.cortena.ui.catalog.demo
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

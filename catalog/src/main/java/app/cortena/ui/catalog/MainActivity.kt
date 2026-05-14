@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  * Copyright (C) 2026-present The CortenaOS Project
  */
-package framework.cortena.ui.catalog
+package app.cortena.ui.catalog
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,11 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import framework.cortena.ui.catalog.demo.ButtonDemo
-import framework.cortena.ui.catalog.demo.ColorDemo
-import framework.cortena.ui.catalog.demo.SliderDemo
-import framework.cortena.ui.catalog.demo.ToggleDemo
-import framework.cortena.ui.catalog.demo.TypographyDemo
+import app.cortena.ui.catalog.demo.ButtonDemo
+import app.cortena.ui.catalog.demo.ColorDemo
+import app.cortena.ui.catalog.demo.SliderDemo
+import app.cortena.ui.catalog.demo.ToggleDemo
+import app.cortena.ui.catalog.demo.TypographyDemo
 import framework.cortena.ui.components.Separator
 import framework.cortena.ui.components.Text
 import framework.cortena.ui.components.TextRole

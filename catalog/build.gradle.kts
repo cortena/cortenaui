@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "framework.cortena.ui.catalog"
+    namespace = "app.cortena.ui.catalog"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "framework.cortena.ui.catalog"
+        applicationId = "app.cortena.ui.catalog"
         minSdk = 35
         targetSdk = 37
         versionCode = 1

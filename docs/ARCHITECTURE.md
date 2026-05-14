@@ -112,7 +112,7 @@ Showcase app. Depends on `:compose` (and transitively `:foundation`).
 Used to develop and visually verify all components in a live environment.
 
 ```
-catalog/src/main/java/framework/cortena/ui/catalog/
+catalog/src/main/java/app/cortena/ui/catalog/
 ├── MainActivity.kt          # main activity with theme toggle
 └── demo/
     ├── Button.kt            # ButtonDemo()
