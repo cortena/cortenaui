@@ -47,10 +47,22 @@ repo_name = "cortena/cortenaui"
 # can be defined using TOML syntax.
 #
 # Read more: https://zensical.org/docs/setup/navigation/
-# nav = [
-#   { "Get started" = "index.md" },
-#   { "Markdown in 5min" = "markdown.md" },
-# ]
+nav = [
+  {
+    "Overview" = [ 
+      "index.md", 
+      "GETTING-STARTED.md", 
+      "ARCHITECTURE.md"
+    ]
+  },
+  {
+    "Components" = [
+      { "Layout" = [ "components/AppBar.md", "components/Body.md", "components/ScrollView.md", "components/Separator.md" ] },
+      { "Interactive" = [ "components/Button.md", "components/Slider.md", "components/Text.md", "components/Toggle.md" ] },
+      { "Specfic" = [ "components/Theme.md", "components/ContentView.md", "components/SafeArea.md" ] },
+    ]
+  }
+]
 
 # With the "extra_css" option you can add your own CSS styling to customize
 # your Zensical project according to your needs. You can add any number of
